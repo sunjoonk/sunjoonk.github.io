@@ -1,1 +1,2 @@
-# sunjoonk.github.io
+# web-portfolio
+Sunjoon Kim's Portfolio
