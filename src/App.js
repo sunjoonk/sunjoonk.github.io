@@ -382,15 +382,32 @@ export default function App() {
       <section className="Experience-section">
         <h2 onClick={() => toggleSection("experience")}>{t[lang].experience}</h2>
         {expanded.experience.expanded && (
-          <div className="section-content">
-            <Entry
-              title={exp_example.title}
-              location={exp_example.location}
-              dates={exp_example.dates}
-              details={exp_example.details}
-              isExpanded={expanded.experience.entries.example}
-              onClick={() => toggleEntry("experience", "example")}
-            />
+          <div className="section-content entry-list">
+            {exp_example.map((exp, index) => (
+              <Entry
+                key={index}
+                title={exp.title}
+                location={exp.location}
+                dates={exp.dates}
+                isExpanded={expanded.experience.entries[`exp${index}`]}
+                onClick={() => toggleEntry("experience", `exp${index}`)}
+                details={
+                  <>
+                    <ul>
+                      {exp.summary.map((item, i) => <li key={`s-${i}`}>{item}</li>)}
+                    </ul>
+                    <div className="project-list">
+                      {exp.projects.map((proj, pIndex) => (
+                        <div key={pIndex} className="project-item">
+                          <div className="project-title">{proj.title} <span className="project-dates">({proj.dates})</span></div>
+                          <ul>{proj.details.map((d, i) => <li key={`p-${i}`}>{d}</li>)}</ul>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                }
+              />
+            ))}
           </div>
         )}
       </section>

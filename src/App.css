@@ -109,6 +109,21 @@ section h2{
   border-left: 3px solid var(--line);
 }
 .entry-details ul{ margin:8px 0 0 18px; }
+.entry-details .project-list {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+}
+.entry-details .project-item {
+  margin-bottom: 12px;
+}
+.entry-details .project-title {
+  font-weight: 600;
+}
+.entry-details .project-dates {
+  color: var(--muted);
+  font-size: 0.9em;
+}
 
 /* 이미지 캐러셀 */
 .image-carousel {
