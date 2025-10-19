@@ -212,7 +212,7 @@ export default function App() {
             "Built Agentic Architecture: Orchestrated modules like Retrieval, Reasoning, and Drafting using LangChain, and implemented dynamic tool routing.",
             "Database & Deployment: Established a Vector DB with ChromaDB and a PostgreSQL RDBMS. Automated the CI/CD pipeline and deployed the service using GitHub Actions and AWS EC2.",
           ],
-    images: ["/images/law-i-1.png", "/images/law-i-2.png"],
+    images: ["/images/lawai.png"],
   };
 
   const pj_portfolio = {
@@ -252,7 +252,7 @@ export default function App() {
             "Sinkhole Risk Area Detection using Satellite InSAR Data and the YOLOv12 Model.",
             "Developing a Web Service for Hazard Area Visualization using React.",
           ],
-    images: ["/images/hackathon-1.png", "/images/hackathon-2.png"],
+    images: ["/images/hackathon.png"],
   };
 
   // --- 스킬
