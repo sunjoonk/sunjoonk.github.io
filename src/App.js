@@ -84,19 +84,16 @@ export default function App() {
   };
 
   // 섹션 펼침 상태
-  const [expanded, setExpanded] = useState({
-    education: { expanded: true, entries: {} },
-    experience: { expanded: true, entries: {} },
-    projects: { expanded: false, entries: {} },
-    achievements: { expanded: false, entries: {} },
-    skills: { expanded: false },
+  const [expandedEntries, setExpandedEntries] = useState({
+    education: {},
+    experience: {},
+    projects: {},
+    achievements: {},
   });
-  const toggleSection = (sec) =>
-    setExpanded((p) => ({ ...p, [sec]: { ...p[sec], expanded: !p[sec].expanded } }));
   const toggleEntry = (sec, key) =>
-    setExpanded((p) => ({
+    setExpandedEntries((p) => ({
       ...p,
-      [sec]: { ...p[sec], entries: { ...p[sec].entries, [key]: !p[sec].entries[key] } },
+      [sec]: { ...p[sec], [key]: !p[sec][key] },
     }));
 
   // --- 교육
@@ -122,7 +119,7 @@ export default function App() {
   // --- 경력
   const exp_example = [
     {
-      title: lang === "KOR" ? "에이모" : "AIMMO",
+      title: lang === "KOR" ? "AIMMO" : "AIMMO",
       location: lang === "KOR" ? "프로젝트 리더" : "Project Leader",
       dates: "2023.04 ~ 2025.03",
       summary: lang === "KOR" ? 
@@ -363,122 +360,112 @@ export default function App() {
 
       {/* Education */}
       <section className="Education-section">
-        <h2 onClick={() => toggleSection("education")}>{t[lang].education}</h2>
-        {expanded.education.expanded && (
-          <div className="section-content">
-            <Entry
-              title={edu_ibm.title}
-              location={edu_ibm.location}
-              dates={edu_ibm.dates}
-              details={edu_ibm.details}
-              isExpanded={expanded.education.entries.ibm}
-              onClick={() => toggleEntry("education", "ibm")}
-            />
-          </div>
-        )}
+        <h2>{t[lang].education}</h2>
+        <div className="section-content">
+          <Entry
+            title={edu_ibm.title}
+            location={edu_ibm.location}
+            dates={edu_ibm.dates}
+            details={edu_ibm.details}
+            isExpanded={expandedEntries.education.ibm}
+            onClick={() => toggleEntry("education", "ibm")}
+          />
+        </div>
       </section>
 
       {/* Experience */}
       <section className="Experience-section">
-        <h2 onClick={() => toggleSection("experience")}>{t[lang].experience}</h2>
-        {expanded.experience.expanded && (
-          <div className="section-content entry-list">
-            {exp_example.map((exp, index) => (
-              <Entry
-                key={index}
-                title={exp.title}
-                location={exp.location}
-                dates={exp.dates}
-                isExpanded={expanded.experience.entries[`exp${index}`]}
-                onClick={() => toggleEntry("experience", `exp${index}`)}
-                details={
-                  <>
-                    <ul>
-                      {exp.summary.map((item, i) => <li key={`s-${i}`}>{item}</li>)}
-                    </ul>
-                    <div className="project-list">
-                      {exp.projects.map((proj, pIndex) => (
-                        <div key={pIndex} className="project-item">
-                          <div className="project-title">{proj.title} <span className="project-dates">({proj.dates})</span></div>
-                          <ul>{proj.details.map((d, i) => <li key={`p-${i}`}>{d}</li>)}</ul>
-                        </div>
-                      ))}
-                    </div>
-                  </>
-                }
-              />
-            ))}
-          </div>
-        )}
+        <h2>{t[lang].experience}</h2>
+        <div className="section-content entry-list">
+          {exp_example.map((exp, index) => (
+            <Entry
+              key={index}
+              title={exp.title}
+              location={exp.location}
+              dates={exp.dates}
+              isExpanded={expandedEntries.experience[`exp${index}`]}
+              onClick={() => toggleEntry("experience", `exp${index}`)}
+              details={
+                <>
+                  <ul>
+                    {exp.summary.map((item, i) => <li key={`s-${i}`}>{item}</li>)}
+                  </ul>
+                  <div className="project-list">
+                    {exp.projects.map((proj, pIndex) => (
+                      <div key={pIndex} className="project-item">
+                        <div className="project-title">{proj.title} <span className="project-dates">({proj.dates})</span></div>
+                        <ul>{proj.details.map((d, i) => <li key={`p-${i}`}>{d}</li>)}</ul>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              }
+            />
+          ))}
+        </div>
       </section>
 
       {/* Projects */}
       <section className="Project-section">
-        <h2 onClick={() => toggleSection("projects")}>{t[lang].projects}</h2>
-        {expanded.projects.expanded && (
-          <div className="section-content entry-list">
-            <Entry
-              title={pj_lawI.title}
-              location={pj_lawI.location}
-              dates={pj_lawI.dates}
-              details={pj_lawI.details}
-              images={pj_lawI.images}
-              isExpanded={expanded.projects.entries.lawI}
-              onClick={() => toggleEntry("projects", "lawI")}
-            />
-            <Entry
-              title={pj_portfolio.title}
-              location={pj_portfolio.location}
-              dates={pj_portfolio.dates}
-              details={pj_portfolio.details}
-              images={pj_portfolio.images}
-              isExpanded={expanded.projects.entries.portfolio}
-              onClick={() => toggleEntry("projects", "portfolio")}
-            />
-          </div>
-        )}
+        <h2>{t[lang].projects}</h2>
+        <div className="section-content entry-list">
+          <Entry
+            title={pj_lawI.title}
+            location={pj_lawI.location}
+            dates={pj_lawI.dates}
+            details={pj_lawI.details}
+            images={pj_lawI.images}
+            isExpanded={expandedEntries.projects.lawI}
+            onClick={() => toggleEntry("projects", "lawI")}
+          />
+          <Entry
+            title={pj_portfolio.title}
+            location={pj_portfolio.location}
+            dates={pj_portfolio.dates}
+            details={pj_portfolio.details}
+            images={pj_portfolio.images}
+            isExpanded={expandedEntries.projects.portfolio}
+            onClick={() => toggleEntry("projects", "portfolio")}
+          />
+        </div>
       </section>
 
       {/* Achievements */}
       <section className="Achievements-section">
-        <h2 onClick={() => toggleSection("achievements")}>{t[lang].achievements}</h2>
-        {expanded.achievements.expanded && (
-          <div className="section-content">
-            <Entry
-              title={awd_quantum.title}
-              location={awd_quantum.location}
-              dates={awd_quantum.dates}
-              details={awd_quantum.details}
-              images={awd_quantum.images}
-              isExpanded={expanded.achievements.entries.quantum}
-              onClick={() => toggleEntry("achievements", "quantum")}
-            />
-          </div>
-        )}
+        <h2>{t[lang].achievements}</h2>
+        <div className="section-content">
+          <Entry
+            title={awd_quantum.title}
+            location={awd_quantum.location}
+            dates={awd_quantum.dates}
+            details={awd_quantum.details}
+            images={awd_quantum.images}
+            isExpanded={expandedEntries.achievements.quantum}
+            onClick={() => toggleEntry("achievements", "quantum")}
+          />
+        </div>
       </section>
 
       {/* Skills */}
       <section className="Skills-section">
-        <h2 onClick={() => toggleSection("skills")}>{t[lang].skills}</h2>
-        {expanded.skills.expanded && (
-          <div className="section-content">
-            <div className="skills-grid">
-              {skills.map((g, i) => (
-                <div className="skill-card" key={i}>
-                  <div className="skill-title">{g.title}</div>
-                  <div className="skill-items-wrap">
-                    {g.items.map((it, idx) => (
-                      <div className="skill-item" key={idx}>
-                        <span className="skill-icon"><it.Icon size={18} /></span>
-                        <span className="skill-label">{it.label}</span>
-                      </div>
-                    ))}
-                  </div>
+        <h2>{t[lang].skills}</h2>
+        <div className="section-content">
+          <div className="skills-grid">
+            {skills.map((g, i) => (
+              <div className="skill-card" key={i}>
+                <div className="skill-title">{g.title}</div>
+                <div className="skill-items-wrap">
+                  {g.items.map((it, idx) => (
+                    <div className="skill-item" key={idx}>
+                      <span className="skill-icon"><it.Icon size={18} /></span>
+                      <span className="skill-label">{it.label}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-        )}
+        </div>
       </section>
     </div>
   );
