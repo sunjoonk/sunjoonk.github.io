@@ -102,15 +102,15 @@ export default function App() {
   // --- 교육
   const edu_ibm = {
     title:
-      lang === "KOR" ? "[IBM x RedHat] AX(AI Transformation) 과정" : "[IBM x RedHat] AX (AI Transformation) Course",
-    location: lang === "KOR" ? "대한민국 (온/오프라인)" : "Korea (hybrid)",
+      lang === "KOR" ? "[IBM x RedHat] AX(AI Transformation)" : "[IBM x RedHat] AX (AI Transformation)",
+    location: lang === "KOR" ? "대한민국" : "Korea",
     dates: lang === "KOR" ? "2024.05 ~ 현재" : "May 2024 – Present",
     details:
       lang === "KOR"
         ? [
-            "LLM·RAG, 프롬프트 엔지니어링·에이전트 오케스트레이션 심화.",
-            "TensorFlow/PyTorch로 DNN·CNN·RNN·NLP 실습, 실전 과제 수행.",
-            "FastAPI·Docker·AWS로 서빙/배포 파이프라인 경험.",
+            "TensorFlow/PyTorch로 DNN·CNN·RNN·NLP 실습 및 모델 아키텍처 구현",
+            "API 또는 HuggingFace의 오픈소스 모델을 활용한 AI 어플리케이션 개발",
+            "FastAPI, Docker, GitHub Actions, AWS를 활용한 CI/CD 파이프라인 구축 및 운영 경험",
           ]
         : [
             "Deep dive into LLM/RAG, prompt engineering, and agent orchestration.",
@@ -120,29 +120,100 @@ export default function App() {
   };
 
   // --- 경력
-  const exp_example = {
-    title: lang === "KOR" ? "회사명" : "Company Name",
-    location: lang === "KOR" ? "직책" : "Position",
-    dates: "YYYY.MM ~ YYYY.MM",
-    details: lang === "KOR" ? ["경력에 대한 설명을 이곳에 작성하세요."] : ["Describe your experience here."],
-  };
+  const exp_example = [
+    {
+      title: lang === "KOR" ? "에이모" : "AIMMO",
+      location: lang === "KOR" ? "프로젝트 리더" : "Project Leader",
+      dates: "2023.04 ~ 2025.03",
+      summary: lang === "KOR" ? 
+        [
+          "자율주행 및 AI 학습 데이터 솔루션 기업에서 프로젝트 리더(PL) 역할을 수행했습니다.",
+          "고객 요구사항 분석, 데이터 확보 계획 수립, 리스크 관리, AI 데이터 가공 인력 교육 및 관리를 총괄했습니다."
+        ] : 
+        [
+          "Served as a Project Leader (PL) at a company specializing in autonomous driving and AI training data solutions.",
+          "Oversaw project planning based on customer requirements, risk management, and the training and management of the AI data processing team."
+        ],
+      projects: [
+        {
+          title: lang === "KOR" ? "현대 모비스 (2D Image B-Box & Segmentation)" : "Hyundai Mobis (2D Image B-Box & Segmentation)",
+          dates: "2023.07 ~ 2024.12",
+          details: lang === "KOR" ? 
+            [
+              "Python을 활용하여 데이터 유효성을 검사하는 규칙을 직접 작성하고 적용했습니다.",
+              "프로젝트의 데이터 가공 기준을 새롭게 수립하고 팀 인력 관리를 담당했습니다."
+            ] : 
+            [
+              "Developed and applied data validation rules using Python.",
+              "Established new data processing standards for the project and was in charge of team management."
+            ],
+        },
+        {
+          title: lang === "KOR" ? "우아한 형제들 (3D Cuboid Box Annotation)" : "Woowa Brothers (3D Cuboid Box Annotation)",
+          dates: "2024.12 ~ 2025.02",
+          details: lang === "KOR" ?
+            [
+              "자율주행 배달 로봇의 학습 데이터 확보 계획을 수립했습니다.",
+              "2D 이미지와 3D LiDAR 포인트 데이터를 융합하는 고난도 프로젝트를 리딩했습니다."
+            ] :
+            [
+              "Established the data acquisition plan for an autonomous delivery robot's training data.",
+              "Led a complex project involving the fusion of 2D images and 3D LiDAR point data."
+            ],
+        },
+        {
+          title: lang === "KOR" ? "한화시스템 (3D Cuboid Box Annotation)" : "Hanwha Systems (3D Cuboid Box Annotation)",
+          dates: "2025.02 ~ 2025.03",
+          details: lang === "KOR" ?
+            [
+              "2D 이미지와 3D LiDAR 데이터 동기화를 위해 Python 기반 포인트 투영(Point Projection) 프로그램을 직접 제작했습니다."
+            ] :
+            [
+              "Contributed to the project by creating a Python-based Point Projection program to synchronize 2D image and 3D LiDAR data."
+            ],
+        },
+        {
+          title: lang === "KOR" ? "Mitsubishi Electric (2D Image Segmentation)" : "Mitsubishi Electric (2D Image Segmentation)",
+          dates: "2023.05 ~ 2023.07",
+          details: lang === "KOR" ?
+            [
+              "프로젝트 기술 검증(POC) 초기 단계부터 참여하여 데이터 가공 기준을 확립하고 인력 관리를 수행했습니다."
+            ] :
+            [
+              "Participated from the initial Proof of Concept (POC) stage to establish data processing standards and perform personnel management."
+            ],
+        },
+        {
+          title: lang === "KOR" ? "워터인포랜스 (2D Image Segmentation)" : "Waterinforlance (2D Image Segmentation)",
+          dates: "2023.04 ~ 2023.04",
+          details: lang === "KOR" ?
+            [
+              "납품 완료된 데이터에 대해 고객사의 변경된 요구사항을 반영하여 데이터 유지보수를 성공적으로 수행했습니다."
+            ] :
+            [
+              "Successfully performed data maintenance by reflecting the client's changed requirements for the delivered data."
+            ],
+        },
+      ]
+    },
+  ];
 
   // --- 프로젝트
   const pj_lawI = {
-    title: lang === "KOR" ? "[Law-I] AI 법률 비서 (RAG + Multi-Agent)" : "[Law-I] Legal AI Assistant (RAG + Multi-Agent)",
+    title: lang === "KOR" ? "법률 도메인 특화 Agentic LLM 서비스" : "Agentic LLM Service for Legal Domain",
     location: "Side / Team",
-    dates: lang === "KOR" ? "2025 ~ 진행중" : "2025 – Ongoing",
+    dates: lang === "KOR" ? "2025 ~ 진행중" : "2025.09 – 2025.10",
     details:
       lang === "KOR"
         ? [
-            "국가법령·판례 기반 RAG: 청킹 → 임베딩(bge-m3) → FAISS/Chroma.",
-            "LangChain 에이전트(Search/Draft/Critic) + ‘검색 없는 생성 금지’ 가드레일.",
-            "증거팩/인용 자동화, React UI, FastAPI + AWS 배포.",
+            "RAG 파이프라인 설계: Llama-3-8B 모델과 RAG를 결합하여 법률 질의응답 성능을 최적화하고, 법령·판례 텍스트를 도메인 구조에 맞게 정제·청킹하여 검색 정확도를 향상시켰습니다.",
+            "Agentic 아키텍처 구축: LangChain 기반 에이전트 오케스트레이션으로 Retrieval, 추론, 문서 작성 등 모듈을 유연하게 조율하고, 동적 툴 라우팅을 구현했습니다.",
+            "데이터베이스 및 배포: ChromaDB를 활용한 Vector DB와 PostgreSQL(RDBMS)을 구축했으며, GitHub Actions와 AWS EC2를 통해 CI/CD 파이프라인을 자동화하고 서비스를 배포했습니다.",
           ]
         : [
-            "RAG on statutes/caselaw: chunking → embeddings (bge-m3) → FAISS/Chroma.",
-            "LangChain agents (Search/Draft/Critic) with guardrails.",
-            "Evidence pack & citations, React UI, FastAPI + AWS.",
+            "Designed RAG Pipeline: Optimized legal Q&A performance by combining the Llama-3-8B model with RAG, and improved search accuracy by refining and chunking legal texts.",
+            "Built Agentic Architecture: Orchestrated modules like Retrieval, Reasoning, and Drafting using LangChain, and implemented dynamic tool routing.",
+            "Database & Deployment: Established a Vector DB with ChromaDB and a PostgreSQL RDBMS. Automated the CI/CD pipeline and deployed the service using GitHub Actions and AWS EC2.",
           ],
     images: ["/images/law-i-1.png", "/images/law-i-2.png"],
   };

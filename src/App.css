@@ -195,7 +195,7 @@ section h2{
   position:absolute; top:4px; bottom:4px; width:calc(50% - 4px);
   border-radius:9999px; background:var(--fg); transition: transform .25s ease;
 }
-.lang-btn.active{ color:#fff; }
+.lang-btn.active{ color:var(--bg); }
 
 /* ===== Footer / Contact ===== */
 .theme-toggle {
@@ -206,6 +206,7 @@ section h2{
   border-radius: 50%;
   border: 1px solid var(--line);
   background: var(--card-bg);
+  color: var(--fg);
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
