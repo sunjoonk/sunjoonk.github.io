@@ -150,6 +150,27 @@ section h2{
   object-fit: cover;
 }
 
+/* PDF 캐러셀 */
+.carousel-pdf-wrapper {
+  display: block;
+  height: 160px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--chip-bg);
+}
+.carousel-pdf-wrapper .react-pdf__Page__canvas {
+  /* PDF 페이지가 wrapper에 맞게 조정되도록 함 */
+  width: 100% !important;
+  height: auto !important;
+}
+.carousel-image-placeholder {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* 이미지 공통(선택) */
 .entry-image{ width: 220px; max-width:100%; border-radius:10px; margin-top:10px; }
 

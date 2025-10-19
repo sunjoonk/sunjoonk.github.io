@@ -231,14 +231,33 @@ export default function App() {
             "Built an automated deployment pipeline to GitHub Pages using GitHub Actions.",
             "Implemented features to enhance user experience, such as dark mode and multi-language support.",
           ],
-    images: ["/images/portfolio-1.png"],
+    images: [],
+  };
+
+  const pj_transformer = {
+    title: lang === "KOR" ? "Transformer 아키텍처를 활용한 번역 모델 학습" : "Training a Translation Model using Transformer Architecture",
+    location: "개인",
+    dates: "2024",
+    details:
+      lang === "KOR"
+        ? [
+            "PyTorch를 사용하여 'Attention Is All You Need' 논문에 기반한 Transformer 모델을 직접 구현하고, 기계 번역 태스크에 적용했습니다.",
+            "인코더-디코더 구조 내에서 Multi-Head Self-Attention과 Positional Encoding의 역할을 깊이 있게 이해하고 구현하여 모델의 성능을 최적화했습니다.",
+            "IWSLT 2017 (DE-EN) 데이터셋을 활용하여 모델을 학습시키고, BLEU 점수를 통해 번역 품질을 정량적으로 평가했습니다."
+          ]
+        : [
+            "Implemented a Transformer model from scratch using PyTorch, based on the 'Attention Is All You Need' paper, and applied it to a machine translation task.",
+            "Optimized model performance by deeply understanding and implementing Multi-Head Self-Attention and Positional Encoding within the encoder-decoder structure.",
+            "Trained the model on the IWSLT 2017 (DE-EN) dataset and quantitatively evaluated translation quality using BLEU score."
+          ],
+    images: ['/files/transformer-slides.pdf'],
   };
 
   // --- 수상
   const awd_quantum = {
     title:
       lang === "KOR"
-        ? "K-Digital Training 해커톤"
+        ? "K-Digital Training 해커톤 - SinkSafe"
         : "K-Digital Training Hackathon",
     location: lang === "KOR" ? "주최: 직업능력심사평가원" : "Korea Skills Quality Authority",
     dates: "2025",
@@ -426,6 +445,15 @@ export default function App() {
             images={pj_portfolio.images}
             isExpanded={expandedEntries.projects.portfolio}
             onClick={() => toggleEntry("projects", "portfolio")}
+          />
+          <Entry
+            title={pj_transformer.title}
+            location={pj_transformer.location}
+            dates={pj_transformer.dates}
+            details={pj_transformer.details}
+            images={pj_transformer.images}
+            isExpanded={expandedEntries.projects.transformer}
+            onClick={() => toggleEntry("projects", "transformer")}
           />
         </div>
       </section>
