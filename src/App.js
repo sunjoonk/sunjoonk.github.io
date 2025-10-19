@@ -214,11 +214,11 @@ export default function App() {
           <div className="header-left">
             <ProfileAvatar />
             <div>
-              <h1 style={{ margin:0 }}>{t[lang].name}</h1>
-              <div style={{ color:"#64748b", marginTop:2 }}>{t[lang].title}</div>
+              <h1>{t[lang].name}</h1>
+              <div className="header-subtitle">{t[lang].title}</div>
             </div>
           </div>
-          <button onClick={toggleTheme} className="contact-icons" style={{ width: 42, height: 42, border: '1px solid var(--line)', background: 'var(--card-bg)', cursor: 'pointer' }} aria-label="Toggle theme">
+          <button onClick={toggleTheme} className="theme-toggle" aria-label="Toggle theme">
             {theme === 'light' ? (
               <FaMoon size={20} />
             ) : (
@@ -226,7 +226,7 @@ export default function App() {
             )}
           </button>
         </div>
-        <p style={{ marginTop:12 }}>{t[lang].tagline}</p>
+        <p className="header-tagline">{t[lang].tagline}</p>
 
         {/* 언어 토글 */}
         <div className="lang-toggle" aria-label="Language toggle" style={{ margin: "10px 0 16px" }}>
