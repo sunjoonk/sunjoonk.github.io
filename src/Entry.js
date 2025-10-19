@@ -6,6 +6,7 @@ export default function Entry({
   location,
   dates,
   details = [],
+  images = [],
   isExpanded = false,
   onClick = () => {},
 }) {
@@ -35,6 +36,15 @@ export default function Entry({
             </ul>
           ) : (
             details
+          )}
+          {images && images.length > 0 && (
+            <div className="image-carousel">
+              {images.map((src, index) => (
+                <a href={src} target="_blank" rel="noopener noreferrer" key={index}>
+                  <img src={src} alt={`${title} ${index + 1}`} className="carousel-image" />
+                </a>
+              ))}
+            </div>
           )}
         </div>
       )}

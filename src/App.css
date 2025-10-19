@@ -110,6 +110,32 @@ section h2{
 }
 .entry-details ul{ margin:8px 0 0 18px; }
 
+/* 이미지 캐러셀 */
+.image-carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding: 12px 4px 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) var(--card-bg);
+}
+.image-carousel::-webkit-scrollbar {
+  height: 8px;
+}
+.image-carousel::-webkit-scrollbar-track {
+  background: var(--card-bg);
+}
+.image-carousel::-webkit-scrollbar-thumb {
+  background-color: var(--line);
+  border-radius: 4px;
+}
+.carousel-image {
+  height: 160px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  object-fit: cover;
+}
+
 /* 이미지 공통(선택) */
 .entry-image{ width: 220px; max-width:100%; border-radius:10px; margin-top:10px; }
 

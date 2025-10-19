@@ -56,6 +56,7 @@ export default function App() {
     KOR: {
       name: "김선준",
       title: "AI 엔지니어",
+      tagline: "AI 기술로 현실의 문제를 해결하는 엔지니어",
       aboutTitle: "소개",
       aboutText:
         "IBM x RedHat의 AX(AI Transformation) 과정을 통해 AI 전문가로 성장하고 있습니다. 데이터 기반의 문제 해결 능력과 새로운 기술에 대한 빠른 학습 능력을 바탕으로, 복잡한 비즈니스 요구사항을 해결하는 AI 솔루션을 만들고 싶습니다.",
@@ -69,6 +70,7 @@ export default function App() {
     ENG: {
       name: "Sunjoon Kim",
       title: "AI Engineer",
+      tagline: "An engineer who solves real-world problems with AI technology.",
       aboutTitle: "About",
       aboutText:
         "Currently growing as an AI specialist through the AX (AI Transformation) course by IBM x RedHat. With strong data-driven problem-solving skills and a knack for quickly learning new technologies, I aim to create AI solutions that tackle complex business needs.",
@@ -142,6 +144,7 @@ export default function App() {
             "LangChain agents (Search/Draft/Critic) with guardrails.",
             "Evidence pack & citations, React UI, FastAPI + AWS.",
           ],
+    images: ["/images/law-i-1.png", "/images/law-i-2.png"],
   };
 
   const pj_portfolio = {
@@ -160,6 +163,7 @@ export default function App() {
             "Built an automated deployment pipeline to GitHub Pages using GitHub Actions.",
             "Implemented features to enhance user experience, such as dark mode and multi-language support.",
           ],
+    images: ["/images/portfolio-1.png"],
   };
 
   // --- 수상
@@ -180,6 +184,7 @@ export default function App() {
             "Sinkhole Risk Area Detection using Satellite InSAR Data and the YOLOv12 Model.",
             "Developing a Web Service for Hazard Area Visualization using React.",
           ],
+    images: ["/images/hackathon-1.png", "/images/hackathon-2.png"],
   };
 
   // --- 스킬
@@ -247,7 +252,6 @@ export default function App() {
             )}
           </button>
         </div>
-        <p className="header-tagline">{t[lang].tagline}</p>
 
         {/* 언어 토글 */}
         <div className="lang-toggle" aria-label="Language toggle" style={{ margin: "10px 0 16px" }}>
@@ -330,6 +334,7 @@ export default function App() {
               location={pj_lawI.location}
               dates={pj_lawI.dates}
               details={pj_lawI.details}
+              images={pj_lawI.images}
               isExpanded={expanded.projects.entries.lawI}
               onClick={() => toggleEntry("projects", "lawI")}
             />
@@ -338,6 +343,7 @@ export default function App() {
               location={pj_portfolio.location}
               dates={pj_portfolio.dates}
               details={pj_portfolio.details}
+              images={pj_portfolio.images}
               isExpanded={expanded.projects.entries.portfolio}
               onClick={() => toggleEntry("projects", "portfolio")}
             />
@@ -355,6 +361,7 @@ export default function App() {
               location={awd_quantum.location}
               dates={awd_quantum.dates}
               details={awd_quantum.details}
+              images={awd_quantum.images}
               isExpanded={expanded.achievements.entries.quantum}
               onClick={() => toggleEntry("achievements", "quantum")}
             />
