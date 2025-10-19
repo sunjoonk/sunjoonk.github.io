@@ -56,35 +56,34 @@ export default function App() {
     KOR: {
       name: "김선준",
       title: "AI 엔지니어",
-      tagline: "AI 기술로 현실의 문제를 해결하는 엔지니어",
-      aboutTitle: "About",
+      aboutTitle: "소개",
       aboutText:
         "IBM x RedHat의 AX(AI Transformation) 과정을 통해 AI 전문가로 성장하고 있습니다. 데이터 기반의 문제 해결 능력과 새로운 기술에 대한 빠른 학습 능력을 바탕으로, 복잡한 비즈니스 요구사항을 해결하는 AI 솔루션을 만들고 싶습니다.",
+      education: "교육",
       experience: "경력",
       projects: "프로젝트",
-      achievements: "수상/성과",
+      achievements: "대회",
       skills: "보유 기술",
-      contact: "Contact",
       mainProjects: "주요 프로젝트",
     },
     ENG: {
       name: "Sunjoon Kim",
       title: "AI Engineer",
-      tagline: "An engineer who solves real-world problems with AI technology.",
       aboutTitle: "About",
       aboutText:
         "Currently growing as an AI specialist through the AX (AI Transformation) course by IBM x RedHat. With strong data-driven problem-solving skills and a knack for quickly learning new technologies, I aim to create AI solutions that tackle complex business needs.",
+      education: "Education",
       experience: "Experience",
       projects: "Projects",
-      achievements: "Achievements",
+      achievements: "Competitions",
       skills: "Skills",
-      contact: "Contact",
       mainProjects: "Main Projects",
     },
   };
 
   // 섹션 펼침 상태
   const [expanded, setExpanded] = useState({
+    education: { expanded: true, entries: {} },
     experience: { expanded: true, entries: {} },
     projects: { expanded: false, entries: {} },
     achievements: { expanded: false, entries: {} },
@@ -98,12 +97,8 @@ export default function App() {
       [sec]: { ...p[sec], entries: { ...p[sec].entries, [key]: !p[sec].entries[key] } },
     }));
 
-  /* =========================
-     데이터 (이미지/파일 의존성 없음)
-     ========================= */
-
-  // --- 경력
-  const exp_ibm = {
+  // --- 교육
+  const edu_ibm = {
     title:
       lang === "KOR" ? "[IBM x RedHat] AX(AI Transformation) 과정" : "[IBM x RedHat] AX (AI Transformation) Course",
     location: lang === "KOR" ? "대한민국 (온/오프라인)" : "Korea (hybrid)",
@@ -122,6 +117,14 @@ export default function App() {
           ],
   };
 
+  // --- 경력
+  const exp_example = {
+    title: lang === "KOR" ? "회사명" : "Company Name",
+    location: lang === "KOR" ? "직책" : "Position",
+    dates: "YYYY.MM ~ YYYY.MM",
+    details: lang === "KOR" ? ["경력에 대한 설명을 이곳에 작성하세요."] : ["Describe your experience here."],
+  };
+
   // --- 프로젝트
   const pj_lawI = {
     title: lang === "KOR" ? "[Law-I] AI 법률 비서 (RAG + Multi-Agent)" : "[Law-I] Legal AI Assistant (RAG + Multi-Agent)",
@@ -138,6 +141,24 @@ export default function App() {
             "RAG on statutes/caselaw: chunking → embeddings (bge-m3) → FAISS/Chroma.",
             "LangChain agents (Search/Draft/Critic) with guardrails.",
             "Evidence pack & citations, React UI, FastAPI + AWS.",
+          ],
+  };
+
+  const pj_portfolio = {
+    title: lang === "KOR" ? "개인 포트폴리오 웹사이트" : "Personal Portfolio Website",
+    location: "개인",
+    dates: "2024",
+    details:
+      lang === "KOR"
+        ? [
+            "React와 CSS를 사용하여 포트폴리오 웹사이트를 디자인하고 개발했습니다.",
+            "GitHub Actions를 사용하여 GitHub Pages에 자동 배포 파이프라인을 구축했습니다.",
+            "다크 모드, 다국어 지원 등 사용자 경험을 향상시키는 기능을 구현했습니다.",
+          ]
+        : [
+            "Designed and developed a portfolio website using React and CSS.",
+            "Built an automated deployment pipeline to GitHub Pages using GitHub Actions.",
+            "Implemented features to enhance user experience, such as dark mode and multi-language support.",
           ],
   };
 
@@ -265,18 +286,35 @@ export default function App() {
         <p>{t[lang].aboutText}</p>
       </section>
 
+      {/* Education */}
+      <section className="Education-section">
+        <h2 onClick={() => toggleSection("education")}>{t[lang].education}</h2>
+        {expanded.education.expanded && (
+          <div className="section-content">
+            <Entry
+              title={edu_ibm.title}
+              location={edu_ibm.location}
+              dates={edu_ibm.dates}
+              details={edu_ibm.details}
+              isExpanded={expanded.education.entries.ibm}
+              onClick={() => toggleEntry("education", "ibm")}
+            />
+          </div>
+        )}
+      </section>
+
       {/* Experience */}
       <section className="Experience-section">
         <h2 onClick={() => toggleSection("experience")}>{t[lang].experience}</h2>
         {expanded.experience.expanded && (
           <div className="section-content">
             <Entry
-              title={exp_ibm.title}
-              location={exp_ibm.location}
-              dates={exp_ibm.dates}
-              details={exp_ibm.details}
-              isExpanded={expanded.experience.entries.ibm}
-              onClick={() => toggleEntry("experience", "ibm")}
+              title={exp_example.title}
+              location={exp_example.location}
+              dates={exp_example.dates}
+              details={exp_example.details}
+              isExpanded={expanded.experience.entries.example}
+              onClick={() => toggleEntry("experience", "example")}
             />
           </div>
         )}
@@ -286,8 +324,7 @@ export default function App() {
       <section className="Project-section">
         <h2 onClick={() => toggleSection("projects")}>{t[lang].projects}</h2>
         {expanded.projects.expanded && (
-          <div className="section-content">
-            <h3 style={{ marginTop: 0 }}>{t[lang].mainProjects}</h3>
+          <div className="section-content entry-list">
             <Entry
               title={pj_lawI.title}
               location={pj_lawI.location}
@@ -295,6 +332,14 @@ export default function App() {
               details={pj_lawI.details}
               isExpanded={expanded.projects.entries.lawI}
               onClick={() => toggleEntry("projects", "lawI")}
+            />
+            <Entry
+              title={pj_portfolio.title}
+              location={pj_portfolio.location}
+              dates={pj_portfolio.dates}
+              details={pj_portfolio.details}
+              isExpanded={expanded.projects.entries.portfolio}
+              onClick={() => toggleEntry("projects", "portfolio")}
             />
           </div>
         )}
@@ -339,16 +384,6 @@ export default function App() {
             </div>
           </div>
         )}
-      </section>
-
-      {/* Contact */}
-      <section className="Contact-section">
-        <h2>{t[lang].contact}</h2>
-        <p>
-          Email: <a className="App-link" href="mailto:sunjoon.dev@gmail.com">sunjoon.dev@gamil.com</a> · GitHub:{" "}
-          <a className="App-link" href="https://github.com/sunjoonk" target="_blank" rel="noreferrer">github.com/sunjoonk</a>
-        </p>
-        <footer>© {new Date().getFullYear()} {t[lang].name}</footer>
       </section>
     </div>
   );
