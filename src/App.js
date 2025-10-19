@@ -60,7 +60,6 @@ export default function App() {
       aboutTitle: "About",
       aboutText:
         "IBM x RedHat의 AX(AI Transformation) 과정을 통해 AI 전문가로 성장하고 있습니다. 데이터 기반의 문제 해결 능력과 새로운 기술에 대한 빠른 학습 능력을 바탕으로, 복잡한 비즈니스 요구사항을 해결하는 AI 솔루션을 만들고 싶습니다.",
-      education: "교육",
       experience: "경력",
       projects: "프로젝트",
       achievements: "수상/성과",
@@ -75,7 +74,6 @@ export default function App() {
       aboutTitle: "About",
       aboutText:
         "Currently growing as an AI specialist through the AX (AI Transformation) course by IBM x RedHat. With strong data-driven problem-solving skills and a knack for quickly learning new technologies, I aim to create AI solutions that tackle complex business needs.",
-      education: "Education",
       experience: "Experience",
       projects: "Projects",
       achievements: "Achievements",
@@ -87,7 +85,6 @@ export default function App() {
 
   // 섹션 펼침 상태
   const [expanded, setExpanded] = useState({
-    education: { expanded: true, entries: {} },
     experience: { expanded: true, entries: {} },
     projects: { expanded: false, entries: {} },
     achievements: { expanded: false, entries: {} },
@@ -104,14 +101,6 @@ export default function App() {
   /* =========================
      데이터 (이미지/파일 의존성 없음)
      ========================= */
-
-  // --- 교육
-  const edu_university = {
-    title: lang === "KOR" ? "대학교 이름" : "University Name",
-    location: lang === "KOR" ? "컴퓨터공학 학사" : "Bachelor of Computer Science",
-    dates: "YYYY.MM ~ YYYY.MM",
-    details: lang === "KOR" ? ["관련 수강 과목이나 활동을 이곳에 작성하세요."] : ["Add relevant courses or activities here."],
-  };
 
   // --- 경력
   const exp_ibm = {
@@ -142,12 +131,12 @@ export default function App() {
       lang === "KOR"
         ? [
             "국가법령·판례 기반 RAG: 청킹 → 임베딩(bge-m3) → FAISS/Chroma.",
-            "LangChain 에이전트 + ‘검색 없는 생성 금지’ 가드레일.",
+            "LangChain 에이전트(Search/Draft/Critic) + ‘검색 없는 생성 금지’ 가드레일.",
             "증거팩/인용 자동화, React UI, FastAPI + AWS 배포.",
           ]
         : [
             "RAG on statutes/caselaw: chunking → embeddings (bge-m3) → FAISS/Chroma.",
-            "LangChain agents with guardrails.",
+            "LangChain agents (Search/Draft/Critic) with guardrails.",
             "Evidence pack & citations, React UI, FastAPI + AWS.",
           ],
   };
@@ -229,7 +218,7 @@ export default function App() {
               <div style={{ color:"#64748b", marginTop:2 }}>{t[lang].title}</div>
             </div>
           </div>
-          <button onClick={toggleTheme} className="theme-toggle" aria-label="Toggle theme">
+          <button onClick={toggleTheme} className="contact-icons" style={{ width: 42, height: 42, border: '1px solid var(--line)', background: 'var(--card-bg)', cursor: 'pointer' }} aria-label="Toggle theme">
             {theme === 'light' ? (
               <FaMoon size={20} />
             ) : (
@@ -276,23 +265,6 @@ export default function App() {
         <p>{t[lang].aboutText}</p>
       </section>
 
-      {/* Education */}
-      <section className="Education-section">
-        <h2 onClick={() => toggleSection("education")}>{t[lang].education}</h2>
-        {expanded.education.expanded && (
-          <div className="section-content">
-            <Entry
-              title={edu_university.title}
-              location={edu_university.location}
-              dates={edu_university.dates}
-              details={edu_university.details}
-              isExpanded={expanded.education.entries.university}
-              onClick={() => toggleEntry("education", "university")}
-            />
-          </div>
-        )}
-      </section>
-
       {/* Experience */}
       <section className="Experience-section">
         <h2 onClick={() => toggleSection("experience")}>{t[lang].experience}</h2>
@@ -317,12 +289,12 @@ export default function App() {
           <div className="section-content">
             <h3 style={{ marginTop: 0 }}>{t[lang].mainProjects}</h3>
             <Entry
-              title={pj_example.title}
-              location={pj_example.location}
-              dates={pj_example.dates}
-              details={pj_example.details}
-              isExpanded={expanded.projects.entries.example}
-              onClick={() => toggleEntry("projects", "example")}
+              title={pj_lawI.title}
+              location={pj_lawI.location}
+              dates={pj_lawI.dates}
+              details={pj_lawI.details}
+              isExpanded={expanded.projects.entries.lawI}
+              onClick={() => toggleEntry("projects", "lawI")}
             />
           </div>
         )}
@@ -334,12 +306,12 @@ export default function App() {
         {expanded.achievements.expanded && (
           <div className="section-content">
             <Entry
-              title={awd_example.title}
-              location={awd_example.location}
-              dates={awd_example.dates}
-              details={awd_example.details}
-              isExpanded={expanded.achievements.entries.example}
-              onClick={() => toggleEntry("achievements", "example")}
+              title={awd_quantum.title}
+              location={awd_quantum.location}
+              dates={awd_quantum.dates}
+              details={awd_quantum.details}
+              isExpanded={expanded.achievements.entries.quantum}
+              onClick={() => toggleEntry("achievements", "quantum")}
             />
           </div>
         )}
@@ -373,7 +345,7 @@ export default function App() {
       <section className="Contact-section">
         <h2>{t[lang].contact}</h2>
         <p>
-          Email: <a className="App-link" href="mailto:sunjoon.dev@gmail.com">sunjoon.dev@gmail.com</a> · GitHub:{" "}
+          Email: <a className="App-link" href="mailto:sunjoon.dev@gmail.com">sunjoon.dev@gamil.com</a> · GitHub:{" "}
           <a className="App-link" href="https://github.com/sunjoonk" target="_blank" rel="noreferrer">github.com/sunjoonk</a>
         </p>
         <footer>© {new Date().getFullYear()} {t[lang].name}</footer>
