@@ -1,2 +1,1 @@
-# web-portfolio
-Sunjoon Kim's Portfolio
+# Sunjoon's Web Portfolio
