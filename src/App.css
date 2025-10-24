@@ -262,3 +262,24 @@ section h2{
   .entry-header{ flex-direction:column; align-items:flex-start; }
   .skills-grid{ grid-template-columns:1fr; }
 }
+
+.python-game {
+  padding: 20px;
+  text-align: center;
+}
+
+.python-game .loading {
+  color: var(--muted);
+  padding: 20px;
+}
+
+.python-game .error-message {
+  color: #ef4444;
+  padding: 20px;
+}
+
+.python-game .game-frame {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}

@@ -1,11 +1,14 @@
-import React from 'react'; 
+import React from 'react';
 
-function Mybutton({label}){
-    return (
-      <button className="Mybutton">
-        {label}
+function MyButton({ label, onClick, className = '' }) {
+  return (
+    <button 
+      className={`my-button ${className}`.trim()}
+      onClick={onClick}
+    >
+      {label}
     </button>
-    )
-  }
-  
-  export default Mybutton;
+  );
+}
+
+export default MyButton;

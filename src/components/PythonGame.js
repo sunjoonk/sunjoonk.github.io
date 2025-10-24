@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:5000'); // Adjust if hosted remotely
-
 function PythonGame() {
     const [image, setImage] = useState('');
+    const [error, setError] = useState(null);
+    const [isConnected, setIsConnected] = useState(false);
 
     useEffect(() => {
+        const socket = io('http://localhost:5000');
+
         socket.on('connect', () => {
-            console.log('Connected to Flask server');
-            socket.emit('start_game'); // Start the game when connected
+            setIsConnected(true);
+            socket.emit('start_game');
+        });
+
+        socket.on('connect_error', (error) => {
+            setError('서버 연결에 실패했습니다.');
         });
 
         socket.on('game_frame', (data) => {
@@ -21,10 +27,20 @@ function PythonGame() {
         };
     }, []);
 
+    if (error) {
+        return <div className="error-message">{error}</div>;
+    }
+
     return (
-        <div>
+        <div className="python-game">
             <h1>Python Game in React</h1>
-            {image ? <img src={image} alt="Game frame" /> : <p>Loading...</p>}
+            {!isConnected ? (
+                <div className="loading">서버에 연결 중...</div>
+            ) : !image ? (
+                <div className="loading">게임 로딩 중...</div>
+            ) : (
+                <img src={image} alt="Game frame" className="game-frame" />
+            )}
         </div>
     );
 }
