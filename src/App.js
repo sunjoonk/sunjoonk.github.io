@@ -6,7 +6,7 @@ import { FaEnvelope, FaPhone, FaLinkedin, FaGithub, FaSun, FaMoon } from "react-
 import {
   SiPython, SiTensorflow, SiPytorch, SiNumpy, SiPandas,
   SiJavascript, SiTypescript, SiReact,
-  SiPostgresql, SiDocker, SiGit, SiFigma
+  SiPostgresql, SiDocker, SiGit
 } from "react-icons/si";
 
 /** 프로필 이미지: public/profile.jpg 가 있으면 노출, 없으면 자동 숨김 */
@@ -212,7 +212,6 @@ export default function App() {
             { Icon: SiPostgresql, label: "PostgreSQL" },
             { Icon: SiDocker, label: "Docker" },
             { Icon: SiGit, label: "Git" },
-            { Icon: SiFigma, label: "Figma" },
           ]},
         ]
       : [
@@ -232,7 +231,6 @@ export default function App() {
             { Icon: SiPostgresql, label: "PostgreSQL" },
             { Icon: SiDocker, label: "Docker" },
             { Icon: SiGit, label: "Git" },
-            { Icon: SiFigma, label: "Figma" },
           ]},
         ];
 
