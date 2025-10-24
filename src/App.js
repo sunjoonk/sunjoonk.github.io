@@ -61,7 +61,6 @@ export default function App() {
       aboutText:
         "IBM x RedHat의 AX(AI Transformation) 과정을 통해 AI 전문가로 성장하고 있습니다. 데이터 기반의 문제 해결 능력과 새로운 기술에 대한 빠른 학습 능력을 바탕으로, 복잡한 비즈니스 요구사항을 해결하는 AI 솔루션을 만들고 싶습니다.",
       education: "교육",
-      experience: "경력",
       projects: "프로젝트",
       achievements: "대회",
       skills: "보유 기술",
@@ -75,7 +74,6 @@ export default function App() {
       aboutText:
         "Currently growing as an AI specialist through the AX (AI Transformation) course by IBM x RedHat. With strong data-driven problem-solving skills and a knack for quickly learning new technologies, I aim to create AI solutions that tackle complex business needs.",
       education: "Education",
-      experience: "Experience",
       projects: "Projects",
       achievements: "Competitions",
       skills: "Skills",
@@ -86,7 +84,6 @@ export default function App() {
   // 섹션 펼침 상태
   const [expandedEntries, setExpandedEntries] = useState({
     education: {},
-    experience: {},
     projects: {},
     achievements: {},
   });
@@ -115,85 +112,6 @@ export default function App() {
             "FastAPI/Docker/AWS for serving & deployment.",
           ],
   };
-
-  // --- 경력
-  const exp_example = [
-    {
-      title: lang === "KOR" ? "AIMMO" : "AIMMO",
-      location: lang === "KOR" ? "프로젝트 리더" : "Project Leader",
-      dates: "2023.04 ~ 2025.03",
-      summary: lang === "KOR" ? 
-        [
-          "자율주행 및 AI 학습 데이터 솔루션 기업에서 프로젝트 리더(PL) 역할을 수행했습니다.",
-          "고객 요구사항 분석, 데이터 확보 계획 수립, 리스크 관리, AI 데이터 가공 인력 교육 및 관리를 총괄했습니다."
-        ] : 
-        [
-          "Served as a Project Leader (PL) at a company specializing in autonomous driving and AI training data solutions.",
-          "Oversaw project planning based on customer requirements, risk management, and the training and management of the AI data processing team."
-        ],
-      projects: [
-        {
-          title: lang === "KOR" ? "현대 모비스 (2D Image B-Box & Segmentation)" : "Hyundai Mobis (2D Image B-Box & Segmentation)",
-          dates: "2023.07 ~ 2024.12",
-          details: lang === "KOR" ? 
-            [
-              "Python을 활용하여 데이터 유효성을 검사하는 규칙을 직접 작성하고 적용했습니다.",
-              "프로젝트의 데이터 가공 기준을 새롭게 수립하고 팀 인력 관리를 담당했습니다."
-            ] : 
-            [
-              "Developed and applied data validation rules using Python.",
-              "Established new data processing standards for the project and was in charge of team management."
-            ],
-        },
-        {
-          title: lang === "KOR" ? "우아한 형제들 (3D Cuboid Box Annotation)" : "Woowa Brothers (3D Cuboid Box Annotation)",
-          dates: "2024.12 ~ 2025.02",
-          details: lang === "KOR" ?
-            [
-              "자율주행 배달 로봇의 학습 데이터 확보 계획을 수립했습니다.",
-              "2D 이미지와 3D LiDAR 포인트 데이터를 융합하는 고난도 프로젝트를 리딩했습니다."
-            ] :
-            [
-              "Established the data acquisition plan for an autonomous delivery robot's training data.",
-              "Led a complex project involving the fusion of 2D images and 3D LiDAR point data."
-            ],
-        },
-        {
-          title: lang === "KOR" ? "한화시스템 (3D Cuboid Box Annotation)" : "Hanwha Systems (3D Cuboid Box Annotation)",
-          dates: "2025.02 ~ 2025.03",
-          details: lang === "KOR" ?
-            [
-              "2D 이미지와 3D LiDAR 데이터 동기화를 위해 Python 기반 포인트 투영(Point Projection) 프로그램을 직접 제작했습니다."
-            ] :
-            [
-              "Contributed to the project by creating a Python-based Point Projection program to synchronize 2D image and 3D LiDAR data."
-            ],
-        },
-        {
-          title: lang === "KOR" ? "Mitsubishi Electric (2D Image Segmentation)" : "Mitsubishi Electric (2D Image Segmentation)",
-          dates: "2023.05 ~ 2023.07",
-          details: lang === "KOR" ?
-            [
-              "프로젝트 기술 검증(POC) 초기 단계부터 참여하여 데이터 가공 기준을 확립하고 인력 관리를 수행했습니다."
-            ] :
-            [
-              "Participated from the initial Proof of Concept (POC) stage to establish data processing standards and perform personnel management."
-            ],
-        },
-        {
-          title: lang === "KOR" ? "워터인포랜스 (2D Image Segmentation)" : "Waterinforlance (2D Image Segmentation)",
-          dates: "2023.04 ~ 2023.04",
-          details: lang === "KOR" ?
-            [
-              "납품 완료된 데이터에 대해 고객사의 변경된 요구사항을 반영하여 데이터 유지보수를 성공적으로 수행했습니다."
-            ] :
-            [
-              "Successfully performed data maintenance by reflecting the client's changed requirements for the delivered data."
-            ],
-        },
-      ]
-    },
-  ];
 
   // --- 프로젝트
   const pj_lawI = {
@@ -389,38 +307,6 @@ export default function App() {
             isExpanded={expandedEntries.education.ibm}
             onClick={() => toggleEntry("education", "ibm")}
           />
-        </div>
-      </section>
-
-      {/* Experience */}
-      <section className="Experience-section">
-        <h2>{t[lang].experience}</h2>
-        <div className="section-content entry-list">
-          {exp_example.map((exp, index) => (
-            <Entry
-              key={index}
-              title={exp.title}
-              location={exp.location}
-              dates={exp.dates}
-              isExpanded={expandedEntries.experience[`exp${index}`]}
-              onClick={() => toggleEntry("experience", `exp${index}`)}
-              details={
-                <>
-                  <ul>
-                    {exp.summary.map((item, i) => <li key={`s-${i}`}>{item}</li>)}
-                  </ul>
-                  <div className="project-list">
-                    {exp.projects.map((proj, pIndex) => (
-                      <div key={pIndex} className="project-item">
-                        <div className="project-title">{proj.title} <span className="project-dates">({proj.dates})</span></div>
-                        <ul>{proj.details.map((d, i) => <li key={`p-${i}`}>{d}</li>)}</ul>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              }
-            />
-          ))}
         </div>
       </section>
 
