@@ -4,9 +4,8 @@ import React, { useState, useEffect, useRef } from "react";
 import Entry from "./Entry";
 import { FaEnvelope, FaPhone, FaLinkedin, FaGithub, FaSun, FaMoon } from "react-icons/fa";
 import {
-  SiPython, SiTensorflow, SiPytorch, SiNumpy, SiPandas,
-  SiJavascript, SiTypescript, SiReact,
-  SiPostgresql, SiDocker, SiGit
+  SiPython, SiTensorflow, SiPytorch, SiNumpy, SiPandas, SiTypescript, 
+  SiReact, SiPostgresql, SiDocker, SiGit, SiFastapi, SiNginx
 } from "react-icons/si";
 
 /** 프로필 이미지: public/profile.jpg 가 있으면 노출, 없으면 자동 숨김 */
@@ -186,13 +185,14 @@ export default function App() {
             { Icon: SiPandas, label: "Pandas" },
           ]},
           { title: "프론트엔드", items: [
-            { Icon: SiJavascript, label: "JavaScript" },
             { Icon: SiTypescript, label: "TypeScript" },
             { Icon: SiReact, label: "React" },
           ]},
           { title: "데이터/인프라", items: [
             { Icon: SiPostgresql, label: "PostgreSQL" },
             { Icon: SiDocker, label: "Docker" },
+            { Icon: SiFastapi, label: "FastAPI" },
+            { Icon: SiNginx, label: "Nginx" },
             { Icon: SiGit, label: "Git" },
           ]},
         ]
@@ -205,13 +205,14 @@ export default function App() {
             { Icon: SiPandas, label: "Pandas" },
           ]},
           { title: "Frontend", items: [
-            { Icon: SiJavascript, label: "JavaScript" },
             { Icon: SiTypescript, label: "TypeScript" },
             { Icon: SiReact, label: "React" },
           ]},
           { title: "Data/Infra", items: [
             { Icon: SiPostgresql, label: "PostgreSQL" },
             { Icon: SiDocker, label: "Docker" },
+            { Icon: SiFastapi, label: "FastAPI" },
+            { Icon: SiNginx, label: "Nginx" },
             { Icon: SiGit, label: "Git" },
           ]},
         ];
