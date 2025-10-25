@@ -1,6 +1,5 @@
 // src/Entry.js
 import React from "react";
-import PdfPages from './PdfPages';
 
 export default function Entry({
   title,
@@ -41,9 +40,13 @@ export default function Entry({
           {images && images.length > 0 && (
             <div className="image-carousel">
               {images.map((src, index) => (
-                src.toLowerCase().endsWith('.pdf') ? (
-                  <PdfPages key={index} file={src} />
-                ) : (
+                src.toLowerCase().endsWith('.pdf') 
+                ? (
+                  <a href={src} target="_blank" rel="noopener noreferrer" key={index} className="carousel-image-placeholder">
+                    PDF 보기
+                  </a>
+                ) 
+                : (
                   <a href={src} target="_blank" rel="noopener noreferrer" key={index}>
                     <img
                       src={src}
