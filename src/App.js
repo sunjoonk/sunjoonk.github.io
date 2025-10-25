@@ -2,7 +2,7 @@
 import "./App.css";
 import React, { useState, useEffect, useRef } from "react";
 import Entry from "./Entry";
-import { FaEnvelope, FaPhone, FaLinkedin, FaGithub, FaSun, FaMoon } from "react-icons/fa";
+import { FaEnvelope, FaGithub, FaSun, FaMoon } from "react-icons/fa";
 import {
   SiPython, SiTensorflow, SiPytorch, SiNumpy, SiPandas, SiTypescript, 
   SiReact, SiPostgresql, SiDocker, SiGit, SiFastapi, SiNginx
@@ -104,7 +104,7 @@ export default function App() {
     title:
       lang === "KOR" ? "[IBM x RedHat] AX Academy" : "[IBM x RedHat] AX Academy",
     location: lang === "KOR" ? "대한민국" : "Korea",
-    dates: lang === "KOR" ? "2024.05 ~ 현재" : "May 2024 – Present",
+    dates: lang === "KOR" ? "2025.05 ~ 2025.11" : "2025.05 ~ 2025.11",
     details:
       lang === "KOR"
         ? [
@@ -123,7 +123,7 @@ export default function App() {
   const pj_lawI = {
     title: lang === "KOR" ? "법률 도메인 특화 Agentic LLM 서비스" : "Agentic LLM Service for Legal Domain",
     location: "Side / Team",
-    dates: lang === "KOR" ? "2025.09 ~ 2025.10" : "2025.09 – 2025.10",
+    dates: lang === "KOR" ? "2025" : "2025",
     details:
       lang === "KOR"
         ? [
@@ -258,14 +258,8 @@ export default function App() {
           <a href="mailto:sunjoon.dev@gmail.com" aria-label="Email">
             <FaEnvelope size={28} style={{ margin: "0 12px" }} />
           </a>
-          <a href="tel:010-6537-0433" aria-label="Phone">
-            <FaPhone size={28} style={{ margin: "0 12px" }} />
-          </a>
           <a href="https://github.com/sunjoonk" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
             <FaGithub size={28} style={{ margin: "0 12px" }} />
-          </a>
-          <a href="https://www.linkedin.com/in/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-            <FaLinkedin size={28} style={{ margin: "0 12px" }} />
           </a>
         </div>
       </header>
