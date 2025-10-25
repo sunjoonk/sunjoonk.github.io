@@ -137,7 +137,20 @@ export default function App() {
             "Built Agentic Architecture: Orchestrated modules like Retrieval, Reasoning, and Drafting using LangChain, and implemented dynamic tool routing.",
             "Database & Deployment: Established a Vector DB with ChromaDB and a PostgreSQL RDBMS. Automated the CI/CD pipeline and deployed the service using GitHub Actions and AWS EC2.",
           ],
-    images: ["/images/lawai.png"],
+    imageFolder: "lawai",
+  };
+
+  // --- 이미지 폴더에서 이미지 목록을 동적으로 가져오는 함수
+  const getImagesFrom = (folderName) => {
+    try {
+      // require.context를 사용하여 public/images/{folderName} 내의 모든 이미지 파일을 가져옵니다.
+      const requireContext = require.context('../public/images', true, /\.(png|jpe?g|svg|gif)$/);
+      return requireContext.keys()
+        .filter(path => path.startsWith(`./${folderName}/`))
+        .map(path => `/images${path.substring(1)}`);
+    } catch (error) {
+      return []; // 폴더가 없거나 파일이 없는 경우 빈 배열 반환
+    }
   };
 
   // --- 수상
@@ -158,7 +171,7 @@ export default function App() {
             "Sinkhole Risk Area Detection using Satellite InSAR Data and the YOLOv12 Model.",
             "Developing a Web Service for Hazard Area Visualization using React.",
           ],
-    images: ["/images/hackathon.png"],
+    imageFolder: "hackathon",
   };
 
   // --- 스킬
@@ -286,7 +299,7 @@ export default function App() {
             location={pj_lawI.location}
             dates={pj_lawI.dates}
             details={pj_lawI.details}
-            images={pj_lawI.images}
+            images={getImagesFrom(pj_lawI.imageFolder)}
             isExpanded={expandedEntries.projects.lawI}
             onClick={() => toggleEntry("projects", "lawI")}
           />
@@ -302,7 +315,7 @@ export default function App() {
             location={awd_quantum.location}
             dates={awd_quantum.dates}
             details={awd_quantum.details}
-            images={awd_quantum.images}
+            images={getImagesFrom(awd_quantum.imageFolder)}
             isExpanded={expandedEntries.achievements.quantum}
             onClick={() => toggleEntry("achievements", "quantum")}
           />
