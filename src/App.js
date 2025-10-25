@@ -123,7 +123,7 @@ export default function App() {
   const pj_lawI = {
     title: lang === "KOR" ? "법률 도메인 특화 Agentic LLM 서비스" : "Agentic LLM Service for Legal Domain",
     location: "Side / Team",
-    dates: lang === "KOR" ? "2025 ~ 진행중" : "2025.09 – 2025.10",
+    dates: lang === "KOR" ? "2025.09 ~ 2025.10" : "2025.09 – 2025.10",
     details:
       lang === "KOR"
         ? [
