@@ -96,7 +96,7 @@ export default function App() {
   // --- 교육
   const edu_ibm = {
     title:
-      lang === "KOR" ? "[IBM x RedHat] AX(AI Transformation)" : "[IBM x RedHat] AX (AI Transformation)",
+      lang === "KOR" ? "[IBM x RedHat] AX Academy" : "[IBM x RedHat] AX Academy",
     location: lang === "KOR" ? "대한민국" : "Korea",
     dates: lang === "KOR" ? "2024.05 ~ 현재" : "May 2024 – Present",
     details:
@@ -131,25 +131,6 @@ export default function App() {
             "Database & Deployment: Established a Vector DB with ChromaDB and a PostgreSQL RDBMS. Automated the CI/CD pipeline and deployed the service using GitHub Actions and AWS EC2.",
           ],
     images: ["/images/lawai.png"],
-  };
-
-  const pj_portfolio = {
-    title: lang === "KOR" ? "개인 포트폴리오 웹사이트" : "Personal Portfolio Website",
-    location: "개인",
-    dates: "2024",
-    details:
-      lang === "KOR"
-        ? [
-            "React와 CSS를 사용하여 포트폴리오 웹사이트를 디자인하고 개발했습니다.",
-            "GitHub Actions를 사용하여 GitHub Pages에 자동 배포 파이프라인을 구축했습니다.",
-            "다크 모드, 다국어 지원 등 사용자 경험을 향상시키는 기능을 구현했습니다.",
-          ]
-        : [
-            "Designed and developed a portfolio website using React and CSS.",
-            "Built an automated deployment pipeline to GitHub Pages using GitHub Actions.",
-            "Implemented features to enhance user experience, such as dark mode and multi-language support.",
-          ],
-    images: [],
   };
 
   const pj_transformer = {
@@ -320,15 +301,6 @@ export default function App() {
             images={pj_lawI.images}
             isExpanded={expandedEntries.projects.lawI}
             onClick={() => toggleEntry("projects", "lawI")}
-          />
-          <Entry
-            title={pj_portfolio.title}
-            location={pj_portfolio.location}
-            dates={pj_portfolio.dates}
-            details={pj_portfolio.details}
-            images={pj_portfolio.images}
-            isExpanded={expandedEntries.projects.portfolio}
-            onClick={() => toggleEntry("projects", "portfolio")}
           />
           <Entry
             title={pj_transformer.title}
