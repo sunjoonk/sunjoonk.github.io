@@ -83,9 +83,16 @@ export default function App() {
 
   // 섹션 펼침 상태
   const [expandedEntries, setExpandedEntries] = useState({
-    education: {},
-    projects: {},
-    achievements: {},
+    education: {
+      ibm: true,
+    },
+    projects: {
+      lawI: true,
+      transformer: true,
+    },
+    achievements: {
+      quantum: true,
+    },
   });
   const toggleEntry = (sec, key) =>
     setExpandedEntries((p) => ({
