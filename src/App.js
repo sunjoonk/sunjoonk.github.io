@@ -4,9 +4,11 @@ import React, { useState, useEffect, useRef } from "react";
 import Entry from "./Entry";
 import { FaEnvelope, FaGithub, FaSun, FaMoon } from "react-icons/fa";
 import {
-  SiPython, SiTensorflow, SiPytorch, SiNumpy, SiPandas, SiTypescript, 
-  SiReact, SiPostgresql, SiDocker, SiGit, SiFastapi, SiNginx
+  SiPython, SiTensorflow, SiPytorch, SiNumpy, SiLangchain, 
+  SiHuggingface, SiTypescript, SiReact, SiPostgresql, SiDocker, SiGit,
+  SiFastapi, SiNginx
 } from "react-icons/si";
+import { FaAws } from "react-icons/fa";
 
 /** 프로필 이미지: public/profile.jpg 가 있으면 노출, 없으면 자동 숨김 */
 function ProfileAvatar() {
@@ -174,48 +176,27 @@ export default function App() {
   };
 
   // --- 스킬
-  const skills =
-    lang === "KOR"
-      ? [
-          { title: "AI / ML", items: [
-            { Icon: SiPython, label: "Python" },
-            { Icon: SiTensorflow, label: "TensorFlow" },
-            { Icon: SiPytorch, label: "PyTorch" },
-            { Icon: SiNumpy, label: "NumPy" },
-            { Icon: SiPandas, label: "Pandas" },
-          ]},
-          { title: "프론트엔드", items: [
-            { Icon: SiTypescript, label: "TypeScript" },
-            { Icon: SiReact, label: "React" },
-          ]},
-          { title: "데이터/인프라", items: [
-            { Icon: SiPostgresql, label: "PostgreSQL" },
-            { Icon: SiDocker, label: "Docker" },
-            { Icon: SiFastapi, label: "FastAPI" },
-            { Icon: SiNginx, label: "Nginx" },
-            { Icon: SiGit, label: "Git" },
-          ]},
-        ]
-      : [
-          { title: "AI / ML", items: [
-            { Icon: SiPython, label: "Python" },
-            { Icon: SiTensorflow, label: "TensorFlow" },
-            { Icon: SiPytorch, label: "PyTorch" },
-            { Icon: SiNumpy, label: "NumPy" },
-            { Icon: SiPandas, label: "Pandas" },
-          ]},
-          { title: "Frontend", items: [
-            { Icon: SiTypescript, label: "TypeScript" },
-            { Icon: SiReact, label: "React" },
-          ]},
-          { title: "Data/Infra", items: [
-            { Icon: SiPostgresql, label: "PostgreSQL" },
-            { Icon: SiDocker, label: "Docker" },
-            { Icon: SiFastapi, label: "FastAPI" },
-            { Icon: SiNginx, label: "Nginx" },
-            { Icon: SiGit, label: "Git" },
-          ]},
-        ];
+  const skills = [
+    { title: "AI / LLM", items: [
+      { Icon: SiPython, label: "Python" },
+      { Icon: SiTensorflow, label: "TensorFlow" },
+      { Icon: SiPytorch, label: "PyTorch" },
+      { Icon: SiLangchain, label: "LangChain" },
+      { Icon: SiHuggingface, label: "Hugging Face" },
+    ]},
+    { title: "Backend / Infra", items: [
+      { Icon: SiFastapi, label: "FastAPI" },
+      { Icon: SiDocker, label: "Docker" },
+      { Icon: FaAws, label: "AWS" },
+      { Icon: SiPostgresql, label: "PostgreSQL" },
+      { Icon: SiNginx, label: "Nginx" },
+    ]},
+    { title: "Collaboration / Etc.", items: [
+      { Icon: SiGit, label: "Git" },
+      { Icon: SiReact, label: "React" },
+      { Icon: SiTypescript, label: "TypeScript" },
+    ]},
+  ];
 
   // ===== UI =====
   return (
