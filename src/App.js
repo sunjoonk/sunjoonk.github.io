@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Entry from "./Entry";
 import { FaEnvelope, FaGithub, FaSun, FaMoon } from "react-icons/fa";
 import {
-  SiPython, SiTensorflow, SiPytorch, SiNumpy, SiLangchain, 
+  SiPython, SiTensorflow, SiPytorch, SiLangchain,
   SiHuggingface, SiTypescript, SiReact, SiPostgresql, SiDocker, SiGit,
   SiFastapi, SiNginx
 } from "react-icons/si";
