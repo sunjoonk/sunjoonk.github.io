@@ -60,7 +60,7 @@ export default function App() {
       tagline: "AI 기술로 현실의 문제를 해결하는 엔지니어",
       aboutTitle: "소개",
       aboutText:
-        "IBM x RedHat의 AX(AI Transformation) 과정을 통해 AI 전문가로 성장하고 있습니다. 데이터 기반의 문제 해결 능력과 새로운 기술에 대한 빠른 학습 능력을 바탕으로, 복잡한 비즈니스 요구사항을 해결하는 AI 솔루션을 만들고 싶습니다.",
+        "TensorFlow, PyTorch를 사용하여 모델 구현 및 학습이 가능하며, 사전 학습된 모델을 파인튜닝 및 RAG 등을 적용하여 원하는 Task를 수행하는 모델을 만들고 서비스를 개발할 수 있는 도전적이고 열정이 넘치는 개발자입니다.",
       education: "교육",
       projects: "프로젝트",
       achievements: "대회",
@@ -73,7 +73,7 @@ export default function App() {
       tagline: "An engineer who solves real-world problems with AI technology.",
       aboutTitle: "About",
       aboutText:
-        "Currently growing as an AI specialist through the AX (AI Transformation) course by IBM x RedHat. With strong data-driven problem-solving skills and a knack for quickly learning new technologies, I aim to create AI solutions that tackle complex business needs.",
+        "A passionate and challenging developer capable of implementing and training models using TensorFlow and PyTorch, and building models that perform desired tasks by fine-tuning pre-trained models and applying RAG, as well as developing services.",
       education: "Education",
       projects: "Projects",
       achievements: "Competitions",
@@ -117,7 +117,7 @@ export default function App() {
         : [
             "Deep dive into LLM/RAG, prompt engineering, and agent orchestration.",
             "Hands-on DNN/CNN/RNN/NLP with TensorFlow/PyTorch.",
-            "FastAPI/Docker/AWS for serving & deployment.",
+            "FastAPI/Docker/GitHub Actions/AWS for serving & deployment.",
           ],
   };
 
@@ -130,12 +130,12 @@ export default function App() {
       lang === "KOR"
         ? [
             "RAG 파이프라인 설계: Llama-3-8B 모델과 RAG를 결합하여 법률 질의응답 성능을 최적화하고, 법령·판례 텍스트를 도메인 구조에 맞게 정제·청킹하여 검색 정확도를 향상시켰습니다.",
-            "Agentic 아키텍처 구축: LangChain 기반 에이전트 오케스트레이션으로 Retrieval, 추론, 문서 작성 등 모듈을 유연하게 조율하고, 동적 툴 라우팅을 구현했습니다.",
+            "Agentic 아키텍처 구축: LangGraph 기반 에이전트 오케스트레이션으로 Retrieval, 추론, 문서 작성 등 모듈을 유연하게 조율하고, 동적 툴 라우팅을 구현했습니다.",
             "데이터베이스 및 배포: ChromaDB를 활용한 Vector DB와 PostgreSQL(RDBMS)을 구축했으며, GitHub Actions와 AWS EC2를 통해 CI/CD 파이프라인을 자동화하고 서비스를 배포했습니다.",
           ]
         : [
             "Designed RAG Pipeline: Optimized legal Q&A performance by combining the Llama-3-8B model with RAG, and improved search accuracy by refining and chunking legal texts.",
-            "Built Agentic Architecture: Orchestrated modules like Retrieval, Reasoning, and Drafting using LangChain, and implemented dynamic tool routing.",
+            "Built Agentic Architecture: Orchestrated modules like Retrieval, Reasoning, and Drafting using LangGraph, and implemented dynamic tool routing.",
             "Database & Deployment: Established a Vector DB with ChromaDB and a PostgreSQL RDBMS. Automated the CI/CD pipeline and deployed the service using GitHub Actions and AWS EC2.",
           ],
     imageFolder: "lawai",
