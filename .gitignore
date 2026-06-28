@@ -10,6 +10,8 @@
 
 # production
 /build
+/.next
+/out
 
 # misc
 .DS_Store
@@ -27,6 +29,8 @@ yarn-error.log*
 node_modules/
 dist/
 build/
+.next/
+out/
 
 # 환경변수/개인설정
 .env

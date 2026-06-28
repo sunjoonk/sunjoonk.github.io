@@ -30,15 +30,13 @@ jobs:
       - name: Install deps
         run: npm ci || npm install
 
-      # CRA 빌드. 경고 때문에 실패하지 않도록 CI=false
-      - name: Build (CRA)
-        run: CI=false npm run build
+      - name: Build (Next.js static export)
+        run: npm run build
 
-      # SPA 새로고침 404 방지 + 업로드 경로 지정
       - name: Prepare artifact
         run: |
-          cp build/index.html build/404.html
-          echo "OUTDIR=build" >> $GITHUB_ENV
+          cp out/index.html out/404.html
+          echo "OUTDIR=out" >> $GITHUB_ENV
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
