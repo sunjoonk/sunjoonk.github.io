@@ -13,7 +13,7 @@ export default function Home() {
       <main className="blog-main" id="main-content">
         <div className="blog-container">
           <section className="blog-home-hero">
-            <p className="blog-kicker">Research · Engineering · Systems</p>
+            <p className="blog-kicker">Research</p>
 
             <h1>
               <span>기술을 이해하고,</span>
