@@ -1,20 +1,42 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import Footer from "../components/Footer";
 
+const siteUrl = "https://sunjoonk.github.io";
+const siteTitle = "Sunjoon Kim — Technical Notes";
+const siteDescription =
+  "AI의 이론을 실제 서비스로 연결하며 얻은 문제 해결 과정과 배움을 기록하는 김선준의 기술 블로그";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "김선준 - 포트폴리오",
-    template: "%s | 김선준",
+    default: siteTitle,
+    template: "%s | Sunjoon Kim",
   },
-  description: "AI 엔지니어 김선준의 포트폴리오와 기술 블로그",
+  description: siteDescription,
+  applicationName: "Sunjoon Kim Technical Notes",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "김선준 - 포트폴리오",
-    description: "AI 기술로 현실의 문제를 해결하는 엔지니어",
+    title: siteTitle,
+    description: siteDescription,
     type: "website",
-    url: "https://sunjoonk.github.io",
+    url: "/",
+    siteName: "Sunjoon Kim Technical Notes",
+    locale: "ko_KR",
   },
+  twitter: {
+    card: "summary",
+    title: siteTitle,
+    description: siteDescription,
+  },
+};
+
+export const viewport: Viewport = {
+  colorScheme: "light",
+  themeColor: "#f3f3ee",
 };
 
 type RootLayoutProps = {
@@ -25,6 +47,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ko" suppressHydrationWarning>
       <body>
+        <a className="skip-link" href="#main-content">
+          본문으로 건너뛰기
+        </a>
         {children}
         <Footer />
       </body>

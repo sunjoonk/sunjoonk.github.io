@@ -12,7 +12,7 @@ export default function Footer() {
         </h2>
 
         <div className="site-footer-row">
-          <nav className="site-footer-links" aria-label="Footer navigation">
+          <nav className="site-footer-links" aria-label="하단 메뉴">
             <Link href="/">Home</Link>
             <Link href="/about">About</Link>
             <a href="https://github.com/sunjoonk" target="_blank" rel="noopener noreferrer">

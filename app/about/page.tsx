@@ -39,6 +39,8 @@ function ProfileAvatar() {
         }
       }}
       className="profile-avatar"
+      width={184}
+      height={184}
     />
   );
 }
@@ -128,7 +130,7 @@ export default function AboutPage() {
   return (
     <>
       <Header />
-      <main className="about-main">
+      <main className="about-main" id="main-content">
         <div className="about-container">
           <header className="about-classic-hero">
             <div className="about-portrait-column">
@@ -224,10 +226,19 @@ export default function AboutPage() {
                       ))}
                     </ul>
                   </div>
-                  <div className="project-image-strip" aria-label={`${project.title} images`}>
+                  <div
+                    className="project-image-strip"
+                    role="group"
+                    aria-label={`${project.title} 이미지 모음`}
+                  >
                     {project.images.slice(0, 4).map((src, index) => (
                       <a href={src} target="_blank" rel="noopener noreferrer" key={src}>
-                        <img src={src} alt={`${project.title} ${index + 1}`} />
+                        <img
+                          src={src}
+                          alt={`${project.title} ${index + 1}`}
+                          loading="lazy"
+                          decoding="async"
+                        />
                       </a>
                     ))}
                   </div>
@@ -255,10 +266,19 @@ export default function AboutPage() {
                       ))}
                     </ul>
                   </div>
-                  <div className="project-image-strip" aria-label={`${achievement.title} images`}>
+                  <div
+                    className="project-image-strip"
+                    role="group"
+                    aria-label={`${achievement.title} 이미지 모음`}
+                  >
                     {achievement.images.slice(0, 4).map((src, index) => (
                       <a href={src} target="_blank" rel="noopener noreferrer" key={src}>
-                        <img src={src} alt={`${achievement.title} ${index + 1}`} />
+                        <img
+                          src={src}
+                          alt={`${achievement.title} ${index + 1}`}
+                          loading="lazy"
+                          decoding="async"
+                        />
                       </a>
                     ))}
                   </div>

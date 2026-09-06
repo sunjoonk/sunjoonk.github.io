@@ -10,15 +10,14 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="blog-main">
+      <main className="blog-main" id="main-content">
         <div className="blog-container">
           <section className="blog-home-hero">
             <p className="blog-kicker">Research · Engineering · Systems</p>
 
             <h1>
-              기술을 이해하고,
-              <br />
-              구현하며, 기록합니다.
+              <span>기술을 이해하고,</span>
+              <span>구현하며, 기록합니다.</span>
             </h1>
 
             <p>
