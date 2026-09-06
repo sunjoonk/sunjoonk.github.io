@@ -9,7 +9,6 @@ export default function Header() {
             <span>Sunjoon Kim</span>
             <span>Technical Notes</span>
           </Link>
-          <p>AI engineering, systems, and the work behind them.</p>
         </div>
 
         <nav className="blog-nav" aria-label="주요 메뉴">
