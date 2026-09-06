@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { FaAws, FaEnvelope, FaGithub } from "react-icons/fa";
 import {
   SiDocker,
@@ -44,10 +44,6 @@ function ProfileAvatar() {
 }
 
 export default function AboutPage() {
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", "light");
-  }, []);
-
   const profile = {
     name: "김선준",
     title: "AI 엔지니어",
@@ -135,25 +131,27 @@ export default function AboutPage() {
       <main className="about-main">
         <div className="about-container">
           <header className="about-classic-hero">
-            <div className="about-identity">
+            <div className="about-portrait-column">
               <ProfileAvatar />
-              <div>
-                <p className="blog-kicker">About</p>
-                <h1>{profile.name}</h1>
-                <p className="about-role">{profile.title}</p>
-                <p className="about-tagline">{profile.tagline}</p>
-              </div>
+              <p>Profile 001</p>
             </div>
 
-            <div className="about-contact-links about-hero-links">
-              <a href="mailto:sunjoon.dev@gmail.com">
-                <FaEnvelope size={18} />
-                Email
-              </a>
-              <a href="https://github.com/sunjoonk" target="_blank" rel="noopener noreferrer">
-                <FaGithub size={18} />
-                GitHub
-              </a>
+            <div className="about-identity-copy">
+              <p className="blog-kicker">About</p>
+              <h1>{profile.name}</h1>
+              <p className="about-role">{profile.title}</p>
+              <p className="about-tagline">{profile.tagline}</p>
+
+              <div className="about-contact-links about-hero-links">
+                <a href="mailto:sunjoon.dev@gmail.com">
+                  <FaEnvelope size={17} />
+                  Email
+                </a>
+                <a href="https://github.com/sunjoonk" target="_blank" rel="noopener noreferrer">
+                  <FaGithub size={17} />
+                  GitHub
+                </a>
+              </div>
             </div>
           </header>
 
