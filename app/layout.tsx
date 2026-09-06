@@ -16,6 +16,23 @@ export const metadata: Metadata = {
   },
   description: siteDescription,
   applicationName: "Sunjoon Kim Technical Notes",
+  icons: {
+    icon: [
+      {
+        url: "/logo.png",
+        type: "image/png",
+        sizes: "1254x1254",
+      },
+    ],
+    shortcut: "/logo.png",
+    apple: [
+      {
+        url: "/logo.png",
+        type: "image/png",
+        sizes: "1254x1254",
+      },
+    ],
+  },
   alternates: {
     canonical: "/",
   },
