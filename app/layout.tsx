@@ -1,5 +1,6 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import type { ReactNode } from "react";
 import Footer from "../components/Footer";
 
@@ -52,8 +53,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  colorScheme: "light",
-  themeColor: "#f3f3ee",
+  colorScheme: "light dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f3f3ee" },
+    { media: "(prefers-color-scheme: dark)", color: "#151714" },
+  ],
 };
 
 type RootLayoutProps = {
@@ -64,6 +68,19 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ko" suppressHydrationWarning>
       <body>
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`(() => {
+            try {
+              const savedTheme = localStorage.getItem("theme");
+              const theme = savedTheme === "light" || savedTheme === "dark"
+                ? savedTheme
+                : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+              document.documentElement.dataset.theme = theme;
+            } catch {
+              document.documentElement.dataset.theme = "light";
+            }
+          })();`}
+        </Script>
         <a className="skip-link" href="#main-content">
           본문으로 건너뛰기
         </a>

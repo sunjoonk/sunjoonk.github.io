@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
   return (
@@ -14,6 +15,7 @@ export default function Header() {
         <nav className="blog-nav" aria-label="주요 메뉴">
           <Link href="/">Home</Link>
           <Link href="/about">About</Link>
+          <ThemeToggle />
         </nav>
       </div>
     </header>
