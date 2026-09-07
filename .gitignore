@@ -24,7 +24,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-
 # 패키지/빌드 산출물
 node_modules/
 dist/
@@ -40,3 +39,4 @@ Thumbs.db
 
 # 편의
 .vscode/
+.openai/
