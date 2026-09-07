@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 const description =
-  "AI 모델 구현부터 서비스 개발과 배포까지, 김선준의 경험과 기술적 관심사를 소개합니다.";
+  "AI를 활용해 더 나은 제품을 만드는 개발자 김선준의 일하는 방식과 관심사를 소개합니다.";
 
 export const metadata: Metadata = {
   title: "About",

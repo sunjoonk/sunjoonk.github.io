@@ -1530,6 +1530,14 @@ html[data-theme="dark"] .site-footer {
   line-height: 1.25;
 }
 
+.about-hero-description {
+  max-width: 680px;
+  margin: 24px 0 0;
+  color: var(--journal-muted);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
 .about-contact-links {
   display: flex;
   flex-wrap: wrap;
@@ -1597,10 +1605,87 @@ html[data-theme="dark"] .site-footer {
 }
 
 .about-intro-section > p,
+.about-classic-section > .about-section-body,
 .about-classic-section > .about-skills-grid,
 .about-classic-section > .about-lined-entry,
 .about-classic-section > .about-entry-list {
   margin-left: calc(var(--about-rail) + var(--about-gap));
+}
+
+.about-section-body {
+  max-width: 820px;
+}
+
+.about-prose {
+  color: var(--journal-muted);
+  font-size: 17px;
+  line-height: 1.9;
+}
+
+.about-prose p {
+  margin: 0 0 18px;
+}
+
+.about-prose p:last-child {
+  margin-bottom: 0;
+}
+
+.about-prose > p:first-child:not(.about-lead-text) {
+  color: var(--journal-ink);
+  font-weight: 700;
+}
+
+.about-lead-text {
+  color: var(--journal-ink);
+  font-family: var(--journal-serif);
+  font-size: clamp(23px, 2.7vw, 34px);
+  letter-spacing: -0.025em;
+  line-height: 1.5;
+}
+
+.about-values-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(28px, 5vw, 64px);
+}
+
+.about-value-item {
+  border-top: 1px solid var(--journal-ink);
+  padding-top: 20px;
+}
+
+.about-value-item > span {
+  color: var(--journal-accent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+.about-value-item h3 {
+  margin: 30px 0 18px;
+  font-family: var(--journal-serif);
+  font-size: clamp(25px, 3vw, 36px);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.about-value-item p {
+  margin: 0;
+  color: var(--journal-muted);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.about-closing-statement {
+  margin-top: 32px !important;
+  border-left: 2px solid var(--journal-accent);
+  padding-left: 20px;
+  color: var(--journal-ink);
+}
+
+.about-closing-statement strong {
+  color: var(--journal-accent);
 }
 
 .about-intro-section > p {
@@ -1667,6 +1752,28 @@ html[data-theme="dark"] .site-footer {
   color: var(--journal-ink);
   box-shadow: none;
   transform: none;
+}
+
+.about-tools-section {
+  padding-bottom: clamp(64px, 8vw, 104px);
+}
+
+.about-final-contact {
+  padding: clamp(72px, 10vw, 132px) 0;
+}
+
+.about-final-contact > .blog-kicker {
+  color: var(--journal-accent);
+}
+
+.about-final-contact h2 {
+  max-width: 880px;
+  margin: 20px 0 0;
+  font-family: var(--journal-serif);
+  font-size: clamp(40px, 6.5vw, 76px);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1.12;
 }
 
 .about-lined-entry,
@@ -1789,6 +1896,10 @@ html[data-theme="dark"] .site-footer {
     grid-template-columns: 1fr;
   }
 
+  .about-values-grid {
+    grid-template-columns: 1fr;
+  }
+
   .about-skill-group div {
     align-items: center;
     flex-direction: row;
@@ -1823,6 +1934,7 @@ html[data-theme="dark"] .site-footer {
   }
 
   .about-intro-section > p,
+  .about-classic-section > .about-section-body,
   .about-classic-section > .about-skills-grid,
   .about-classic-section > .about-lined-entry,
   .about-classic-section > .about-entry-list {
