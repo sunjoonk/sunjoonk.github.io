@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "../../../components/Header";
+import ArticleToc from "../../../components/ArticleToc";
 import { getPostBySlug, getPosts } from "../../../lib/posts";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -62,15 +63,7 @@ export default async function PostPage({ params }: Props) {
             </div>
           </header>
           <div className="article-layout">
-            <aside className="article-rail">
-              <nav aria-label="이 글의 목차">
-                <p className="article-eyebrow">Contents</p>
-                <ol>{post.sections.map((section, index) => (
-                  <li key={section.id}><a href={`#${section.id}`}><span>{String(index + 1).padStart(2, "0")}</span>{section.title}</a></li>
-                ))}</ol>
-                <a className="article-top-link" href="#article-title">맨 위로 ↑</a>
-              </nav>
-            </aside>
+            <ArticleToc sections={post.sections} />
             <div className="article-prose"><Content /></div>
           </div>
           <footer className="article-end">
