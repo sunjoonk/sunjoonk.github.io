@@ -1,8 +1,5 @@
-export type PostBlock =
-  | { type: "paragraph"; text: string }
-  | { type: "heading"; text: string }
-  | { type: "list"; items: string[] }
-  | { type: "code"; language?: string; code: string };
+import AstraArticle, { metadata as astraMetadata, sections as astraSections } from "../content/posts/gpt-6-astra.mdx";
+import type { ComponentType } from "react";
 
 export type Post = {
   id: number;
@@ -11,10 +8,19 @@ export type Post = {
   description: string;
   category: string;
   publishedAt: string;
-  body: PostBlock[];
+  readingMinutes: number;
+  sections: { id: string; title: string }[];
+  Content: ComponentType;
 };
 
-export const posts: Post[] = [];
+// Explicit local imports keep the static export deterministic and MDX trusted.
+export const posts: Post[] = [{
+  ...astraMetadata,
+  id: 1,
+  slug: "gpt-6-astra",
+  sections: astraSections,
+  Content: AstraArticle,
+}];
 
 export function getPosts(): Post[] {
   return [...posts].sort(

@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { getPosts } from "../lib/posts";
 
 const siteUrl = "https://sunjoonk.github.io";
 
@@ -16,5 +17,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    ...getPosts().map((post) => ({
+      url: `${siteUrl}/posts/${post.slug}`,
+      lastModified: post.publishedAt,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
   ];
 }
