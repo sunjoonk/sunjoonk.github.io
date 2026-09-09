@@ -82,8 +82,8 @@ export default function Home() {
                 </div>
               </section>
 
-              <PostArchive posts={posts.map(({ slug, title, description, category, publishedAt, readingMinutes }) => ({
-                slug, title, description, category, publishedAt, readingMinutes,
+              <PostArchive posts={posts.map(({ slug, title, description, category, publishedAt, }) => ({
+                slug, title, description, category, publishedAt,
               }))} />
             </>
           ) : (

@@ -59,7 +59,7 @@ export default async function PostPage({ params }: Props) {
               <p className="article-deck">{post.description}</p>
               <div className="article-byline">
                 <Link href="/about">김선준 <span>Sunjoon Kim</span></Link>
-                <div><time dateTime={post.publishedAt}>{post.publishedAt.replaceAll("-", ".")}</time><span>약 {post.readingMinutes}분</span></div>
+                <div><time dateTime={post.publishedAt}>{post.publishedAt.replaceAll("-", ".")}</time></div>
               </div>
             </div>
           </header>

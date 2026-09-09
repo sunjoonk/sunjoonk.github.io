@@ -16,7 +16,6 @@ export const metadata = {
   description: "게시글 요약",
   category: "Category",
   publishedAt: "YYYY-MM-DD",
-  readingMinutes: 5,
 };
 
 export const sections = [

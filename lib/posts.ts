@@ -9,7 +9,6 @@ export type Post = {
   description: string;
   category: string;
   publishedAt: string;
-  readingMinutes: number;
   sections: { id: string; title: string }[];
   Content: ComponentType;
 };

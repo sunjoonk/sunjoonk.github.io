@@ -3,7 +3,7 @@
 import type { Post } from "../lib/posts";
 import { PostLink, PostTitle, useArchiveView } from "./PostTransition";
 
-type ArchivePost = Pick<Post, "slug" | "title" | "description" | "category" | "publishedAt" | "readingMinutes">;
+type ArchivePost = Pick<Post, "slug" | "title" | "description" | "category" | "publishedAt">;
 
 export default function PostArchive({ posts }: { posts: ArchivePost[] }) {
   const { archiveView, setArchiveView } = useArchiveView();
@@ -35,7 +35,6 @@ export default function PostArchive({ posts }: { posts: ArchivePost[] }) {
               <time dateTime={post.publishedAt}>{post.publishedAt}</time>
               <PostTitle slug={post.slug} slot="archive"><strong>{post.title}</strong></PostTitle>
               {cards && <p className="archive-description">{post.description}</p>}
-              {cards && <span className="archive-reading-time">약 {post.readingMinutes}분</span>}
               <span className="archive-category">{post.category}</span>
               <span className="writing-arrow" aria-hidden="true">↗</span>
             </PostLink>

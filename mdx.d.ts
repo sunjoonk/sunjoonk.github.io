@@ -6,7 +6,6 @@ declare module "*.mdx" {
     description: string;
     category: string;
     publishedAt: string;
-    readingMinutes: number;
   };
   export const sections: { id: string; title: string }[];
 
