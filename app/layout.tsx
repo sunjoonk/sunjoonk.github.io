@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import type { ReactNode } from "react";
 import Footer from "../components/Footer";
+import { PostTransitionProvider } from "../components/PostTransition";
 
 const siteUrl = "https://sunjoonk.github.io";
 const siteTitle = "Sunjoon Kim — Technical Notes";
@@ -84,7 +85,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <a className="skip-link" href="#main-content">
           본문으로 건너뛰기
         </a>
-        {children}
+        <PostTransitionProvider>{children}</PostTransitionProvider>
         <Footer />
       </body>
     </html>

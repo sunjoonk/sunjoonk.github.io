@@ -1,3 +1,34 @@
+/* Shared titles keep the clicked list occurrence connected to its article. */
+::view-transition { pointer-events: none; }
+::view-transition-group(.post-title-morph) {
+  animation-duration: 320ms;
+  animation-timing-function: cubic-bezier(.22, 1, .36, 1);
+}
+::view-transition-old(.post-title-morph),
+::view-transition-new(.post-title-morph) {
+  height: 100%;
+  animation-duration: 320ms;
+  mix-blend-mode: normal;
+}
+::view-transition-new(.article-reveal) {
+  animation: article-content-in 180ms ease-out 280ms both;
+}
+::view-transition-old(.article-exit) {
+  animation: article-content-in 100ms ease-in reverse both;
+}
+@keyframes article-content-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+  html { scroll-behavior: auto !important; }
+}
+
 :root {
   color-scheme: light;
   --fg: #0f172a;

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { PostLink, PostTitle } from "../components/PostTransition";
 import Header from "../components/Header";
 import { getPosts } from "../lib/posts";
 
@@ -42,26 +42,26 @@ export default function Home() {
                   }
                 >
                   <article className="featured-story">
-                    <Link href={`/posts/${featuredPost.slug}`}>
+                    <PostLink slug={featuredPost.slug} slot="featured">
                       <div className="story-meta">
                         <span>{featuredPost.category}</span>
                         <time dateTime={featuredPost.publishedAt}>
                           {featuredPost.publishedAt}
                         </time>
                       </div>
-                      <h3>{featuredPost.title}</h3>
+                      <PostTitle slug={featuredPost.slug} slot="featured"><h3>{featuredPost.title}</h3></PostTitle>
                       <p>{featuredPost.description}</p>
                       <span className="story-link-label">
                         글 읽기 <span aria-hidden="true">↗</span>
                       </span>
-                    </Link>
+                    </PostLink>
                   </article>
 
                   {secondaryPosts.length > 0 && (
                     <ol className="secondary-stories">
                       {secondaryPosts.map((post, index) => (
                         <li key={post.slug}>
-                          <Link href={`/posts/${post.slug}`}>
+                          <PostLink slug={post.slug} slot="secondary">
                             <span className="story-index">
                               {String(index + 1).padStart(2, "0")}
                             </span>
@@ -70,10 +70,10 @@ export default function Home() {
                                 <span>{post.category}</span>
                                 <time dateTime={post.publishedAt}>{post.publishedAt}</time>
                               </span>
-                              <strong>{post.title}</strong>
+                              <PostTitle slug={post.slug} slot="secondary"><strong>{post.title}</strong></PostTitle>
                               <span>{post.description}</span>
                             </span>
-                          </Link>
+                          </PostLink>
                         </li>
                       ))}
                     </ol>
@@ -90,13 +90,13 @@ export default function Home() {
                 <ol className="writing-list">
                   {posts.map((post, index) => (
                     <li key={post.slug}>
-                      <Link href={`/posts/${post.slug}`}>
+                      <PostLink slug={post.slug} slot="archive">
                         <span className="writing-index">{String(index + 1).padStart(2, "0")}</span>
                         <time dateTime={post.publishedAt}>{post.publishedAt}</time>
-                        <strong>{post.title}</strong>
+                        <PostTitle slug={post.slug} slot="archive"><strong>{post.title}</strong></PostTitle>
                         <span>{post.category}</span>
                         <span className="writing-arrow" aria-hidden="true">↗</span>
-                      </Link>
+                      </PostLink>
                     </li>
                   ))}
                 </ol>

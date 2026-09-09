@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "../../../components/Header";
 import ArticleToc from "../../../components/ArticleToc";
+import { ArticleReveal, PostBackLink, PostTitle } from "../../../components/PostTransition";
 import { getPostBySlug, getPosts } from "../../../lib/posts";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -44,7 +45,7 @@ export default async function PostPage({ params }: Props) {
       <main className="blog-main article-main" id="main-content">
         <article className="blog-container" aria-labelledby="article-title">
           <div className="article-breadcrumb">
-            <Link href="/">← 글 목록</Link>
+            <PostBackLink slug={post.slug}>← 글 목록</PostBackLink>
             <span>NOTE {String(post.id).padStart(2, "0")}</span>
           </div>
           <header className="article-header">
@@ -54,7 +55,7 @@ export default async function PostPage({ params }: Props) {
               <p>Research &<br />Reflections</p>
             </div>
             <div className="article-heading">
-              <h1 id="article-title">{post.title}</h1>
+              <PostTitle slug={post.slug}><h1 id="article-title">{post.title}</h1></PostTitle>
               <p className="article-deck">{post.description}</p>
               <div className="article-byline">
                 <Link href="/about">김선준 <span>Sunjoon Kim</span></Link>
@@ -62,13 +63,13 @@ export default async function PostPage({ params }: Props) {
               </div>
             </div>
           </header>
-          <div className="article-layout">
+          <ArticleReveal><div className="article-layout">
             <ArticleToc sections={post.sections} />
             <div className="article-prose"><Content /></div>
-          </div>
+          </div></ArticleReveal>
           <footer className="article-end">
             <span className="article-eyebrow">End of note {String(post.id).padStart(2, "0")}</span>
-            <Link href="/">모든 글 보기 <span aria-hidden="true">↗</span></Link>
+            <PostBackLink slug={post.slug}>모든 글 보기 <span aria-hidden="true">↗</span></PostBackLink>
           </footer>
         </article>
       </main>
