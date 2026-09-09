@@ -6,14 +6,25 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 type Origin = { slug: string; slot: string };
+type ArchiveView = "list" | "cards";
 const OriginContext = createContext<{
   origin: Origin | null;
   select: (origin: Origin) => void;
-}>({ origin: null, select: () => {} });
+  archiveView: ArchiveView;
+  setArchiveView: (view: ArchiveView) => void;
+}>({ origin: null, select: () => {}, archiveView: "list", setArchiveView: () => {} });
 
 export function PostTransitionProvider({ children }: { children: ReactNode }) {
   const [origin, select] = useState<Origin | null>(null);
-  return <OriginContext.Provider value={{ origin, select }}>{children}</OriginContext.Provider>;
+  // Keep the layout in the persistent provider so back navigation restores it
+  // before React captures the destination title and restores scroll position.
+  const [archiveView, setArchiveView] = useState<ArchiveView>("list");
+  return <OriginContext.Provider value={{ origin, select, archiveView, setArchiveView }}>{children}</OriginContext.Provider>;
+}
+
+export function useArchiveView() {
+  const { archiveView, setArchiveView } = useContext(OriginContext);
+  return { archiveView, setArchiveView };
 }
 
 export function PostLink({ slug, slot, children }: Origin & { children: ReactNode }) {

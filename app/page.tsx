@@ -1,5 +1,6 @@
 import { PostLink, PostTitle } from "../components/PostTransition";
 import Header from "../components/Header";
+import PostArchive from "../components/PostArchive";
 import { getPosts } from "../lib/posts";
 
 export default function Home() {
@@ -81,26 +82,9 @@ export default function Home() {
                 </div>
               </section>
 
-              <section className="writing-section" aria-labelledby="writing-heading">
-                <header className="editorial-section-header">
-                  <p className="blog-kicker">Archive</p>
-                  <h2 id="writing-heading">전체 글</h2>
-                </header>
-
-                <ol className="writing-list">
-                  {posts.map((post, index) => (
-                    <li key={post.slug}>
-                      <PostLink slug={post.slug} slot="archive">
-                        <span className="writing-index">{String(index + 1).padStart(2, "0")}</span>
-                        <time dateTime={post.publishedAt}>{post.publishedAt}</time>
-                        <PostTitle slug={post.slug} slot="archive"><strong>{post.title}</strong></PostTitle>
-                        <span>{post.category}</span>
-                        <span className="writing-arrow" aria-hidden="true">↗</span>
-                      </PostLink>
-                    </li>
-                  ))}
-                </ol>
-              </section>
+              <PostArchive posts={posts.map(({ slug, title, description, category, publishedAt, readingMinutes }) => ({
+                slug, title, description, category, publishedAt, readingMinutes,
+              }))} />
             </>
           ) : (
             <section
