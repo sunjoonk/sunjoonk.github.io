@@ -1,4 +1,5 @@
 import AstraArticle, { metadata as astraMetadata, sections as astraSections } from "../content/posts/gpt-6-astra.mdx";
+import GitArticle, { metadata as gitMetadata, sections as gitSections } from "../content/posts/git-internals-and-collaboration.mdx";
 import type { ComponentType } from "react";
 
 export type Post = {
@@ -15,6 +16,12 @@ export type Post = {
 
 // Explicit local imports keep the static export deterministic and MDX trusted.
 export const posts: Post[] = [{
+  ...gitMetadata,
+  id: 2,
+  slug: "git-internals-and-collaboration",
+  sections: gitSections,
+  Content: GitArticle,
+}, {
   ...astraMetadata,
   id: 1,
   slug: "gpt-6-astra",
