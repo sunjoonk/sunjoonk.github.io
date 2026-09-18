@@ -89,3 +89,9 @@ export const sections = [
 `poster`, `captionsSrc`, `source`, `sourceHref`는 선택 항목입니다.
 외부 동영상 파일은 해당 서버의 접근·자막 CORS 정책에 따라 동작합니다.
 YouTube 등 외부 플레이어 임베드는 이 파일 재생용 컴포넌트의 대상이 아닙니다.
+
+## 관계 그래프
+
+`RelationshipGraph`를 MDX에서 import 없이 사용할 수 있습니다. 노드와 연결 데이터를 전달하고,
+제목·설명·캡션을 작성합니다. 큰 데이터는 `content/visualizations/`에 분리합니다.
+사용 예제와 지원 범위는 [시각 설명 컴포넌트 문서](../../components/visualizations/README.md)를 참고하세요.
