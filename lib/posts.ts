@@ -1,6 +1,7 @@
 import AstraArticle, { metadata as astraMetadata, sections as astraSections } from "../content/posts/gpt-6-astra.mdx";
 import GitArticle, { metadata as gitMetadata, sections as gitSections } from "../content/posts/git-internals-and-collaboration.mdx";
 import RagArticle, { metadata as ragMetadata, sections as ragSections } from "../content/posts/rag-beyond-similarity.mdx";
+import AwsArticle, { metadata as awsMetadata, sections as awsSections } from "../content/posts/aws-deployment-and-operations.mdx";
 import type { ComponentType } from "react";
 
 export type Post = {
@@ -16,6 +17,12 @@ export type Post = {
 
 // Explicit local imports keep the static export deterministic and MDX trusted.
 export const posts: Post[] = [{
+  ...awsMetadata,
+  id: 4,
+  slug: "aws-deployment-and-operations",
+  sections: awsSections,
+  Content: AwsArticle,
+}, {
   ...ragMetadata,
   id: 3,
   slug: "rag-beyond-similarity",
