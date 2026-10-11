@@ -7,6 +7,14 @@
 - `RelationshipGraph`: 소규모 관계를 설명하는 인터랙티브 그래프.
 - `graph-model.ts`: 데이터 타입, 유효성 검사, 초기 배치와 인접 관계 계산.
 - `index.ts`: 외부에서 사용할 컴포넌트와 타입의 진입점.
+- `RagEvidence`: RAG 글 전용 근거 비교. `VisualFigure`를 공유하며, A·B만 읽을 때와
+  별칭 근거 C를 함께 읽을 때의 관계와 답변 범위를 비교한다. 실제 검색·모델 호출은 하지 않는다.
+  기본 화면은 전체 근거를 보여주며, 두 버튼은 키보드로 조작할 수 있다.
+  결과는 텍스트로도 표시하고 변경된 답변을 live region으로 알린다.
+- `JevDecision`: Jev 글 전용 확률·정책 비교. 가상 신고 세 개와 고정된 분포를 사용하고,
+  최고 확률 하한(0.50~0.95)을 바꿔 자동 배정과 검토의 경계를 보여준다. 실제 API를 호출하지 않는다.
+  Choice confidence는 공식 문서의 식으로 계산하지만 배정 기준은 최고 확률이다.
+  범례와 숫자는 텍스트로 표시하며, 결과는 live region으로 알린다.
 
 ## MDX에서 사용
 
@@ -36,8 +44,9 @@
 ```
 
 React 코드에서는 `import { RelationshipGraph } from "./visualizations"`처럼 사용합니다.
-실제 글에 연결한 예제는 `components/ArticleNoteGraph.tsx`와
-`content/visualizations/rag-note-graph.ts`를 참고하세요.
+기존 관계 그래프 데이터는 `content/visualizations/jev-system-one-graph.ts`와
+`content/visualizations/rag-note-graph.ts`에 보존되어 있습니다.
+현재 RAG 글은 `RagEvidence`, Jev 글은 `JevDecision`을 직접 import해 사용합니다.
 
 ## 데이터와 동작
 
