@@ -1,0 +1,48 @@
+.experiment { padding: 4px 0 24px; }
+.experiment button { font: inherit; cursor: pointer; }
+.experiment button:focus-visible { outline: 2px solid var(--journal-accent); outline-offset: 4px; }
+.scenarios { display: flex; gap: 24px; border-bottom: 1px solid var(--journal-line); }
+.scenarios button { min-height: 44px; padding: 12px 0; border: 0; border-bottom: 2px solid transparent; background: none; color: var(--journal-muted); font-size: 13px; }
+.scenarios button[aria-pressed="true"] { border-bottom-color: var(--journal-accent); color: var(--journal-accent); font-weight: 650; }
+.steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: 24px 0; border-block: 1px solid var(--journal-line); }
+.steps button { display: flex; gap: 7px; align-items: baseline; justify-content: center; min-height: 58px; padding: 12px 4px; border: 0; background: none; color: var(--journal-muted); font-size: 12px; }
+.steps button + button { border-left: 1px solid var(--journal-line); }
+.steps button span { font: 11px/1.5 ui-monospace, monospace; }
+.steps button[aria-pressed="true"] { background: var(--journal-surface); color: var(--journal-accent); box-shadow: inset 0 -2px var(--journal-accent); }
+.summary { min-height: 124px; }
+.eyebrow { color: var(--journal-muted); font: 11px/1.6 ui-monospace, monospace; }
+.summary .headline { margin: 8px 0; font-family: var(--journal-serif); font-size: clamp(23px, 3vw, 30px); line-height: 1.45; letter-spacing: -.025em; }
+.readout { color: var(--journal-accent); font: 12px/1.8 system-ui, sans-serif; }
+.diagram { margin-top: 14px; border-block: 1px solid var(--journal-line); padding: 22px 0 26px; }
+.ingress { display: flex; flex-direction: column; align-items: center; font-size: 12px; color: var(--journal-muted); }
+.ingress > span:nth-child(2) { font-size: 22px; color: var(--journal-accent); line-height: 1.5; }
+.ingress strong { color: var(--journal-ink); font: 500 20px/1.5 ui-monospace, monospace; letter-spacing: .08em; }
+.ingress small { font-size: 11px; }
+.lanes { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; margin-top: 22px; }
+.lane { border-top: 2px solid var(--journal-line); min-width: 0; }
+.lane[data-state="ready"] { border-top-color: var(--journal-accent); }
+.laneHeading { display: flex; align-items: baseline; gap: 12px; padding-top: 10px; }
+.laneHeading strong { font: 500 22px/1.5 ui-monospace, monospace; }
+.laneHeading > span { font-size: 12px; color: var(--journal-muted); }
+.connector { display: flex; align-items: center; gap: 10px; min-height: 40px; color: var(--journal-muted); font-size: 11px; }
+.connector > span { font-size: 20px; }
+.lane[data-state="ready"] .connector { color: var(--journal-accent); }
+.replicas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.task { display: flex; flex-direction: column; justify-content: center; min-height: 100px; border: 1px solid var(--journal-line); padding: 12px; }
+.taskId { color: var(--journal-muted); font: 11px/1.6 ui-monospace, monospace; }
+.task strong { font-size: 12px; font-weight: 500; margin-top: 8px; line-height: 1.5; }
+.task small { font-size: 10px; color: var(--journal-muted); line-height: 1.7; margin-top: 5px; }
+.lane[data-state="ready"] .task { background: var(--journal-surface); border-color: var(--journal-accent); }
+.lane[data-state="starting"] .task, .lane[data-state="unhealthy"] .task { border-style: dashed; }
+.lane[data-state="absent"] .task, .lane[data-state="stopped"] .task { color: var(--journal-muted); }
+.experiment .observation { margin: 20px 0 0; min-height: 84px; font-size: 14px; line-height: 1.9; }
+.experiment .note { margin: 12px 0 0; color: var(--journal-muted); font-size: 11px; line-height: 1.85; }
+@media (max-width: 560px) {
+  .steps button { flex-direction: column; align-items: center; justify-content: flex-start; gap: 5px; min-height: 76px; font-size: 11px; }
+  .lanes { gap: 16px; }
+  .replicas { grid-template-columns: minmax(0, 1fr); }
+  .task { min-height: 96px; }
+  .summary { min-height: 142px; }
+  .connector { min-height: 50px; line-height: 1.6; }
+  .experiment .observation { min-height: 134px; }
+}

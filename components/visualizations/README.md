@@ -16,6 +16,23 @@
   Choice confidence는 공식 문서의 식으로 계산하지만 배정 기준은 최고 확률이다.
   범례와 숫자는 텍스트로 표시하며, 결과는 live region으로 알린다.
 
+- `DeploymentWalkthrough`: AWS 글의 정상 교체·준비 실패를 각각 다섯 장면으로 비교한다.
+  단계는 시나리오 전환 시 유지하며, 실행 수와 새 요청 대상 수를 상태에서 계산한다.
+  실제 스케줄링·시간·트래픽 분산을 재현하지 않는다. 키보드로 조작하고 결과를 live region으로 읽는다.
+  데이터는 `content/visualizations/deployment-scenarios.ts`에서 관리한다.
+
+- `GitSnapshot`: 작업 파일·인덱스·HEAD의 값을 조작하며 두 diff와 짧은 상태를 비교한다.
+  추적 파일 하나와 기본 commit만 다루고 실제 Git은 실행하지 않는다.
+  상태 전이는 `content/visualizations/git-snapshot.ts`에 둔다.
+- `CompletionEvidence`: 같은 가상 실행 8개를 세 완료 기준으로 재판정한다.
+  분모와 기록을 유지하고 집계만 바꾼다. 모델 성능을 측정한 데이터가 아니다.
+  데이터와 판정 함수는 `content/visualizations/completion-evidence.ts`에 둔다.
+
+- `ReconstructionLab`: 세 입력에서 일치하는 후보 식에 중간 관찰을 추가한다.
+  DX-Ball 문서의 scale=1 식을 기준으로 사용하며, B·C는 직접 만든 비교 후보다.
+  REA나 원본 실행 파일을 호출하지 않는다. 정수 0~640만 다룬다.
+  기준식·후보·판정은 `content/visualizations/reconstruction-model.ts`에 둔다.
+
 ## MDX에서 사용
 
 `RelationshipGraph`는 MDX에 등록되어 있어 import 없이 사용할 수 있습니다.

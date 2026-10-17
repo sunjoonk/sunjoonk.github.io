@@ -1,3 +1,4 @@
+import ReverseArticle, { metadata as reverseMetadata, sections as reverseSections } from "../content/posts/rea-reverse-engineering.mdx";
 import TypographyArticle, { metadata as typographyMetadata, sections as typographySections } from "../content/posts/interactive-typography.mdx";
 import AstraArticle, { metadata as astraMetadata, sections as astraSections } from "../content/posts/gpt-6-astra.mdx";
 import GitArticle, { metadata as gitMetadata, sections as gitSections } from "../content/posts/git-internals-and-collaboration.mdx";
@@ -19,6 +20,12 @@ export type Post = {
 
 // Explicit local imports keep the static export deterministic and MDX trusted.
 export const posts: Post[] = [{
+  ...reverseMetadata,
+  id: 7,
+  slug: "rea-reverse-engineering",
+  sections: reverseSections,
+  Content: ReverseArticle,
+}, {
   ...typographyMetadata,
   id: 6,
   slug: "interactive-typography",

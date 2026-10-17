@@ -1,0 +1,36 @@
+.lab { padding: 0 0 20px; }
+.topline { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:22px; font:12px/1.6 ui-monospace,monospace; color:var(--journal-muted); }
+.lab button,.lab select { min-height:44px; font:12px/1.5 ui-monospace,monospace; cursor:pointer; color:var(--journal-ink); background:var(--journal-surface); border:1px solid var(--journal-line); padding:10px; border-radius:0; }
+.lab button:focus-visible,.lab select:focus-visible { outline:2px solid var(--journal-accent); outline-offset:3px; }
+.lab button:disabled { color:var(--journal-muted); cursor:default; opacity:.55; }
+.topline button { background:none; border:0; padding-inline:0; color:var(--journal-muted); text-decoration:underline; text-underline-offset:4px; }
+.snapshots { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+.snapshot { display:flex; flex-direction:column; min-width:0; padding:18px 0 0; border-top:2px solid var(--journal-accent); }
+.eyebrow { color:var(--journal-muted); font:10px/1.6 ui-monospace,monospace; letter-spacing:.05em; }
+.lab h4 { font-size:13px; margin:8px 0; font-weight:500; }
+.snapshot > code { margin:20px 0 24px; padding:0; background:none; font:12px/1.8 ui-monospace,monospace; white-space:nowrap; }
+.snapshot > code strong { display:block; font-size:36px; font-weight:400; letter-spacing:-.04em; color:var(--journal-accent); }
+.snapshot label,.actionHint { font-size:11px; color:var(--journal-muted); margin-bottom:8px; }
+.lab .message { border-bottom:1px solid var(--journal-line); padding:20px 0; margin:0; min-height:100px; font-size:14px; line-height:1.9; }
+.diffs { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; padding-top:12px; }
+.diffs h4 { font-family:ui-monospace,monospace; }
+.diffs small { font-size:11px; color:var(--journal-muted); }
+.diff { display:flex; flex-direction:column; min-height:70px; padding:12px 0; font:12px/1.8 ui-monospace,monospace; }
+.added { color:var(--journal-accent); }
+.empty { color:var(--journal-muted); }
+.status { display:flex; flex-wrap:wrap; gap:8px 24px; border-top:1px solid var(--journal-line); padding-top:16px; }
+.status code { font:12px/1.7 ui-monospace,monospace; white-space:pre; }
+.status span { flex-basis:100%; font-size:11px; color:var(--journal-muted); }
+@media(max-width:560px) {
+ .snapshots { grid-template-columns:1fr; gap:20px; }
+ .snapshot { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); column-gap:16px; padding-top:12px; }
+ .eyebrow { grid-column:1/-1; }
+ .snapshot h4 { grid-column:1; }
+ .snapshot > code { grid-column:2; grid-row:2/5; margin:8px 0; align-self:center; text-align:right; }
+ .snapshot > code strong { font-size:32px; }
+ .snapshot label,.actionHint { grid-column:1; margin-top:6px; }
+ .snapshot button,.snapshot select { grid-column:1; font-size:10px; padding:8px 4px; }
+ .diffs { gap:14px; }
+ .diffs h4,.diff { font-size:11px; }
+ .lab .message { min-height:125px; }
+}
