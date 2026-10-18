@@ -10,7 +10,7 @@ export default function PostArchive({ posts }: { posts: ArchivePost[] }) {
   const cards = archiveView === "cards";
 
   return (
-    <section className="writing-section" aria-labelledby="writing-heading">
+    <section className="writing-section" id="writing" aria-labelledby="writing-heading" tabIndex={-1}>
       <header className="editorial-section-header archive-header">
         <p className="blog-kicker">Archive</p>
         <div className="archive-heading-row">

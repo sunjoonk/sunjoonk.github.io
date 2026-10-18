@@ -89,6 +89,8 @@ export default function Home() {
           ) : (
             <section
               className="writing-section empty-writing-section"
+              id="writing"
+              tabIndex={-1}
               aria-labelledby="writing-heading"
             >
               <header className="editorial-section-header">

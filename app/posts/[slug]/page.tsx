@@ -5,6 +5,7 @@ import Header from "../../../components/Header";
 import ArticleToc from "../../../components/ArticleToc";
 import { ArticleReveal, PostBackLink, PostTitle } from "../../../components/PostTransition";
 import { getPostBySlug, getPosts } from "../../../lib/posts";
+import { getRelatedPosts } from "../../../lib/related-posts";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -38,6 +39,7 @@ export default async function PostPage({ params }: Props) {
   const post = getPostBySlug((await params).slug);
   if (!post) notFound();
   const { Content } = post;
+  const relatedPosts = getRelatedPosts(post.slug);
 
   return (
     <>
@@ -69,8 +71,28 @@ export default async function PostPage({ params }: Props) {
           </div></ArticleReveal>
           <footer className="article-end">
             <span className="article-eyebrow">End of note {String(post.id).padStart(2, "0")}</span>
-            <PostBackLink slug={post.slug}>모든 글 보기 <span aria-hidden="true">↗</span></PostBackLink>
+            <Link href="/#writing">모든 글 보기 <span aria-hidden="true">↗</span></Link>
           </footer>
+          {relatedPosts.length > 0 && (
+            <section className="related-reading" aria-labelledby="related-reading-heading">
+              <header className="related-reading-header">
+                <h2 id="related-reading-heading">다음에 읽을 것</h2>
+                <Link href="/#writing">전체 글 둘러보기 ↗</Link>
+              </header>
+              <ul className="related-reading-list">
+                {relatedPosts.map(({ post: related, reason }) => (
+                  <li key={related.slug}>
+                    <Link href={`/posts/${related.slug}`}>
+                      <span className="article-eyebrow">{related.category}</span>
+                      <h3>{related.title}</h3>
+                      <p>{reason}</p>
+                      <span className="story-link-label">이어서 읽기 <span aria-hidden="true">↗</span></span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
         </article>
       </main>
     </>
