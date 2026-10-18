@@ -95,3 +95,19 @@ YouTube 등 외부 플레이어 임베드는 이 파일 재생용 컴포넌트�
 `RelationshipGraph`를 MDX에서 import 없이 사용할 수 있습니다. 노드와 연결 데이터를 전달하고,
 제목·설명·캡션을 작성합니다. 큰 데이터는 `content/visualizations/`에 분리합니다.
 사용 예제와 지원 범위는 [시각 설명 컴포넌트 문서](../../components/visualizations/README.md)를 참고하세요.
+
+## 코드와 실행 결과
+
+일반 fenced code block에 언어(`bash`, `js`, `json` 등)를 지정하면 언어 표시와 복사 버튼이
+자동으로 붙습니다. `text`는 설명용 텍스트로 표시됩니다. 복사는 코드 원문만 포함합니다.
+
+파일명을 표시하거나 실행 결과를 구분하려면 `ArticleCode`를 사용합니다. 별도 import는
+필요하지 않습니다. 파일명은 실제 파일 또는 예제용 파일임을 본문에서 명확히 합니다.
+
+```mdx
+<ArticleCode language="bash" filename="commands.sh" code={'git status --short\n'} />
+<ArticleCode language="text" kind="output" code={' M config.txt\n'} />
+```
+
+복사 가능한 코드와 설명용 의사 코드를 본문에서 구분하고, 필요한 설치 조건과 실행 위치를
+함께 적습니다. 저장소·데모는 실제 공개된 주소가 있을 때 링크합니다.

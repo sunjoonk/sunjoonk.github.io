@@ -74,15 +74,9 @@ Next.js에서 쓸 수 있다고 해서 이 효과가 Next.js만의 기능인 것
 
 움직일 문단의 문장은 MDX에 작성하고, 마우스 이벤트와 브라우저 API를 사용하는 컴포넌트에만 `"use client"`를 선언했다. Next.js는 이런 상호작용을 Client Component로 분리할 수 있고, MDX에서는 컴포넌트를 import해 본문 사이에 배치할 수 있다. [Server와 Client Component](https://nextjs.org/docs/app/getting-started/server-and-client-components) · [MDX 가이드](https://nextjs.org/docs/app/guides/mdx)
 
-```mdx
-import InteractiveTypography from "../../components/experiments/InteractiveTypography";
+아래는 이 블로그의 컴포넌트를 MDX 글에 연결하는 예시다. `example.mdx`는 예제용 파일명이며, 위에서 설명한 `InteractiveTypography` 컴포넌트가 먼저 필요하다.
 
-이 문장은 평범한 본문으로 남는다.
-
-<InteractiveTypography text="이 문단의 글자만 마우스에 반응한다." />
-
-다음 문단부터는 다시 조용히 읽을 수 있다.
-```
+<ArticleCode language="mdx" filename="content/posts/example.mdx" code={"import InteractiveTypography from \"../../components/experiments/InteractiveTypography\";\n\n이 문장은 평범한 본문으로 남는다.\n\n<InteractiveTypography text=\"이 문단의 글자만 마우스에 반응한다.\" />\n\n다음 문단부터는 다시 조용히 읽을 수 있다.\n"} />
 
 컴포넌트도 본문과 같은 글자 크기와 줄 간격을 사용하는 `p`로 렌더링한다. 테두리나 배경으로 별도 영역을 만들지 않고, 단어 사이에서 줄바꿈한다. 스크린 리더에는 문장 전체를 한 번만 전달하고, 움직이는 글자들은 중복해서 읽지 않도록 숨긴다.
 

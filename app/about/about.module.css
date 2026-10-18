@@ -1,0 +1,27 @@
+.main {
+  padding: clamp(40px, 6vw, 76px) 24px clamp(64px, 8vw, 100px);
+  color: var(--journal-ink);
+}
+
+.profile { max-width: 720px; margin: 0 auto; }
+.identity { display: flex; align-items: center; gap: 28px; margin-bottom: 36px; }
+.portrait { width: 112px; height: 112px; flex-shrink: 0; object-fit: cover; border: 1px solid var(--journal-line); border-radius: 50%; }
+.eyebrow { margin: 0 0 8px; color: var(--journal-accent); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.identity h1 { margin: 0 0 12px; font-family: var(--journal-serif); font-size: clamp(38px, 5vw, 52px); font-weight: 400; line-height: 1.15; letter-spacing: -.04em; }
+.role { margin: 0; color: var(--journal-muted); font-size: 13px; line-height: 1.6; }
+.intro, .section { font-size: 17px; line-height: 1.9; color: var(--journal-muted); word-break: keep-all; overflow-wrap: anywhere; }
+.intro p, .section p { margin: 0 0 16px; }
+.intro .lead { margin-bottom: 18px; color: var(--journal-ink); font-family: var(--journal-serif); font-size: clamp(26px, 3vw, 32px); letter-spacing: -.025em; line-height: 1.5; }
+.profile .section { max-width: none; margin: 36px 0 0; padding: 0; border: 0; }
+.section h2 { margin: 0 0 14px; color: var(--journal-ink); font-size: 18px; font-weight: 650; line-height: 1.6; letter-spacing: -.02em; }
+.contact { display: flex; gap: 26px; flex-wrap: wrap; margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--journal-line); }
+.contact a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--journal-accent); font-size: 14px; text-decoration: none; }
+.contact a:hover { color: var(--journal-ink); text-decoration: underline; text-underline-offset: 5px; }
+.contact a:focus-visible { outline: 2px solid var(--journal-accent); outline-offset: 4px; }
+@media (max-width: 480px) {
+  .main { padding-inline: 20px; }
+  .identity { gap: 18px; align-items: flex-start; }
+  .portrait { width: 80px; height: 80px; }
+  .role { max-width: 200px; }
+  .intro, .section { font-size: 16px; }
+}

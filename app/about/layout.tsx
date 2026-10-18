@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 const description =
-  "AI를 활용해 더 나은 제품을 만드는 개발자 김선준의 일하는 방식과 관심사를 소개합니다.";
+  "RAG 기반 시험 장비 자동화 서비스를 개발하는 AI 엔지니어이자 풀스택 개발자 김선준의 일과 관심사를 소개합니다.";
 
 export const metadata: Metadata = {
   title: "About",
