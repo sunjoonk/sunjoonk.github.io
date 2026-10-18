@@ -14,7 +14,7 @@ export default function Header() {
 
         <nav className="blog-nav" aria-label="주요 메뉴">
           <Link href="/">Home</Link>
-          <Link href="/#writing">글 목록</Link>
+          <Link href="/#writing">Post</Link>
           <Link href="/about">About</Link>
           <ThemeToggle />
         </nav>
