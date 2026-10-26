@@ -10,7 +10,7 @@ import styles from "./JournalHome.module.css";
 
 type Summary = Pick<Post, "slug" | "title" | "description" | "category" | "publishedAt">;
 const labels: Record<string, string> = {
-  "AI Research": "AI 리서치", "AI Engineering": "AI 엔지니어링",
+  AI: "AI", "리서치": "리서치",
   Engineering: "엔지니어링",
 };
 

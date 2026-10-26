@@ -3120,3 +3120,12 @@ html[data-theme="dark"] .skip-link:focus-visible {
 
 /* Preserve the home masthead while reading the archive. */
 .blog-header-sticky { position: sticky; top: 0; z-index: 50; }
+
+/* Reading progress follows the article body, not the recommendation area. */
+.reading-progress { position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; overflow: hidden; background: var(--journal-line); pointer-events: none; }
+.reading-progress > span { display: block; width: 100%; height: 100%; background: var(--journal-accent); transform-origin: left center; }
+.article-main h1[id], .article-main h2[id] { scroll-margin-top: calc(var(--reading-header-height, 128px) + 24px); }
+@media (min-width: 821px) {
+  .article-toc nav { top: calc(var(--reading-header-height, 128px) + 24px); max-height: calc(100dvh - var(--reading-header-height, 128px) - 48px); }
+}
+@media print { .reading-progress { display: none; } }

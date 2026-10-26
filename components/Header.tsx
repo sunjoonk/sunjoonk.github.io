@@ -1,9 +1,10 @@
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
+import ReadingProgress from "./ReadingProgress";
 
-export default function Header({ sticky = false }: { sticky?: boolean }) {
+export default function Header({ sticky = false, readingProgress = false }: { sticky?: boolean; readingProgress?: boolean }) {
   return (
-    <header className={`blog-header${sticky ? " blog-header-sticky" : ""}`}>
+    <header className={`blog-header${sticky || readingProgress ? " blog-header-sticky" : ""}`}>
       <div className="blog-header-inner">
         <div className="blog-masthead">
           <Link className="blog-brand" href="/">
@@ -14,11 +15,11 @@ export default function Header({ sticky = false }: { sticky?: boolean }) {
 
         <nav className="blog-nav" aria-label="주요 메뉴">
           <Link href="/">Home</Link>
-          <Link href="/#writing">Post</Link>
           <Link href="/about">About</Link>
           <ThemeToggle />
         </nav>
       </div>
+      {readingProgress && <ReadingProgress />}
     </header>
   );
 }

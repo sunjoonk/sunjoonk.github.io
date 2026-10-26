@@ -44,7 +44,7 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <>
-      <Header />
+      <Header key={post.slug} readingProgress />
       <main className="blog-main article-main" id="main-content">
         <article className="blog-container" aria-labelledby="article-title">
           <div className="article-breadcrumb">
