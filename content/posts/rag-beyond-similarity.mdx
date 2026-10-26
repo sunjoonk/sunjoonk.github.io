@@ -5,6 +5,7 @@ export const metadata = {
   description: "관련 문서를 찾는 것과 답에 필요한 근거를 모으는 것은 다릅니다. 문서 세 개로 검색의 빈틈을 살펴보고, 후보·연결·전체 범위 중 무엇이 빠졌는지 구분합니다.",
   category: "AI Research",
   publishedAt: "2026-09-10",
+  updatedAt: "2026-10-26",
 };
 
 export const sections = [
@@ -14,6 +15,7 @@ export const sections = [
   { id: "limits", title: "실패를 세 가지로 나누기" },
   { id: "graphrag", title: "GraphRAG가 돕는 지점" },
   { id: "evaluation", title: "먼저, 빠진 근거를 찾자" },
+  { id: "diagnostic", title: "직접 실행하는 근거 누락 점검" },
   { id: "references", title: "참고 자료" },
 ];
 
@@ -118,9 +120,66 @@ A와 B는 찾았지만 C를 놓쳤다. 이때는 ‘Auth Service’로 한 번 �
 
 RAG를 개선할 때 내가 먼저 묻고 싶은 것은 <strong>“더 잘 찾았나?”와 함께 “답에 필요한 근거를 모았나?”</strong>다. 검색 결과가 그럴듯할수록, 그 사이의 빈틈을 확인해야 한다.
 
+<h2 id="diagnostic">직접 실행하는 근거 누락 점검</h2>
+
+“검색을 개선하자”는 말만으로는 다음 실험을 정하기 어렵다. 앞의 질문 하나를 고정하고, **필요한 근거 → 검색 후보 → 최종 전달 근거**를 나란히 기록해보자. 검색과 리랭킹이 분리된 구성에서는 후보를 얻은 시점과 모델에 문맥을 넘기는 시점을 각각 관찰할 수 있다. [Retrieve & Re-Rank 공식 설명](https://www.sbert.net/examples/sentence_transformer/applications/retrieve_rerank/README.html)
+
+아래는 이 글의 A·B·C가 모두 필요하다고 정한 가상 점검 기록이다. 모델 성능을 측정한 결과가 아니며, 문서 ID가 포함됐는지만 비교한다.
+
+<div className="article-table-wrap" role="region" aria-label="같은 질문의 세 실행에서 근거가 빠진 단계 비교" tabIndex={0}>
+  <table>
+    <caption>질문: 결제와 주문이 함께 의존하는 서비스는?</caption>
+    <thead><tr><th scope="col">가상 실행</th><th scope="col">검색 후보</th><th scope="col">최종 근거</th><th scope="col">다음 확인</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">01</th><td>A, C</td><td>A, C</td><td>B가 후보에 없는 이유</td></tr>
+      <tr><th scope="row">02</th><td>A, B, C</td><td>A, B</td><td>C가 선택·조립 과정에서 빠진 이유</td></tr>
+      <tr><th scope="row">03</th><td>A, B, C</td><td>A, B, C</td><td>답변이 근거를 올바르게 쓰는지</td></tr>
+    </tbody>
+  </table>
+</div>
+
+두 번째 실행을 리랭커의 잘못이라고 바로 결론 내리지는 말자. 순위뿐 아니라 최종 선택 개수, 중복 제거, 문맥 길이 제한도 함께 확인해야 한다. 이 기록이 알려주는 것은 **어느 구간을 조사할지**이며, 정확한 원인은 그 구간의 로그로 좁혀야 한다.
+
+<h3>패키지 설치 없이 실행하기</h3>
+
+Python 3가 있는 환경에서 아래 코드를 `check_evidence.py`로 저장하고, 같은 폴더의 터미널에서 `python3 check_evidence.py`를 실행한다. 외부 서비스 호출이나 API 키는 필요 없다.
+
+```python
+# 이 예제에서는 A, B, C가 모두 필요한 근거라고 가정한다.
+required = {"A", "B", "C"}
+runs = [
+    ("01", {"A", "C"}, {"A", "C"}),
+    ("02", {"A", "B", "C"}, {"A", "B"}),
+    ("03", {"A", "B", "C"}, {"A", "B", "C"}),
+]
+
+for run_id, candidates, context in runs:
+    missing_at_search = required - candidates
+    lost_after_search = (required & candidates) - context
+    complete = required <= context
+    print(f"실행 {run_id}")
+    print("  후보에 없음:", ", ".join(sorted(missing_at_search)) or "없음")
+    print("  후보에는 있지만 최종 근거에 없음:",
+          ", ".join(sorted(lost_after_search)) or "없음")
+    print("  필수 근거 모두 전달:", "예" if complete else "아니오")
+```
+
+<ArticleCode language="text" kind="output" code={'실행 01\n  후보에 없음: B\n  후보에는 있지만 최종 근거에 없음: 없음\n  필수 근거 모두 전달: 아니오\n실행 02\n  후보에 없음: 없음\n  후보에는 있지만 최종 근거에 없음: C\n  필수 근거 모두 전달: 아니오\n실행 03\n  후보에 없음: 없음\n  후보에는 있지만 최종 근거에 없음: 없음\n  필수 근거 모두 전달: 예'} />
+
+<h3>내 프로젝트에 옮길 때</h3>
+
+실제 질문 하나에 대해 필요한 근거를 사람이 먼저 확인하고, `required`를 그 근거의 ID로 바꾼다. `candidates`에는 검색 직후의 ID를, `context`에는 최종 프롬프트에 실제로 남은 근거의 ID를 넣는다. 긴 문서라면 문서 전체의 ID보다 **근거 구절을 식별하는 청크 ID와 버전**을 기록하는 편이 점검 목적에 맞다. 문서가 선택돼도 필요한 문장은 잘려 나갈 수 있기 때문이다.
+
+<div className="article-note">
+  <strong>‘모두 전달: 예’는 정답 판정이 아니다.</strong>
+  <p>이 코드는 이름의 연결을 이해했는지, 답변이 원문과 맞는지, 지난해 전체를 충분히 살폈는지 평가하지 않는다. 필요한 근거 목록 자체가 잘못됐을 수도 있다. 같은 사실을 증명하는 대체 문서가 있다면 허용할 근거 조합도 별도로 정의해야 한다.</p>
+</div>
+
+다음 실험에서는 질문과 근거 목록을 고정하고, 후보 수나 최종 선택 개수처럼 한 가지 설정부터 바꿔보자. 누락이 줄었는지 확인한 다음, 답변의 정확성과 추가 비용·응답 시간을 함께 살핀다. 특정 실패 질문의 개선이 다른 질문에도 통하는지는 별도의 질문 묶음으로 확인해야 한다.
+
 <h2 id="references">참고 자료</h2>
 
-2026년 10월 11일 아래 공식 문서를 확인하고 글의 범위를 다시 정리했다. 예시 문서와 실패 분류는 설명을 위한 필자의 구성이다.
+2026년 10월 11일 아래 공식 문서를 확인하고 글의 범위를 다시 정리했다. 예시 문서와 실패 분류는 설명을 위한 필자의 구성이다. 2026년 10월 26일에는 Retrieve & Re-Rank 문서를 재확인하고, 가상 기록을 사용하는 Python 점검 예제를 추가했다.
 
 - [Sentence Transformers — Retrieve & Re-Rank](https://www.sbert.net/examples/sentence_transformer/applications/retrieve_rerank/README.html): 후보 검색과 재평가의 역할.
 - [Microsoft GraphRAG — Local Search](https://microsoft.github.io/graphrag/query/local_search/): 관련 엔티티를 출발점으로 그래프 정보와 원문을 모으는 방식.

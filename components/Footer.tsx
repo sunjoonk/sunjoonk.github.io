@@ -5,12 +5,6 @@ export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="site-footer-inner">
-        <p className="blog-kicker">Sunjoon Kim</p>
-        <h2>
-          <span>AI의 이론과 서비스를</span>
-          <span>연결하는 기록.</span>
-        </h2>
-
         <div className="site-footer-row">
           <nav className="site-footer-links" aria-label="하단 메뉴">
             <Link href="/">Home</Link>

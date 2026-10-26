@@ -5,7 +5,7 @@ import { PostLink, PostTitle, useArchiveView } from "./PostTransition";
 
 type ArchivePost = Pick<Post, "slug" | "title" | "description" | "category" | "publishedAt">;
 
-export default function PostArchive({ posts }: { posts: ArchivePost[] }) {
+export default function PostArchive({ posts, title = "전체 글" }: { posts: ArchivePost[]; title?: string }) {
   const { archiveView, setArchiveView } = useArchiveView();
   const cards = archiveView === "cards";
 
@@ -14,7 +14,7 @@ export default function PostArchive({ posts }: { posts: ArchivePost[] }) {
       <header className="editorial-section-header archive-header">
         <p className="blog-kicker">Archive</p>
         <div className="archive-heading-row">
-          <h2 id="writing-heading">전체 글</h2>
+          <h2 id="writing-heading">{title}</h2>
           <div className="archive-view-toggle" role="group" aria-label="아카이브 보기 방식">
             <button type="button" aria-pressed={!cards} aria-controls="post-archive" onClick={() => setArchiveView("list")}>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" aria-hidden="true"><path d="M1 3h2m3 0h9M1 8h2m3 0h9M1 13h2m3 0h9" /></svg>

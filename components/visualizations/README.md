@@ -113,3 +113,9 @@ node --test components/visualizations/graph-model.test.mjs
 npx tsc --noEmit
 npm run build
 ```
+
+## SpeechFlow
+
+음성 모델 글의 두 방향을 비교하는 정적 흐름도. STT 인코더·디코더 방식과
+멜 스펙트로그램·보코더를 사용하는 TTS 구성을 단순화한다. 모델을 실행하지 않으며
+화면이 좁으면 두 열이 위아래로 배치된다. 각 단계는 순서 있는 텍스트 목록으로 제공한다.

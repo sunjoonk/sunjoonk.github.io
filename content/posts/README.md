@@ -32,6 +32,8 @@ export const sections = [
 등록하면 홈 목록, `/posts/[slug]` 정적 페이지, 사이트맵에 함께 반영됩니다.
 상세 페이지가 제목과 작성자 정보를 표시하므로 본문에는 h1을 넣지 않습니다.
 목차의 `id`는 본문 h2의 `id`와 일치해야 합니다.
+내용을 보완한 글에는 선택적으로 `updatedAt: "YYYY-MM-DD"`를 추가합니다.
+최초 발행일은 유지하고, 수정일은 본문 헤더·Open Graph·사이트맵에 반영됩니다.
 
 표는 별도 Markdown 플러그인 없이 MDX의 HTML `<table>`로 작성합니다.
 가로 스크롤이 필요한 표는 `article-table-wrap` 클래스로 감싸고 키보드 접근을 위해

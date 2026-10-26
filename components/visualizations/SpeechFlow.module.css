@@ -1,0 +1,16 @@
+.flows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.flow { min-width: 0; padding: clamp(20px, 3vw, 32px); }
+.flow + .flow { border-left: 1px solid var(--journal-line); }
+.label { font-family: ui-monospace, monospace; font-size: .75rem; color: var(--journal-accent); letter-spacing: .06em; }
+.flow h4 { margin: 10px 0 24px; font-family: var(--journal-serif); font-size: 1.5rem; font-weight: 500; }
+.flow ol { list-style: none; padding: 0; margin: 0; }
+.flow li { display: flex; gap: 14px; position: relative; padding: 0 0 26px; margin: 0; }
+.flow li:not(:last-child)::after { content: ""; position: absolute; top: 30px; bottom: 6px; left: 14px; width: 1px; background: var(--journal-line); }
+.number { display: grid; place-items: center; flex: 0 0 30px; height: 30px; border: 1px solid var(--journal-line); border-radius: 50%; font-size: .75rem; color: var(--journal-accent); }
+.flow strong { display: block; font-size: .9375rem; }
+.flow li p { margin: 4px 0 0; color: var(--journal-muted); font-size: .8125rem; line-height: 1.8; }
+.flow .note { margin: 0; padding-top: 16px; border-top: 1px solid var(--journal-line); color: var(--journal-muted); font-size: .75rem; line-height: 1.8; }
+@media (max-width: 600px) {
+  .flows { grid-template-columns: minmax(0, 1fr); }
+  .flow + .flow { border-left: 0; border-top: 1px solid var(--journal-line); }
+}

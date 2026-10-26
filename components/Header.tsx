@@ -1,9 +1,9 @@
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 
-export default function Header() {
+export default function Header({ sticky = false }: { sticky?: boolean }) {
   return (
-    <header className="blog-header">
+    <header className={`blog-header${sticky ? " blog-header-sticky" : ""}`}>
       <div className="blog-header-inner">
         <div className="blog-masthead">
           <Link className="blog-brand" href="/">

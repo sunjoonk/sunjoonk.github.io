@@ -1,3 +1,4 @@
+import SpeechArticle, { metadata as speechMetadata, sections as speechSections } from "../content/posts/speech-to-text-and-back.mdx";
 import ReverseArticle, { metadata as reverseMetadata, sections as reverseSections } from "../content/posts/rea-reverse-engineering.mdx";
 import TypographyArticle, { metadata as typographyMetadata, sections as typographySections } from "../content/posts/interactive-typography.mdx";
 import AstraArticle, { metadata as astraMetadata, sections as astraSections } from "../content/posts/gpt-6-astra.mdx";
@@ -14,12 +15,19 @@ export type Post = {
   description: string;
   category: string;
   publishedAt: string;
+  updatedAt?: string;
   sections: { id: string; title: string }[];
   Content: ComponentType;
 };
 
 // Explicit local imports keep the static export deterministic and MDX trusted.
 export const posts: Post[] = [{
+  ...speechMetadata,
+  id: 8,
+  slug: "speech-to-text-and-back",
+  sections: speechSections,
+  Content: SpeechArticle,
+}, {
   ...reverseMetadata,
   id: 7,
   slug: "rea-reverse-engineering",

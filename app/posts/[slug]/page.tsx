@@ -28,6 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.description,
       url: `/posts/${post.slug}`,
       publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt,
       authors: ["Sunjoon Kim"],
       locale: "ko_KR",
     },
@@ -61,7 +62,10 @@ export default async function PostPage({ params }: Props) {
               <p className="article-deck">{post.description}</p>
               <div className="article-byline">
                 <Link href="/about">김선준 <span>Sunjoon Kim</span></Link>
-                <div><time dateTime={post.publishedAt}>{post.publishedAt.replaceAll("-", ".")}</time></div>
+                <div className="article-dates">
+                  <span>발행 <time dateTime={post.publishedAt}>{post.publishedAt.replaceAll("-", ".")}</time></span>
+                  {post.updatedAt && <span>수정 <time dateTime={post.updatedAt}>{post.updatedAt.replaceAll("-", ".")}</time></span>}
+                </div>
               </div>
             </div>
           </header>

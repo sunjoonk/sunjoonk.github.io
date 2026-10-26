@@ -10,16 +10,24 @@ type ArchiveView = "list" | "cards";
 const OriginContext = createContext<{
   origin: Origin | null;
   select: (origin: Origin) => void;
+  archiveCategory: string;
+  setArchiveCategory: (category: string) => void;
   archiveView: ArchiveView;
   setArchiveView: (view: ArchiveView) => void;
-}>({ origin: null, select: () => {}, archiveView: "list", setArchiveView: () => {} });
+}>({ origin: null, select: () => {}, archiveView: "list", setArchiveView: () => {}, archiveCategory: "all", setArchiveCategory: () => {} });
 
 export function PostTransitionProvider({ children }: { children: ReactNode }) {
+  const [archiveCategory, setArchiveCategory] = useState("all");
   const [origin, select] = useState<Origin | null>(null);
   // Keep the layout in the persistent provider so back navigation restores it
   // before React captures the destination title and restores scroll position.
   const [archiveView, setArchiveView] = useState<ArchiveView>("list");
-  return <OriginContext.Provider value={{ origin, select, archiveView, setArchiveView }}>{children}</OriginContext.Provider>;
+  return <OriginContext.Provider value={{ origin, select, archiveView, setArchiveView, archiveCategory, setArchiveCategory }}>{children}</OriginContext.Provider>;
+}
+
+export function useArchiveCategory() {
+  const { archiveCategory, setArchiveCategory } = useContext(OriginContext);
+  return { archiveCategory, setArchiveCategory };
 }
 
 export function useArchiveView() {

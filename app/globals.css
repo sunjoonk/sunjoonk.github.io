@@ -3111,3 +3111,12 @@ html[data-theme="dark"] .skip-link:focus-visible {
 .article-prose .article-code pre { margin: 0; border: 0; background: transparent; }
 .article-code-feedback { display: block; padding: 0 16px 12px; font-size: .8125rem; color: var(--journal-muted); }
 .article-code-status { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.article-dates { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.article-dates > span { white-space: nowrap; }
+
+/* Compact footer: navigation and attribution only. */
+.site-footer-inner { border-top: 1px solid var(--journal-line); padding-top: 28px; padding-bottom: 28px; }
+
+/* Preserve the home masthead while reading the archive. */
+.blog-header-sticky { position: sticky; top: 0; z-index: 50; }

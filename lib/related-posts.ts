@@ -2,6 +2,10 @@ import { getPostBySlug } from "./posts";
 
 // Editorial connections: explain what a reader can explore next.
 const recommendations: Record<string, { slug: string; reason: string }[]> = {
+  "speech-to-text-and-back": [
+    { slug: "rag-beyond-similarity", reason: "음성 질문을 텍스트로 옮긴 다음, 답변에 필요한 근거를 빠짐없이 모으는 방법을 살펴봅니다." },
+    { slug: "jev-system-one", reason: "인식한 말이 실제 동작으로 이어질 때, 모델 판단과 코드의 처리 규칙을 어떻게 나눌지 생각해봅니다." },
+  ],
   "rea-reverse-engineering": [
     { slug: "interactive-typography", reason: "동작을 관찰한 뒤 직접 구현하는 과정을, 작은 UI 실험으로 이어갑니다." },
     { slug: "gpt-6-astra", reason: "도구가 내놓은 결과를 무엇으로 검증할지, 작업 완료의 기준을 살펴봅니다." },

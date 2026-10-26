@@ -19,7 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...getPosts().map((post) => ({
       url: `${siteUrl}/posts/${post.slug}`,
-      lastModified: post.publishedAt,
+      lastModified: post.updatedAt ?? post.publishedAt,
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
