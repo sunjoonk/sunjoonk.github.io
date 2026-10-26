@@ -7,12 +7,7 @@ const recommendations: Record<string, { slug: string; reason: string }[]> = {
     { slug: "jev-system-one", reason: "인식한 말이 실제 동작으로 이어질 때, 모델 판단과 코드의 처리 규칙을 어떻게 나눌지 생각해봅니다." },
   ],
   "rea-reverse-engineering": [
-    { slug: "interactive-typography", reason: "동작을 관찰한 뒤 직접 구현하는 과정을, 작은 UI 실험으로 이어갑니다." },
     { slug: "gpt-6-astra", reason: "도구가 내놓은 결과를 무엇으로 검증할지, 작업 완료의 기준을 살펴봅니다." },
-  ],
-  "interactive-typography": [
-    { slug: "rea-reverse-engineering", reason: "눈에 보이는 동작을 재현하는 것과 원본 구현을 복원하는 것의 차이를 살펴봅니다." },
-    { slug: "git-internals-and-collaboration", reason: "직접 상태를 바꿔보는 또 다른 예제로, Git이 변경을 기록하는 방식을 이해합니다." },
   ],
   "git-internals-and-collaboration": [
     { slug: "aws-deployment-and-operations", reason: "커밋에 남긴 변경이 서비스에 전달될 때, 새 버전으로 요청을 넘기는 과정을 살펴봅니다." },

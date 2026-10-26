@@ -11,7 +11,7 @@ import styles from "./JournalHome.module.css";
 type Summary = Pick<Post, "slug" | "title" | "description" | "category" | "publishedAt">;
 const labels: Record<string, string> = {
   "AI Research": "AI 리서치", "AI Engineering": "AI 엔지니어링",
-  Engineering: "엔지니어링", "UI Engineering": "인터페이스",
+  Engineering: "엔지니어링",
 };
 
 function Cover({ category }: { category: string }) {
