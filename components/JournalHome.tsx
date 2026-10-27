@@ -1,11 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useId } from "react";
 import type { Post } from "../lib/posts";
 import { PostLink, useArchiveCategory } from "./PostTransition";
 import PostArchive from "./PostArchive";
-import JournalLogo from "./JournalLogo";
 import styles from "./JournalHome.module.css";
 
 type Summary = Pick<Post, "slug" | "title" | "description" | "category" | "publishedAt">;
@@ -57,13 +55,9 @@ export default function JournalHome({ posts }: { posts: Summary[] }) {
     <main className={`blog-main ${styles.home}`} id="main-content">
       <h1 className={styles.status}>Sunjoon Kim — Technical Notes</h1>
       <div className={styles.layout}>
-        <aside className={styles.sidebar}>
-          <Link href="/" className={styles.brand} aria-label="Sunjoon Kim Technical Notes 홈"
-            onClick={() => setArchiveCategory("all")}>
-            <JournalLogo />
-          </Link>
-          <nav className={styles.categories} aria-label="글 카테고리">
-            <span className={styles.navLabel}>EXPLORE</span>
+        <nav className={styles.categories} aria-label="글 주제 필터">
+          <span className={styles.navLabel}>주제별로 읽기</span>
+          <div className={styles.filterOptions}>
             {["all", ...categories].map((category) => (
               <button key={category} type="button" aria-pressed={selected === category}
                 aria-controls="journal-results" onClick={() => setArchiveCategory(category)}>
@@ -71,8 +65,8 @@ export default function JournalHome({ posts }: { posts: Summary[] }) {
                 <span className={styles.count}>{category === "all" ? posts.length : posts.filter((post) => post.category === category).length}</span>
               </button>
             ))}
-          </nav>
-        </aside>
+          </div>
+        </nav>
 
         <div className={styles.content} id="journal-results">
           <p className={styles.status} role="status">{title} · {filtered.length}편</p>

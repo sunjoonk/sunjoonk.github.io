@@ -1,0 +1,121 @@
+export const metadata = {
+  title: "OpenClaw, AI 비서를 직접 운영한다는 것",
+  description: "Claude·OpenAI의 에이전트 서비스와 OpenClaw는 무엇이 다를까? 메신저, 기억, 모델 선택과 자동화가 연결되는 구조를 살펴보고, 직접 운영할 때 얻는 통제권과 책임을 비교합니다.",
+  category: "AI",
+  publishedAt: "2026-10-28",
+};
+
+export const sections = [
+  { id: "why-openclaw", title: "같은 모델을 써도 다른 비서가 된다" },
+  { id: "gateway", title: "메신저 뒤에서 계속 실행되는 프로그램" },
+  { id: "difference", title: "가장 큰 차이는 운영의 주도권이다" },
+  { id: "memory-and-skills", title: "기억과 일하는 방법을 파일로 관리한다" },
+  { id: "automation", title: "주간 보고서 하나를 맡겨본다면" },
+  { id: "cost-and-data", title: "로컬 실행과 무료라는 말의 범위" },
+  { id: "choice", title: "어떤 사람에게 이 자유가 필요할까" },
+  { id: "references", title: "참고 자료" },
+];
+
+<h2 id="why-openclaw">같은 모델을 써도 다른 비서가 된다</h2>
+
+“매주 금요일, 이번 주 작업을 모아서 메신저로 알려줘.”
+
+이 요청을 처리하려면 문장을 잘 쓰는 모델만으로는 부족하다. 금요일에 작업을 시작할 장치, 작업 기록을 읽을 연결, 지난주와 이번 주를 구분할 기억, 결과를 보낼 통로가 필요하다. AI 비서의 사용감은 이런 주변 구성에서 크게 달라진다.
+
+OpenClaw는 이 구성을 사용자가 직접 운영할 수 있게 만든 오픈소스 에이전트 애플리케이션이다. 공개 저장소는 MIT 라이선스로 제공되며, 개인 기기에서 실행하고 여러 채팅 채널과 연결하는 비서를 지향한다. [OpenClaw 공식 저장소](https://github.com/openclaw/openclaw)
+
+OpenClaw는 Anthropic이나 OpenAI 같은 제공자의 모델, 또는 지원되는 로컬 모델 실행 환경을 연결해 사용한다. 따라서 <strong>Claude를 사용하는 OpenClaw</strong>도 가능하다. 비교 대상은 모델의 지능보다, 그 모델이 일하도록 둘러싼 애플리케이션과 운영 방식이다. [모델 제공자 목록](https://docs.openclaw.ai/providers)
+
+<h2 id="gateway">메신저 뒤에서 계속 실행되는 프로그램</h2>
+
+OpenClaw 구조의 중심에는 <strong>Gateway</strong>가 있다. 계속 실행되면서 메신저 연결과 에이전트 실행에 필요한 통신을 관리하는 프로세스다. Telegram, Discord, Slack 등의 채널과 연결하고, 웹 UI나 CLI 같은 관리 도구도 이 Gateway에 접속한다. [Gateway 구조](https://docs.openclaw.ai/concepts/architecture)
+
+이 구조의 매력은 AI를 찾아가는 장소를 바꿀 수 있다는 데 있다. 전용 채팅 화면뿐 아니라 이미 열어둔 대화방을 업무의 입구로 쓸 수 있다. 다만 여러 채널을 연결했다는 사실이 모든 대화의 기억과 권한을 하나로 합쳐야 한다는 뜻은 아니다. 개인 대화와 팀 대화에서 어떤 문맥과 도구를 사용할지는 별도로 설계해야할 문제다.
+
+<h2 id="difference">가장 큰 차이는 운영의 주도권이다</h2>
+
+OpenClaw를 소개할 때 “상용 AI는 답변만 하고, OpenClaw는 행동한다”고 구분하면 현재 제품을 제대로 설명하기 어렵다. Codex CLI는 로컬 파일을 읽고 수정하며 명령을 실행할 수 있다. Claude Cowork도 연결된 도구와 파일을 활용하는 예약 작업을 제공하고, OpenAI 역시 예약 작업을 지원한다. [Codex CLI](https://learn.chatgpt.com/docs/codex/cli), [Cowork 예약 작업](https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork), [OpenAI 예약 작업](https://learn.chatgpt.com/docs/automations)
+
+<strong>가장 큰 차이는 에이전트의 구성과 운영을 어디까지 사용자가 책임지는가다.</strong> 상용 서비스에서는 제공자가 묶어놓은 제품과 계정 체계를 중심으로 일을 맡긴다. OpenClaw에서는 모델 연결, 실행 호스트, 채널, 기억과 확장 기능을 직접 조합하고 유지할 수 있다.
+
+아래 표는 이 운영상의 차이를 요약한 것이다. 상용 제품의 기능은 제품·요금제·실행 환경마다 다르며, 모든 제품이 같은 제약을 가진다는 의미는 아니다.
+
+<div className="article-table-wrap" role="region" aria-label="OpenClaw와 상용 에이전트 서비스의 운영 방식 비교" tabIndex={0}>
+  <table>
+    <thead>
+      <tr><th scope="col">비교할 지점</th><th scope="col">OpenClaw 직접 운영</th><th scope="col">상용 에이전트 서비스</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row">모델 선택</th><td>지원되는 여러 제공자와 로컬 실행 환경을 연결</td><td>제품이 지원하는 모델·인증 방식 안에서 선택</td></tr>
+      <tr><th scope="row">업무의 입구</th><td>연결한 메신저와 관리 UI를 중심으로 구성</td><td>서비스의 앱·웹·CLI와 지원 연동을 이용</td></tr>
+      <tr><th scope="row">지속성</th><td>자신이 운영하는 Gateway와 저장 상태를 관리</td><td>제품이 제공하는 세션·기억·예약 기능을 이용</td></tr>
+      <tr><th scope="row">변경 범위</th><td>설정·스킬뿐 아니라 공개된 애플리케이션 코드도 수정 가능</td><td>제품이 공개한 설정과 확장 지점을 활용</td></tr>
+      <tr><th scope="row">운영 책임</th><td>호스트, 업데이트, 인증 정보, 백업과 장애 대응을 직접 관리</td><td>제공자가 서비스 운영을 맡고 사용자는 연결·권한·결과를 관리</td></tr>
+    </tbody>
+  </table>
+</div>
+
+여기서도 ‘오픈소스 대 상용’은 완전히 갈라지는 구분이 아니다. Codex CLI 자체도 오픈소스다. 로컬에서 실행된다는 점 역시 OpenClaw만의 특징은 아니다. OpenClaw의 차별점은 개별 기능의 독점보다는, <strong>여러 모델과 채널을 잇는 지속적인 비서 환경을 자신의 구성으로 운영한다</strong>는 조합에 있다. [Codex 오픈소스 구성](https://learn.chatgpt.com/docs/open-source)
+
+<h2 id="memory-and-skills">기억과 일하는 방법을 파일로 관리한다</h2>
+
+OpenClaw의 기억은 모델이 사용자를 새로 학습하는 방식으로 설명하기보다, 다음 작업에 다시 읽을 내용을 저장하는 방식으로 이해하는 편이 정확하다. 공식 문서는 워크스페이스의 Markdown 파일을 기억의 기반으로 설명한다. `MEMORY.md`에는 지속해서 참고할 사실과 결정을, 날짜별 노트에는 작업 맥락과 관찰을 남긴다. [기억 구조](https://docs.openclaw.ai/concepts/memory)
+
+이 방식에서는 사용자가 기억을 열어보고 수정할 수 있다. 예를 들어 “주간 보고서는 완료된 일과 막힌 일을 나누어 적는다”는 기준을 저장했다면, 잘못된 기준이 반복될 때 어느 기록을 고칠지 살펴볼 수 있다. 반대로 잘못 적힌 사실도 다음 작업에 영향을 줄 수 있으므로, 저장되었다는 것과 정확하다는 것은 별개다. 파일로 남겼다고 모든 내용이 매번 모델의 문맥에 들어가는 것도 아니다.
+
+기억이 ‘무엇을 알고 있어야 하는가’라면, <strong>스킬은 도구를 언제 어떻게 사용할지 설명하는 작업 지침</strong>에 가깝다. OpenClaw는 `SKILL.md`를 포함하는 스킬을 읽고, 기본 제공 스킬과 로컬 구성을 함께 사용한다. ClawHub를 통한 커뮤니티 스킬 설치도 지원한다. [스킬 문서](https://docs.openclaw.ai/tools/skills)
+
+예를 들어 보고서 스킬에는 어떤 자료를 먼저 읽고, 어떤 항목으로 정리하고, 근거 링크를 어디에 붙일지 적을 수 있다. 그러나 스킬 파일을 추가했다고 없던 API 권한이나 실행 도구가 생기는 것은 아니다. 실제 연결, 필요한 프로그램, 인증과 권한이 갖춰져야 지침이 작업으로 이어진다.
+
+이때 오픈소스의 장점은 필요한 부분을 직접 살펴보고 바꿀 수 있다는 것이다. 동시에 다른 사람이 만든 스킬과 플러그인을 자신의 실행 환경에 들여오는 결정도 사용자의 몫이 된다.
+
+<h2 id="automation">주간 보고서 하나를 맡겨본다면</h2>
+
+앞의 요청을 조금 구체적으로 바꿔보자. “매주 금요일 오후 다섯 시, 지정한 프로젝트의 작업 기록을 읽고, 완료된 일과 막힌 일을 구분한 초안을 만들어 내 개인 메신저로 보내줘.” 다음은 이 업무를 구성하는 가상의 설계다.
+
+1. 읽을 프로젝트와 자료의 범위를 정하고, 필요한 연결에 접근 권한을 준다.
+2. 보고서 형식과 근거를 붙이는 방법을 작업 지침으로 남긴다.
+3. 실행 시각과 시간대, 결과를 받을 개인 채널을 지정한다.
+4. 예약 실행이 끝나면 원문 링크, 누락된 자료, 실패 기록을 확인한다.
+
+OpenClaw의 현재 공식 문서는 정기 보고서와 반복 점검을 자동화 작업으로 구성하도록 안내한다. 스케줄러가 작업을 저장하고 실행을 시작하며, 결과를 채팅 채널이나 웹훅으로 전달할 수 있다. 과거 설명에서 자주 등장하던 heartbeat 기반 모니터링은 현재 자동화 작업으로 옮기는 흐름이므로, 오래된 소개 글의 설정을 그대로 따르기보다 설치 버전에 맞는 문서를 봐야 한다. [자동화 개요](https://docs.openclaw.ai/automation)
+
+같은 목적을 Cowork나 OpenAI의 예약 작업으로 달성할 수도 있다. 따라서 선택의 기준은 ‘예약할 수 있는가’만이 아니다. 내가 원하는 자료 연결과 전달 채널을 제품이 지원하는지, 실행 환경을 직접 바꿔야 하는지, 문제가 생겼을 때 어느 쪽에서 확인하고 복구할지가 더 유용한 질문이다.
+
+예를 들어 자료를 읽다가 인증이 만료되면, 모델이 아무리 좋아도 보고서를 완성할 수 없다. 직접 운영하는 환경에서는 연결을 복구하고 재실행할 절차까지 마련해야 한다. 이때 이미 전송한 보고서를 또 보내지 않도록 하는 처리도 업무 설계에 포함된다. 이것은 OpenClaw가 자동으로 보장한다는 뜻이 아니라, 지속적인 자동화에 필요한 운영 기준이다.
+
+<h2 id="cost-and-data">로컬 실행과 무료라는 말의 범위</h2>
+
+OpenClaw가 내 컴퓨터에서 실행된다는 사실과 모델의 추론이 내 컴퓨터에서 이루어진다는 사실은 다르다. 외부 모델 API를 연결했다면 모델에 전달하는 문맥은 그 제공자로 전송된다. 로컬 모델을 사용하더라도 메신저, 검색, 외부 업무 도구의 통신은 따로 살펴봐야 한다. <strong>데이터가 어디로 가는지는 설치 위치보다 연결한 경로로 판단해야 한다.</strong> [지원 모델과 실행 환경](https://docs.openclaw.ai/providers)
+
+비용도 같은 방식으로 나누어 볼 수 있다. 애플리케이션 소스를 자유롭게 사용할 수 있다는 것이 모델 호출, 서버, 전력과 관리 시간을 없애주지는 않는다. 반복 점검은 사용자가 직접 질문하지 않은 시간에도 모델 호출을 만들 수 있다. API를 쓴다면 그 사용량을, 로컬 모델을 쓴다면 장비 자원과 처리 시간을 포함해 비교해야 한다.
+
+권한 역시 운영의 일부다. 외부 글이나 메시지를 읽는 에이전트에게 파일 수정과 메시지 발송 권한을 함께 주면, 읽은 내용이 행동에 영향을 미치는 경로가 생긴다. “조심해서 처리해”라는 지침만으로 해결하기보다, 읽을 자료와 쓸 위치, 발송 대상과 승인 조건을 구체적으로 정하는 편이 낫다.
+
+OpenClaw의 보안 문서는 Gateway 하나를 하나의 신뢰 경계로 설명한다. 서로 신뢰하지 않는 사용자를 같은 Gateway와 에이전트에 모아놓는 것을 강한 격리로 간주해서는 안 된다. 자유롭게 연결할 수 있다는 특징은 누구에게 어떤 도구를 열어줄지 직접 정해야 한다는 뜻이기도 하다. [OpenClaw 보안 문서](https://docs.openclaw.ai/gateway/security)
+
+<h2 id="choice">어떤 사람에게 이 자유가 필요할까</h2>
+
+이미 쓰는 상용 서비스에서 필요한 자료를 읽고 원하는 결과를 만들 수 있다면, 그 서비스를 계속 쓰는 선택이 합리적이다. 작업을 맡길 때마다 실행 환경까지 관리할 필요는 없다. 연결 설정과 결과 검토만으로 충분한 사용자에게는 관리되는 제품의 편의가 더 크게 느껴질 수 있다.
+
+반대로 여러 메신저를 업무의 입구로 쓰고 싶거나, 모델 제공자를 바꾸면서 자기만의 기억과 작업 지침을 유지하고 싶거나, 자신이 운영하는 서버와 도구에 맞춰 비서를 구성하려는 사람에게는 OpenClaw의 가치가 커진다. 이 경우에는 AI를 쓰는 것과 함께 AI가 일하는 환경을 만드는 일도 받아들이게 된다.
+
+내가 이 구조를 시험한다면, 먼저 자료를 읽어 개인 채널에 초안을 보내는 좁은 업무부터 맡기겠다. 결과에 근거가 남는지, 실패를 알아챌 수 있는지, 같은 작업을 다시 실행해도 문제가 없는지 확인한 뒤 행동 범위를 넓힐 것이다.
+
+OpenClaw가 던지는 흥미로운 질문은 “어느 AI가 더 똑똑한가” 다음에 있다. <strong>내 일을 계속 맡아줄 비서의 구성과 운영을 얼마나 직접 결정하고 싶은가.</strong> 그 결정권이 필요한 사람에게는 유용한 선택지이고, 그 결정에 드는 시간까지 비용으로 계산할 때 상용 서비스와의 비교도 더 선명해진다.
+
+<h2 id="references">참고 자료</h2>
+
+확인일: 2026년 10월 28일. 아래 자료는 제품의 구조와 지원 기능을 확인하기 위한 공식 출처다. 활용 예시와 선택 기준은 이를 바탕으로 구성한 해석이며, 성능·비용을 실측한 비교가 아니다.
+
+- [OpenClaw 공식 저장소](https://github.com/openclaw/openclaw) — 프로젝트 소개와 라이선스.
+- [Gateway architecture](https://docs.openclaw.ai/concepts/architecture) — 상시 실행 프로세스와 채널·클라이언트 연결.
+- [Provider directory](https://docs.openclaw.ai/providers) — 모델 제공자와 로컬 실행 환경.
+- [Memory overview](https://docs.openclaw.ai/concepts/memory) — 파일 기반 기억과 읽기 방식.
+- [Skills](https://docs.openclaw.ai/tools/skills) — 작업 지침의 구성과 로딩.
+- [Automation](https://docs.openclaw.ai/automation) — 예약 작업과 반복 점검.
+- [Security](https://docs.openclaw.ai/gateway/security) — Gateway의 신뢰 경계와 보안 운영.
+- [Codex CLI](https://learn.chatgpt.com/docs/codex/cli) — 로컬 파일과 도구 실행.
+- [Codex Open Source](https://learn.chatgpt.com/docs/open-source) — 공개된 클라이언트와 서비스의 범위.
+- [OpenAI Scheduled tasks](https://learn.chatgpt.com/docs/automations) — 예약 작업과 실행 환경.
+- [Claude Cowork 예약 작업](https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork) — 반복 업무와 연결된 도구 사용.
