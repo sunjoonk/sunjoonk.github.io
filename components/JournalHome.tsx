@@ -55,14 +55,13 @@ export default function JournalHome({ posts }: { posts: Summary[] }) {
 
   return (
     <main className={`blog-main ${styles.home}`} id="main-content">
+      <h1 className={styles.status}>Sunjoon Kim — Technical Notes</h1>
       <div className={styles.layout}>
         <aside className={styles.sidebar}>
           <Link href="/" className={styles.brand} aria-label="Sunjoon Kim Technical Notes 홈"
             onClick={() => setArchiveCategory("all")}>
             <JournalLogo />
-            <h1>Sunjoon Kim<span>Technical Notes</span></h1>
           </Link>
-          <p className={styles.intro}>AI를 이해하고,<br />작동하는 것으로 만듭니다.</p>
           <nav className={styles.categories} aria-label="글 카테고리">
             <span className={styles.navLabel}>EXPLORE</span>
             {["all", ...categories].map((category) => (
@@ -73,9 +72,6 @@ export default function JournalHome({ posts }: { posts: Summary[] }) {
               </button>
             ))}
           </nav>
-          <div className={styles.utility}>
-            <Link href="/about">About <span aria-hidden="true">↗</span></Link>
-          </div>
         </aside>
 
         <div className={styles.content} id="journal-results">

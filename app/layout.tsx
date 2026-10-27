@@ -20,20 +20,11 @@ export const metadata: Metadata = {
   applicationName: "Sunjoon Kim Technical Notes",
   icons: {
     icon: [
-      {
-        url: "/logo.png",
-        type: "image/png",
-        sizes: "1254x1254",
-      },
+      { url: "/favicon.svg", type: "image/svg+xml", sizes: "any" },
+      { url: "/favicon.ico", sizes: "32x32" },
     ],
-    shortcut: "/logo.png",
-    apple: [
-      {
-        url: "/logo.png",
-        type: "image/png",
-        sizes: "1254x1254",
-      },
-    ],
+    shortcut: "/favicon.svg",
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
   alternates: {
     canonical: "/",
