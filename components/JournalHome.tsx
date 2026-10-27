@@ -16,7 +16,7 @@ function Cover({ category }: { category: string }) {
   const id = useId();
   return (
     <div className={styles.cover} aria-hidden="true">
-      <svg viewBox="0 0 640 480" fill="none">
+      <svg viewBox="0 0 640 480" fill="none" preserveAspectRatio="xMidYMid slice">
         <defs>
           <linearGradient id={id} x1="80" y1="100" x2="560" y2="380" gradientUnits="userSpaceOnUse">
             <stop stopColor="#c1dec8" /><stop offset=".5" stopColor="#68a8a3" /><stop offset="1" stopColor="#dec5a0" />
@@ -44,7 +44,7 @@ function Cover({ category }: { category: string }) {
 }
 
 export default function JournalHome({ posts }: { posts: Summary[] }) {
-  const { archiveCategory, setArchiveCategory } = useArchiveCategory();
+  const { archiveCategory } = useArchiveCategory();
   const categories = [...new Set(posts.map((post) => post.category))];
   const selected = categories.includes(archiveCategory) ? archiveCategory : "all";
   const filtered = selected === "all" ? posts : posts.filter((post) => post.category === selected);
@@ -55,19 +55,6 @@ export default function JournalHome({ posts }: { posts: Summary[] }) {
     <main className={`blog-main ${styles.home}`} id="main-content">
       <h1 className={styles.status}>Sunjoon Kim — Technical Notes</h1>
       <div className={styles.layout}>
-        <nav className={styles.categories} aria-label="글 주제 필터">
-          <span className={styles.navLabel}>주제별로 읽기</span>
-          <div className={styles.filterOptions}>
-            {["all", ...categories].map((category) => (
-              <button key={category} type="button" aria-pressed={selected === category}
-                aria-controls="journal-results" onClick={() => setArchiveCategory(category)}>
-                <span>{category === "all" ? "전체 글" : labels[category] ?? category}</span>
-                <span className={styles.count}>{category === "all" ? posts.length : posts.filter((post) => post.category === category).length}</span>
-              </button>
-            ))}
-          </div>
-        </nav>
-
         <div className={styles.content} id="journal-results">
           <p className={styles.status} role="status">{title} · {filtered.length}편</p>
           {featured && (

@@ -1,17 +1,10 @@
 .home { min-height: 85vh; }
 .layout { width: min(calc(100% - 64px), 1100px); margin: 0 auto; padding: 32px 0 80px; }
-.categories { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding-bottom: 24px; margin-bottom: 32px; border-bottom: 1px solid var(--journal-line); }
-.navLabel { color: var(--journal-muted); font-size: 12px; }
-.filterOptions { display: flex; flex-wrap: wrap; gap: 8px; }
-.categories button { display: flex; align-items: center; gap: 10px; min-height: 44px; border: 1px solid transparent; border-radius: 999px; padding: 10px 16px; background: transparent; color: var(--journal-muted); font: inherit; font-size: 13px; cursor: pointer; }
-.categories button:hover { color: var(--journal-ink); background: var(--journal-surface); }
-.categories button[aria-pressed="true"] { border-color: var(--journal-accent); background: var(--journal-surface); color: var(--journal-ink); }
-.count { font-size: 11px; font-family: ui-monospace, monospace; color: var(--journal-muted); }
-.categories button:focus-visible, .featured a:focus-visible { outline: 2px solid var(--journal-accent); outline-offset: 5px; }
+.featured a:focus-visible { outline: 2px solid var(--journal-accent); outline-offset: 5px; }
 .content { min-width: 0; }
 .status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.featured > a { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(24px, 3vw, 48px); align-items: center; text-decoration: none; color: var(--journal-ink); }
-.cover { position: relative; overflow: hidden; aspect-ratio: 4 / 3; background: #102a28; color: #c8ded4; border-radius: 3px; }
+.featured > a { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(24px, 3vw, 48px); align-items: center; text-decoration: none; color: var(--journal-ink); }
+.cover { position: relative; overflow: hidden; aspect-ratio: 22 / 9; background: #102a28; color: #c8ded4; border-radius: 3px; }
 .cover svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .coverLabel { position: absolute; left: 24px; top: 26px; right: 24px; font-family: ui-monospace, monospace; font-size: 9px; letter-spacing: .13em; line-height: 1.7; opacity: .8; }
 .coverCaption { position: absolute; left: 24px; bottom: 26px; font-family: var(--journal-serif); font-size: clamp(18px, 2vw, 26px); }
@@ -41,9 +34,6 @@
 }
 @media (max-width: 700px) {
   .layout { padding-top: 24px; }
-  .categories { align-items: flex-start; flex-direction: column; gap: 12px; margin-bottom: 24px; padding-bottom: 20px; }
-  .filterOptions { gap: 6px; }
-  .categories button { padding: 8px 12px; font-size: 12px; }
   .featuredCopy h2 { font-size: 30px; }
   .description { font-size: 14px; }
   .content :global(.writing-list a) { grid-template-columns: 24px minmax(0, 1fr) 20px; gap: 12px; }
