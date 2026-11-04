@@ -1,3 +1,4 @@
+import S3Article, { metadata as s3Metadata, sections as s3Sections } from "../content/posts/s3-file-management.mdx";
 import OpenClawArticle, { metadata as openClawMetadata, sections as openClawSections } from "../content/posts/openclaw-and-managed-agents.mdx";
 import SpeechArticle, { metadata as speechMetadata, sections as speechSections } from "../content/posts/speech-to-text-and-back.mdx";
 import ReverseArticle, { metadata as reverseMetadata, sections as reverseSections } from "../content/posts/rea-reverse-engineering.mdx";
@@ -22,6 +23,12 @@ export type Post = {
 
 // Explicit local imports keep the static export deterministic and MDX trusted.
 export const posts: Post[] = [{
+  ...s3Metadata,
+  id: 10,
+  slug: "s3-file-management",
+  sections: s3Sections,
+  Content: S3Article,
+}, {
   ...openClawMetadata,
   id: 9,
   slug: "openclaw-and-managed-agents",

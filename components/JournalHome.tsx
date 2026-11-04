@@ -4,6 +4,7 @@ import { useId } from "react";
 import type { Post } from "../lib/posts";
 import { PostLink, useArchiveCategory } from "./PostTransition";
 import PostArchive from "./PostArchive";
+import TopicFilter from "./TopicFilter";
 import styles from "./JournalHome.module.css";
 
 type Summary = Pick<Post, "slug" | "title" | "description" | "category" | "publishedAt">;
@@ -55,6 +56,7 @@ export default function JournalHome({ posts }: { posts: Summary[] }) {
     <main className={`blog-main ${styles.home}`} id="main-content">
       <h1 className={styles.status}>Sunjoon Kim — Technical Notes</h1>
       <div className={styles.layout}>
+        <TopicFilter posts={posts} />
         <div className={styles.content} id="journal-results">
           <p className={styles.status} role="status">{title} · {filtered.length}편</p>
           {featured && (
