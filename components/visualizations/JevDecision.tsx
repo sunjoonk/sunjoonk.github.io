@@ -22,9 +22,9 @@ export function JevDecision() {
   const confidence = (probability - 1 / 3) / (1 - 1 / 3);
 
   return <VisualFigure
-    title="같은 선택값이어도 처리 경로는 달라진다"
+    title="같은 선택값이어도 처리 경로는 달라집니다"
     number={1}
-    caption="분류 확률은 설명을 위해 정한 값이다. 신고 예시와 자동 배정 기준을 바꾸면 코드의 처리 결과가 달라진다. 실제 모델을 호출하거나 신고를 배정하지 않는다."
+    caption="분류 확률은 설명을 위해 정한 값입니다. 신고 예시와 자동 배정 기준을 바꾸면 코드의 처리 결과가 달라집니다. 실제 모델을 호출하거나 신고를 배정하지 않습니다."
     source="직접 제작 · 가상 출력과 예시 정책"
   >
     <div className={styles.example}>
@@ -47,12 +47,12 @@ export function JevDecision() {
           <label className={styles.label} htmlFor={`${id}-threshold`}>02 / 코드의 기준 · 최고 확률 하한</label>
           <div className={styles.threshold}><output htmlFor={`${id}-threshold`}>{threshold.toFixed(2)}</output><span>이상일 때 자동 배정</span></div>
           <input id={`${id}-threshold`} type="range" min="0.5" max="0.95" step="0.05" value={threshold} onChange={event => setThreshold(Number(event.target.value))} />
-          <p className={styles.metric}>기타는 확률에 관계없이 검토한다.<br />이 기준은 검증된 권장값이 아니다.</p>
+          <p className={styles.metric}>기타는 확률에 관계없이 검토합니다.<br />이 기준은 검증된 권장값이 아닙니다.</p>
         </section>
       </div>
       <div className={styles.outcome} role="status" aria-live="polite" aria-atomic="true">
         <span className={styles.label}>03 / 처리 결과</span>
-        <p><strong>{review ? "검토 대기열" : `${labels[choice as keyof typeof labels]} 팀에 자동 배정`}</strong><span>{choice === "other" ? "분류 범위 밖의 신고이므로 사람이 확인한다." : `${probability.toFixed(2)} ${review ? "<" : "≥"} ${threshold.toFixed(2)} · ${review ? "선택된 분류는 있지만 자동 배정 기준에는 못 미친다." : "설정한 최고 확률 기준을 충족한다."}`}</span></p>
+        <p><strong>{review ? "검토 대기열" : `${labels[choice as keyof typeof labels]} 팀에 자동 배정`}</strong><span>{choice === "other" ? "분류 범위 밖의 신고이므로 사람이 확인합니다." : `${probability.toFixed(2)} ${review ? "<" : "≥"} ${threshold.toFixed(2)} · ${review ? "선택된 분류는 있지만 자동 배정 기준에는 못 미칩니다." : "설정한 최고 확률 기준을 충족합니다."}`}</span></p>
       </div>
     </div>
   </VisualFigure>;

@@ -1,3 +1,4 @@
+import AgentComparisonArticle, { metadata as agentComparisonMetadata, sections as agentComparisonSections } from "../content/posts/openclaw-pi-hermes.mdx";
 import S3Article, { metadata as s3Metadata, sections as s3Sections } from "../content/posts/s3-file-management.mdx";
 import OpenClawArticle, { metadata as openClawMetadata, sections as openClawSections } from "../content/posts/openclaw-and-managed-agents.mdx";
 import SpeechArticle, { metadata as speechMetadata, sections as speechSections } from "../content/posts/speech-to-text-and-back.mdx";
@@ -17,12 +18,20 @@ export type Post = {
   category: string;
   publishedAt: string;
   updatedAt?: string;
+  draft?: boolean;
   sections: { id: string; title: string }[];
   Content: ComponentType;
 };
 
 // Explicit local imports keep the static export deterministic and MDX trusted.
 export const posts: Post[] = [{
+  ...agentComparisonMetadata,
+  id: 11,
+  slug: "openclaw-pi-hermes",
+  draft: true,
+  sections: agentComparisonSections,
+  Content: AgentComparisonArticle,
+}, {
   ...s3Metadata,
   id: 10,
   slug: "s3-file-management",
@@ -79,8 +88,8 @@ export const posts: Post[] = [{
   Content: AstraArticle,
 }];
 
-export function getPosts(): Post[] {
-  return [...posts].sort(
+export function getPosts({ includeDrafts = false }: { includeDrafts?: boolean } = {}): Post[] {
+  return posts.filter((post) => includeDrafts || !post.draft).sort(
     (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   );
 }

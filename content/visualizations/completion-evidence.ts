@@ -1,8 +1,8 @@
 export type Criterion = "artifact" | "accepted" | "unassisted";
 export const criteria: { id: Criterion; label: string; description: string }[] = [
-  { id: "artifact", label: "파일을 만들었나", description: "결과 파일이 존재하면 센다. 올바르게 동작하는지는 아직 묻지 않는다." },
-  { id: "accepted", label: "요구사항을 지켰나", description: "기능 검사와 변경 범위를 모두 통과한 결과를 센다. 사람의 교정은 허용한다." },
-  { id: "unassisted", label: "교정 없이 끝냈나", description: "요구사항을 통과하고, 시작 후 사람의 교정도 없었던 결과만 센다." },
+  { id: "artifact", label: "파일을 만들었나", description: "결과 파일이 존재하면 셉니다. 올바르게 동작하는지는 아직 묻지 않습니다." },
+  { id: "accepted", label: "요구사항을 지켰나", description: "기능 검사와 변경 범위를 모두 통과한 결과를 셉니다. 사람의 교정은 허용합니다." },
+  { id: "unassisted", label: "교정 없이 끝냈나", description: "요구사항을 통과하고, 시작 후 사람의 교정도 없었던 결과만 셉니다." },
 ];
 // Invented teaching records. No model was run and no performance is implied.
 export const completionTrials = [

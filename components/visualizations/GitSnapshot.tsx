@@ -13,7 +13,7 @@ export function GitSnapshot() {
     ? <span className={styles.empty}>차이 없음</span>
     : <><span>− timeout = {before}</span><span className={styles.added}>+ timeout = {after}</span></>;
   return <VisualFigure title="같은 파일, 서로 다른 세 값" number={1}
-    caption="추적 중인 config.txt 한 파일과 옵션 없는 commit을 단순화했다. 버튼은 화면 속 상태만 바꾸며 실제 저장소를 수정하지 않는다."
+    caption="추적 중인 config.txt 파일을 별도 옵션 없이 커밋하는 과정을 단순화했습니다. 버튼은 화면 속 상태만 바꾸며 실제 저장소를 수정하지 않습니다."
     source="직접 제작 · Git add / diff / commit 문서">
     <div className={styles.lab}>
       <div className={styles.topline}><span>config.txt · timeout 한 줄</span><button type="button" onClick={() => dispatch({ type: "reset" })}>처음 사례로</button></div>

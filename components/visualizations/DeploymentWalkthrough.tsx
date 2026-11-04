@@ -27,9 +27,9 @@ export function DeploymentWalkthrough() {
 
   return <VisualFigure
     id="deployment-walkthrough"
-    title="배포 중, 요청은 어디로 갈까?"
+    title="배포 중, 요청은 어디로 갈까요?"
     number={1}
-    caption="정상 v1 두 개를 유지하며 v2 두 개를 교체하는 설명용 장면. 실제 스케줄링·시간·분산 비율을 재현하지 않는다. 시나리오를 바꾸면 같은 단계에서 결과를 비교할 수 있다."
+    caption="정상 v1 태스크 두 개를 유지하면서 v2 태스크 두 개로 교체하는 과정을 단순화했습니다. 실제 스케줄링·시간·분산 비율을 재현하지 않습니다. 시나리오를 바꾸면 같은 단계에서 결과를 비교할 수 있습니다."
     source="직접 제작 · AWS 공식 문서를 바탕으로 구성"
   >
     <div className={styles.experiment}>
@@ -57,7 +57,7 @@ export function DeploymentWalkthrough() {
         </div>
         <p className={styles.observation}>{scene.observation}</p>
       </div>
-      <p className={styles.note}>전제: v1은 정상이고 트래픽을 감당한다. 모든 대상이 비정상인 ALB의 fail-open 상황은 이 그림에 포함하지 않았다.</p>
+      <p className={styles.note}>전제: v1은 정상이고 트래픽을 감당합니다. 모든 대상이 비정상인 ALB의 fail-open 상황은 이 그림에 포함하지 않았습니다.</p>
     </div>
   </VisualFigure>;
 }

@@ -1,3 +1,5 @@
+import { ArticleSummaryCard, ArticleComparisonCards } from "../../components/ArticleCards";
+
 export const metadata = {
   title: "OpenClaw, Pi, Hermes: AI 에이전트를 만드는 세 가지 방식",
   description: "확장 가능한 코어, 여러 채널을 연결하는 Gateway, 기억과 스킬의 재사용. 세 에이전트의 설계 방향을 그림으로 비교합니다.",
@@ -6,131 +8,135 @@ export const metadata = {
 };
 
 export const sections = [
-  { id: "beyond-features", title: "기능 목록 너머의 차이" },
+  { id: "beyond-features", title: "기능 목록만으로 알 수 없는 차이" },
   { id: "pi", title: "Pi: 내 작업 방식에 맞게 바꾸기" },
-  { id: "openclaw", title: "OpenClaw: 여러 접점에서 운영하기" },
+  { id: "openclaw", title: "OpenClaw: 여러 채널과 기기에서 사용하기" },
   { id: "hermes", title: "Hermes: 경험을 다음 작업에 남기기" },
-  { id: "boundaries", title: "겹치고 움직이는 경계" },
+  { id: "boundaries", title: "서로 겹치는 기능과 달라지는 설계" },
   { id: "comparison", title: "같은 작업으로 비교한다면" },
   { id: "references", title: "참고 자료" },
 ];
 
-{/* 편집용 초안. lib/posts.ts에는 등록하지 않음. publishedAt은 발행 예정일이며 실제 발행 시 조정. */}
+{/* 편집용 초안. 직접 경로로 미리보기 가능하며 목록과 사이트맵에서는 제외. publishedAt은 초안 작성일이며 실제 발행 시 조정. */}
 
-<h2 id="beyond-features">기능 목록 너머의 차이</h2>
+<ArticleSummaryCard
+  checkedAt="2026-11-04"
+  items={[
+    { name: "Pi", description: "작은 코어에 확장 기능을 더해 원하는 작업 환경을 만듭니다.", href: "#pi" },
+    { name: "OpenClaw", description: "Gateway로 여러 채널과 기기를 연결해 운영합니다.", href: "#openclaw" },
+    { name: "Hermes", description: "기억과 스킬을 저장해 다음 작업에 활용합니다.", href: "#hermes" },
+  ]}
+>
+  어떤 기능을 바로 사용할 수 있고, 무엇을 직접 구성해야 할까요? 세 프로젝트의 설계 방향과 선택 기준을 비교합니다.
+</ArticleSummaryCard>
+
+<h2 id="beyond-features">기능 목록만으로 알 수 없는 차이</h2>
 
 “이 저장소의 오류를 고쳐줘.” “다음에도 이 형식으로 보고서를 작성해줘.” “메신저에서 요청하면 내 서버에서 작업해줘.”
 
-모두 AI 에이전트에 맡길 법한 일이지만, 잘 처리하기 위해 필요한 구성은 다르다. 첫 번째에는 개발 도구와 실행 환경이, 두 번째에는 기억과 작업 지침이, 세 번째에는 연결과 지속적인 운영이 중요하다.
+모두 AI 에이전트에 맡길 수 있는 일이지만, 각 작업에 필요한 구성은 다릅니다. 첫 번째에는 개발 도구와 실행 환경이, 두 번째에는 기억과 작업 지침이, 세 번째에는 연결과 지속적인 운영이 중요합니다.
 
-에이전트를 고를 때 우리는 먼저 무엇을 할 수 있는지 살펴본다. 그런데 기능 목록만 나란히 놓으면 도구들은 비슷해 보인다. 모델을 호출하고, 파일을 읽고, 명령을 실행하며, 외부 서비스와 연결하기 때문이다. 차이는 이 기능들을 어떤 구조로 묶고, 사용자가 어디까지 직접 결정하도록 만드는지에 있다.
+에이전트를 고를 때 우리는 먼저 무엇을 할 수 있는지 살펴봅니다. 그런데 기능 목록만 나란히 놓으면 도구들은 비슷해 보입니다. 모델을 호출하고, 파일을 읽고, 명령을 실행하며, 외부 서비스와 연결하기 때문입니다. 차이는 이 기능들을 어떤 구조로 묶고, 사용자가 어느 범위까지 직접 설정하고 바꿀 수 있는지에 있습니다.
 
-OpenClaw, Pi, Hermes Agent는 이 차이를 살펴보기 좋은 프로젝트다. 이 글에서 Pi는 **pi.dev의 에이전트 하네스**, Hermes는 **Nous Research의 Hermes Agent**를 가리킨다. 공식 문서를 읽고 정리한 설계 비교이며, 직접 실행한 성능 평가와는 구분한다. 문서 확인일은 2026년 11월 4일이다.
+OpenClaw, Pi, Hermes Agent는 이 차이를 살펴보기 좋은 프로젝트입니다. 이 글에서 Pi는 **pi.dev의 에이전트 하네스**, Hermes는 **Nous Research의 Hermes Agent**를 가리킵니다. 공식 문서를 바탕으로 설계를 비교한 글이며, 직접 실행해 성능을 측정한 결과는 아닙니다. 문서 확인일은 2026년 11월 4일입니다.
 
 <ArticleImage
   src="/images/posts/openclaw-pi-hermes/three-approaches.svg"
-  alt="Pi는 작은 코어와 확장으로 작업 환경을 구성하고, OpenClaw는 Gateway로 메신저와 기기를 연결하며, Hermes는 기억과 스킬을 다음 작업에 재사용한다. 이는 설계 강조점이며 성능 순위가 아니다."
+  alt="Pi는 작은 코어와 확장으로 작업 환경을 구성하고, OpenClaw는 Gateway로 메신저와 기기를 연결하며, Hermes는 기억과 스킬을 다음 작업에 재사용합니다. 각 프로젝트가 설계에서 중요하게 다루는 부분을 보여주며, 성능 순위는 아닙니다."
   width={1200}
   height={700}
   number={1}
-  caption="세 프로젝트를 읽는 세 가지 관점. 기능은 서로 겹치며, 각 열은 배타적인 기능 분류가 아니다."
-  source="Pi·OpenClaw·Hermes 공식 문서 기반 직접 제작; 출처는 본문과 참고 자료 참조"
+  caption="세 프로젝트의 설계 방향을 비교했습니다. 각 열은 해당 프로젝트의 특징을 요약한 것으로, 다른 프로젝트에 그 기능이 없다는 뜻은 아닙니다."
+  source="Pi·OpenClaw·Hermes 공식 문서를 바탕으로 직접 제작했습니다. 자세한 출처는 본문과 참고 자료에 있습니다."
 />
 
 <h2 id="pi">Pi: 내 작업 방식에 맞게 바꾸기</h2>
 
-Pi를 이해하는 출발점은 **하네스**라는 말이다. 하네스는 모델이 도구를 사용하고 작업을 이어가도록 만드는 실행 환경이다. 어떤 정보를 모델에 전달할지, 도구 호출을 어떻게 처리할지, 대화 이력을 어떻게 관리할지가 여기에 포함된다.
+Pi를 이해하려면 먼저 **하네스**가 무엇인지 살펴볼 필요가 있습니다. 하네스는 모델이 도구를 사용하고 작업을 이어가도록 만드는 실행 환경입니다. 어떤 정보를 모델에 전달할지, 도구 호출을 어떻게 처리할지, 대화 이력을 어떻게 관리할지가 여기에 포함됩니다.
 
-Pi는 이 환경을 작고 확장 가능하게 제공하는 데 무게를 둔다. 확장 기능, 스킬, 프롬프트 템플릿, 테마를 조합해 작업 방식을 바꿀 수 있다. 터미널에서 직접 사용하는 것뿐 아니라 스크립트나 RPC로 제어하거나, TypeScript SDK로 다른 애플리케이션에 넣을 수도 있다. [Pi 공식 README](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/README.md)
+Pi는 핵심 기능을 작게 유지하면서 필요에 따라 확장할 수 있도록 설계했습니다. 확장 기능, 스킬, 프롬프트 템플릿, 테마를 조합해 작업 방식을 바꿀 수 있습니다. 터미널에서 직접 사용하는 것뿐 아니라 스크립트나 RPC로 제어하거나, TypeScript SDK로 다른 애플리케이션에 넣을 수도 있습니다. [Pi 공식 README](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/README.md)
 
-이 철학은 기본 제공하지 않는 기능에서도 드러난다. Pi는 서브에이전트나 계획 모드를 코어에 넣기보다 사용자가 확장하거나 패키지로 추가하도록 안내한다. 작업 절차를 파일로 관리할지, 별도 UI로 만들지, 여러 에이전트에 나눌지를 직접 결정하는 셈이다. [Pi 공식 소개](https://pi.dev/)
+이 철학은 기본 제공하지 않는 기능에서도 드러납니다. Pi는 서브에이전트나 계획 모드를 코어에 넣기보다 사용자가 확장하거나 패키지로 추가하도록 안내합니다. 작업 절차를 파일로 관리할지, 별도 UI로 만들지, 여러 에이전트에게 나누어 맡길지를 직접 결정하는 셈입니다. [Pi 공식 소개](https://pi.dev/)
 
-예를 들어 팀마다 다른 검토 절차를 쓰는 개발자라면, 특정 명령과 지침을 자신의 흐름에 맞춰 구성하는 데 관심이 갈 것이다. 반면 원하는 기능이 기본 구성에 없다면 추가하고 유지하는 노력도 필요하다. Pi를 평가할 때는 기본 기능의 개수와 함께 **내 방식으로 바꾸는 데 드는 비용**을 살펴봐야 한다.
+예를 들어 팀 고유의 코드 검토 절차가 있다면, 그 절차에 맞춰 명령과 지침을 구성할 수 있습니다. 반면 원하는 기능이 기본 구성에 없다면 직접 추가하고 관리하는 노력도 필요합니다. Pi를 평가할 때는 기본 기능의 개수와 함께 **내 방식으로 바꾸는 데 드는 비용**을 살펴봐야 합니다.
 
-<h2 id="openclaw">OpenClaw: 여러 접점에서 운영하기</h2>
+<h2 id="openclaw">OpenClaw: 여러 채널과 기기에서 사용하기</h2>
 
-OpenClaw에서는 **Gateway**가 중요한 역할을 맡는다. 상시 실행되는 Gateway가 메신저 연결을 유지하고, CLI와 웹 UI 같은 클라이언트 및 기기 노드를 연결한다. 사용자가 여러 접점에서 작업을 요청할 수 있도록 만드는 구조다. [OpenClaw Gateway 아키텍처](https://docs.openclaw.ai/concepts/architecture)
+OpenClaw에서는 **Gateway**가 중요한 역할을 맡습니다. 상시 실행되는 Gateway가 메신저 연결을 유지하고, CLI·웹 UI 같은 클라이언트와 여러 기기가 통신하도록 연결합니다. 여러 메신저와 기기에서 같은 에이전트 환경에 작업을 요청할 수 있는 구조입니다. [OpenClaw Gateway 아키텍처](https://docs.openclaw.ai/concepts/architecture)
 
-이 구조를 보면 비교 질문도 달라진다. 어떤 채널에서 들어온 요청인지, 어떤 세션으로 이어지는지, 어떤 기기와 도구를 사용할 수 있는지 확인하게 된다. 에이전트를 계속 켜두고 여러 곳에서 사용하려면 이런 요소들이 실제 사용 경험을 좌우한다.
+이 구조에서는 비교할 항목도 달라집니다. 어떤 채널에서 들어온 요청인지, 어떤 세션으로 이어지는지, 어떤 기기와 도구를 사용할 수 있는지 확인하게 됩니다. 에이전트를 계속 켜두고 여러 곳에서 사용하려면 이런 요소들이 실제 사용 경험을 좌우합니다.
 
-에이전트마다 작업 디렉터리, 지침 파일, 세션 저장소도 가진다. `AGENTS.md`, `SOUL.md`, `USER.md`, `MEMORY.md` 같은 파일은 작업 방식과 사용자 정보, 기억을 구성하는 데 사용된다. 따라서 OpenClaw를 단순히 메신저 연결 도구로 이해하면 부족하다. **연결된 요청이 어떤 문맥과 규칙 안에서 실행되는가**까지 함께 봐야 한다. [OpenClaw 에이전트 런타임](https://docs.openclaw.ai/concepts/agent)
+각 에이전트는 작업 디렉터리, 지침 파일, 세션 저장소를 가집니다. `AGENTS.md`, `SOUL.md`, `USER.md`, `MEMORY.md` 같은 파일은 작업 방식과 사용자 정보, 기억을 구성하는 데 사용됩니다. 따라서 OpenClaw를 단순히 메신저 연결 도구로 이해하면 부족합니다. **요청을 처리할 때 어떤 문맥과 규칙이 적용되는지**까지 함께 봐야 합니다. [OpenClaw 에이전트 런타임](https://docs.openclaw.ai/concepts/agent)
 
-메신저와 기기를 오가며 에이전트를 지속적으로 사용하려는 사람이라면 이 운영 구조를 살펴볼 가치가 있다. 연결이 늘어날수록 설정하고 관리할 대상도 늘어난다. 설치에 성공했는지에 더해, 재시작이나 연결 장애 후 작업을 어떻게 이어갈지도 평가해야 한다.
+메신저와 기기를 오가며 에이전트를 지속적으로 사용하려는 사람이라면 이 운영 구조를 살펴볼 가치가 있습니다. 연결이 늘어날수록 설정하고 관리할 대상도 늘어납니다. 설치에 성공했는지에 더해, 재시작이나 연결 장애 후 작업을 어떻게 이어갈지도 평가해야 합니다.
 
 <h2 id="hermes">Hermes: 경험을 다음 작업에 남기기</h2>
 
-Hermes Agent는 기억과 스킬의 축적을 전면에 내세운다. CLI, 데스크톱, 메신저를 지원하면서 이전 작업에서 얻은 정보와 절차를 이후 작업에 재사용하는 구조를 강조한다. [Hermes 공식 문서](https://hermes-agent.nousresearch.com/docs)
+Hermes Agent는 기억과 스킬을 쌓아가는 기능을 주요 특징으로 내세웁니다. CLI, 데스크톱, 메신저를 지원하면서 이전 작업에서 얻은 정보와 절차를 이후 작업에 재사용하는 구조를 강조합니다. [Hermes 공식 문서](https://hermes-agent.nousresearch.com/docs)
 
-여기서 ‘학습’의 의미를 구체적으로 볼 필요가 있다. 공식 문서에 설명된 기본 지속 기억은 `MEMORY.md`와 `USER.md`에 저장된다. 에이전트가 도구를 통해 내용을 추가하거나 수정하면, 다음 세션이 시작될 때 저장된 정보가 문맥에 들어간다. 과거 대화를 검색하는 기능도 따로 제공한다. [Hermes 지속 기억](https://hermes-agent.nousresearch.com/docs/user-guide/features/memory)
+여기서 ‘학습’의 의미를 구체적으로 볼 필요가 있습니다. 공식 문서에 따르면, 세션이 끝나도 유지되는 기본 기억은 `MEMORY.md`와 `USER.md`에 저장됩니다. 에이전트가 도구를 통해 내용을 추가하거나 수정하면, 다음 세션이 시작될 때 저장된 정보가 문맥에 들어갑니다. 과거 대화를 검색하는 기능도 따로 제공합니다. [Hermes 지속 기억](https://hermes-agent.nousresearch.com/docs/user-guide/features/memory)
 
 <ArticleImage
   src="/images/posts/openclaw-pi-hermes/memory-and-reuse.svg"
-  alt="Hermes는 현재 세션에서 지속 기억, 대화 기록, 스킬을 남긴다. 새 세션 시작 시 기억을 문맥에 주입하고 과거 대화와 스킬은 필요할 때 조회한다. 저장된 정보의 재사용과 모델 가중치 재학습은 구분해야 한다."
+  alt="Hermes는 현재 세션에서 지속 기억, 대화 기록, 스킬을 남깁니다. 새 세션을 시작할 때 기억을 문맥에 포함하고 과거 대화와 스킬은 필요할 때 조회합니다. 저장된 정보의 재사용과 모델 가중치 재학습은 구분해야 합니다."
   width={1200}
   height={740}
   number={2}
-  caption="Hermes의 기본 기억·검색·스킬 흐름을 단순화했다. 세 갈래의 기록이 모든 작업에서 동시에 생성되거나 조회된다는 뜻은 아니다."
+  caption="Hermes가 기억을 저장하고, 과거 대화와 스킬을 활용하는 과정을 단순화했습니다. 모든 작업에서 세 종류의 기록을 동시에 만들거나 조회하는 것은 아닙니다."
   source="Hermes 지속 기억 문서 및 스킬 문서 기반 직접 제작"
   sourceHref="https://hermes-agent.nousresearch.com/docs/user-guide/features/memory"
 />
 
-스킬에는 재사용할 작업 지식을 담는다. 사용자가 설명한 절차나 참고 자료를 바탕으로 스킬을 만들고, 필요한 작업에서 불러오는 방식이다. 이 기능들에서 말하는 성장의 핵심은 **이후 작업에 활용할 정보와 절차를 남기는 것**이다. 이 과정을 모델 가중치 재학습으로 설명해서는 안 된다. [Hermes 스킬 시스템](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills)
+스킬에는 재사용할 작업 지식을 담습니다. 사용자가 설명한 절차나 참고 자료를 바탕으로 스킬을 만들고, 필요한 작업에서 불러오는 방식입니다. Hermes가 말하는 성장의 핵심은 **이후 작업에 활용할 정보와 절차를 남기는 것**입니다. 이는 모델의 가중치를 다시 학습하는 과정과는 다릅니다. [Hermes 스킬 시스템](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills)
 
-예를 들어 보고서 작성 뒤 “결론을 먼저 쓰고, 수치는 원문 링크와 함께 남긴다”는 기준을 저장했다고 해보자. 다음 세션에서도 그 기준을 실제로 사용하는지 확인해야 기억의 가치를 알 수 있다. 에이전트가 저장했다고 답했는지와 실제 저장 도구를 호출했는지도 구분해야 한다. 공식 문서 역시 말로만 저장을 확인하고 파일에는 기록하지 않는 경우를 설명한다. [기억 저장 문제 해결](https://hermes-agent.nousresearch.com/docs/user-guide/features/memory)
+예를 들어 보고서 작성 뒤 “결론을 먼저 쓰고, 수치에는 원문 링크를 붙여줘”라는 기준을 저장했다고 가정해 보겠습니다. 다음 세션에서도 그 기준을 실제로 사용하는지 확인해야 기억의 가치를 알 수 있습니다. 에이전트가 저장했다고 답하더라도 실제로 저장 도구를 호출했는지 확인해야 합니다. 공식 문서 역시 저장했다고 답하면서도 파일에는 기록하지 않는 경우를 설명합니다. [기억 저장 문제 해결](https://hermes-agent.nousresearch.com/docs/user-guide/features/memory)
 
-기억이 존재한다는 사실과 기억이 유용하다는 사실은 별개다. 필요한 것을 남기는지, 오래된 정보를 수정할 수 있는지, 비슷한 작업에서 적절한 절차를 불러오는지가 실제 효과를 결정한다.
+기억이 저장되어 있다고 해서 항상 도움이 되는 것은 아닙니다. 필요한 것을 남기는지, 오래된 정보를 수정할 수 있는지, 비슷한 작업에서 적절한 절차를 불러오는지가 실제 효과를 결정합니다.
 
-<h2 id="boundaries">겹치고 움직이는 경계</h2>
+<h2 id="boundaries">서로 겹치는 기능과 달라지는 설계</h2>
 
-Pi는 확장성, OpenClaw는 연결과 운영, Hermes는 기억과 재사용이라는 관점으로 읽을 수 있다. 다만 이는 각 프로젝트의 강조점을 정리한 해석이다. OpenClaw에도 기억이 있고, Hermes에도 메시징 Gateway가 있으며, Pi도 확장을 통해 장기 기억을 구성할 수 있다. [OpenClaw 런타임](https://docs.openclaw.ai/concepts/agent), [Hermes 문서](https://hermes-agent.nousresearch.com/docs), [Pi 소개](https://pi.dev/)
+Pi는 확장성, OpenClaw는 연결과 운영, Hermes는 기억과 재사용이라는 관점에서 살펴볼 수 있습니다. 다만 이는 각 프로젝트가 중요하게 다루는 부분을 정리한 해석입니다. OpenClaw에도 기억이 있고, Hermes에도 메시징 Gateway가 있으며, Pi도 확장을 통해 장기 기억을 구성할 수 있습니다. [OpenClaw 런타임](https://docs.openclaw.ai/concepts/agent), [Hermes 문서](https://hermes-agent.nousresearch.com/docs), [Pi 소개](https://pi.dev/)
 
-빠르게 변하는 프로젝트에서는 과거의 특징을 현재의 사실로 옮기지 않는 것도 중요하다. 예를 들어 Pi 공식 사이트는 현재 MCP 내장을 명시하고, 과거 입장을 바꾼 이유를 별도 글로 설명한다. “Pi는 MCP를 지원하지 않는다”는 설명만으로는 현재 상태를 전달할 수 없다. [Pi의 MCP 도입 설명](https://earendil.com/posts/you-said-no-mcp/)
+빠르게 변하는 프로젝트에서는 과거의 설명이 현재 버전에도 맞는지 확인하는 것도 중요합니다. 예를 들어 Pi 공식 사이트는 MCP를 현재 기본 지원한다고 명시하고, 과거 입장을 바꾼 이유를 별도 글로 설명합니다. “Pi는 MCP를 지원하지 않는다”는 설명만으로는 현재 상태를 전달할 수 없습니다. [Pi의 MCP 도입 설명](https://earendil.com/posts/you-said-no-mcp/)
 
-Pi와 OpenClaw의 관계 역시 시점을 붙여 설명해야 한다. Pi 문서는 OpenClaw를 통합 사례로 소개하지만, 현재 OpenClaw 문서는 자체 소유의 통합 런타임을 설명한다. 이 자료만으로 현재의 구체적인 의존 구조를 단정하기보다, 비교 대상 버전의 코드와 변경 이력을 확인하는 편이 정확하다. [Pi README](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/README.md), [OpenClaw 런타임](https://docs.openclaw.ai/concepts/agent)
+Pi와 OpenClaw의 관계를 설명할 때도 기준 시점을 밝혀야 합니다. Pi 문서는 OpenClaw를 통합 사례로 소개하지만, 현재 OpenClaw 문서는 OpenClaw가 직접 관리하는 통합 런타임을 설명합니다. 이 자료만으로 현재의 구체적인 의존 구조를 단정하기보다, 비교 대상 버전의 코드와 변경 이력을 확인하는 편이 정확합니다. [Pi README](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/README.md), [OpenClaw 런타임](https://docs.openclaw.ai/concepts/agent)
 
 <h2 id="comparison">같은 작업으로 비교한다면</h2>
 
-문서의 설계 방향을 기준으로 보면, 자신만의 작업 흐름을 구성하려는 개발자는 Pi를, 여러 채널과 기기에서 에이전트를 운영하려는 사용자는 OpenClaw를, 반복 작업에서 기억과 절차의 재사용을 중요하게 보는 사용자는 Hermes를 먼저 살펴볼 수 있다. 이것은 탐색의 출발점이며 성능 순위는 아니다.
+문서의 설계 방향을 기준으로 보면, 자신만의 작업 흐름을 구성하려는 개발자는 Pi를, 여러 채널과 기기에서 에이전트를 운영하려는 사용자는 OpenClaw를, 반복 작업에서 기억과 절차의 재사용을 중요하게 보는 사용자는 Hermes를 먼저 살펴볼 수 있습니다. 이는 먼저 살펴볼 도구를 고르는 기준이며, 성능 순위는 아닙니다.
 
-실제 선택을 위해서는 같은 조건의 실험이 필요하다. 동일한 모델과 유사한 도구 권한을 사용하고, 입력과 성공 기준을 맞춰야 하네스의 차이를 조금 더 분명히 볼 수 있다. 다음 그림은 후속 비교를 위한 실험 제안이다.
+실제 선택을 위해서는 같은 조건의 실험이 필요합니다. 동일한 모델과 유사한 도구 권한을 사용하고, 입력과 성공 기준을 맞춰야 하네스의 차이를 조금 더 분명히 볼 수 있습니다. 다음 그림은 실제 비교를 위해 제안하는 실험입니다.
 
 <ArticleImage
   src="/images/posts/openclaw-pi-hermes/comparison-protocol.svg"
-  alt="같은 모델, 유사한 도구 권한, 동일한 입력과 성공 기준으로 코드 수정, 새 세션 회상, 반복 절차 수행을 비교한다. 결과 정확도, 사용자 개입 횟수, 토큰 비용과 추가 설정 시간을 기록한다. 아직 실측 결과는 없다."
+  alt="같은 모델, 유사한 도구 권한, 동일한 입력과 성공 기준으로 코드 수정, 새 세션에서 기억 활용, 반복 절차 수행을 비교합니다. 결과 정확도, 사용자 개입 횟수, 토큰 비용과 추가 설정 시간을 기록합니다. 아직 실측 결과는 없습니다."
   width={1200}
   height={620}
   number={3}
-  caption="후속 비교 실험의 설계. 기본 기능으로 가능한 범위와 확장·설정이 필요한 범위를 함께 기록한다."
+  caption="비교 실험의 구성입니다. 기본 기능만으로 가능한 작업과 확장 기능이나 추가 설정이 필요한 작업을 구분해 기록합니다."
   source="직접 제작한 실험 제안"
 />
 
-<div className="article-table-wrap" role="region" aria-label="에이전트 비교 실험과 확인 항목" tabIndex={0}>
-  <table>
-    <thead>
-      <tr><th scope="col">실험</th><th scope="col">같이 줄 조건</th><th scope="col">확인할 결과</th></tr>
-    </thead>
-    <tbody>
-      <tr><th scope="row">저장소 오류 수정</th><td>같은 코드와 실패 테스트, 같은 수정 요청</td><td>테스트 통과, 불필요한 변경, 사용자 개입</td></tr>
-      <tr><th scope="row">새 세션에서 회상</th><td>같은 선호와 작업 규칙을 알려준 뒤 새 세션 시작</td><td>기억의 정확도, 실제 저장 여부, 수정 반영</td></tr>
-      <tr><th scope="row">반복 절차 수행</th><td>같은 절차를 알려준 뒤 입력만 바꿔 재요청</td><td>지침 재사용, 누락, 실패 후 복구</td></tr>
-      <tr><th scope="row">메신저 예약 작업</th><td>같은 자료와 시각, 같은 결과 전달 조건</td><td>추가 구성 노력, 전달 성공, 재시작 후 동작</td></tr>
-    </tbody>
-  </table>
-</div>
+<ArticleComparisonCards rows={[
+  { title: "저장소 오류 수정", condition: "같은 코드와 실패하는 테스트, 같은 수정 요청", outcome: "테스트 통과, 불필요한 변경, 사용자 개입" },
+  { title: "새 세션에서 기억 활용", condition: "같은 선호와 작업 규칙을 알려준 뒤 새 세션 시작", outcome: "기억의 정확도, 실제 저장 여부, 수정 반영" },
+  { title: "반복 절차 수행", condition: "같은 절차를 알려준 뒤 입력만 바꿔 재요청", outcome: "지침 재사용, 누락, 실패 후 복구" },
+  { title: "메신저 예약 작업", condition: "같은 자료와 시각, 같은 결과 전달 조건", outcome: "추가 설정에 드는 시간, 전달 성공, 재시작 후 동작" },
+]} />
 
-메신저 예약 작업처럼 기본 구성의 차이가 큰 항목은 별도로 비교하는 편이 좋다. 기본 기능에 없다는 사실과 확장해 구현할 수 없다는 판단은 다르다. 구현할 수 있더라도 추가 설정과 유지보수 시간은 사용자가 부담하는 비용으로 기록해야 한다.
+메신저 예약 작업처럼 기본 구성의 차이가 큰 항목은 별도로 비교하는 편이 좋습니다. 기본으로 제공하지 않는 기능도 확장을 통해 구현할 수 있습니다. 구현할 수 있더라도 추가 설정과 유지보수 시간은 사용자가 부담하는 비용으로 기록해야 합니다.
 
-세 프로젝트를 비교하며 던질 만한 질문은 이렇다. **내가 원하는 작업을 맡겼을 때 무엇이 기본으로 해결되고, 무엇을 내가 직접 설계해야 하는가?** 이 질문을 가지고 사용해보면 기능 목록에서는 보이지 않던 차이가 드러난다.
+세 프로젝트를 비교할 때는 **원하는 작업을 기본 기능만으로 처리할 수 있는지, 어떤 부분을 직접 구성해야 하는지** 살펴보면 좋겠습니다. 이 기준으로 사용해 보면 기능 목록만으로는 알기 어려웠던 차이가 드러납니다.
 
 <h2 id="references">참고 자료</h2>
 
-문서 확인일: 2026년 11월 4일. 초안 작성일: 2026년 11월 5일. 그림은 공식 스크린샷이나 벤치마크 결과가 아닌 직접 제작한 개념도다. 기능은 버전에 따라 달라질 수 있으며, 발행 시점에 바뀐 내용은 다시 확인해야 한다.
+문서 확인일: 2026년 11월 4일. 초안 작성일: 2026년 11월 5일. 그림은 공식 문서를 바탕으로 직접 제작한 개념도입니다. 실제 화면이나 성능 측정 결과를 보여주는 자료는 아닙니다. 기능은 버전에 따라 달라질 수 있으며, 발행 시점에 바뀐 내용은 다시 확인해야 합니다.
 
 - [Pi 공식 소개](https://pi.dev/) — 확장 철학, 사용 모드와 문맥 관리.
 - [Pi coding-agent README](https://github.com/earendil-works/pi/blob/main/packages/coding-agent/README.md) — 기본 구성과 SDK·RPC 사용 방식.
 - [Pi: You Said No MCP!](https://earendil.com/posts/you-said-no-mcp/) — MCP 도입에 대한 설명.
 - [OpenClaw Gateway architecture](https://docs.openclaw.ai/concepts/architecture) — Gateway와 클라이언트·기기 연결.
 - [OpenClaw Agent runtime](https://docs.openclaw.ai/concepts/agent) — 런타임, 작업 디렉터리, 지침 파일과 세션.
-- [Hermes 공식 문서](https://hermes-agent.nousresearch.com/docs) — 제품 방향과 지원 접점.
+- [Hermes 공식 문서](https://hermes-agent.nousresearch.com/docs) — 제품의 설계 방향과 지원하는 사용 환경.
 - [Hermes Persistent Memory](https://hermes-agent.nousresearch.com/docs/user-guide/features/memory) — 지속 기억과 세션 검색, 저장 문제 해결.
 - [Hermes Skills System](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills) — 작업 지식의 생성과 재사용.

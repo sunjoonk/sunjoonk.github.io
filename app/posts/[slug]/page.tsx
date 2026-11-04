@@ -12,13 +12,14 @@ type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return getPosts().map(({ slug }) => ({ slug }));
+  return getPosts({ includeDrafts: true }).map(({ slug }) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPostBySlug((await params).slug);
   if (!post) notFound();
   return {
+    robots: post.draft ? { index: false, follow: false } : undefined,
     title: post.title,
     description: post.description,
     alternates: { canonical: `/posts/${post.slug}` },
@@ -53,7 +54,7 @@ export default async function PostPage({ params }: Props) {
           </div>
           <header className="article-header">
             <div className="article-edition">
-              <p className="article-eyebrow">{post.category}</p>
+              <p className="article-eyebrow">{post.draft ? `${post.category} · 초안` : post.category}</p>
               <span className="article-number" aria-hidden="true">{String(post.id).padStart(2, "0")}</span>
               <p>Research &<br />Reflections</p>
             </div>
@@ -63,7 +64,7 @@ export default async function PostPage({ params }: Props) {
               <div className="article-byline">
                 <Link href="/about">김선준 <span>Sunjoon Kim</span></Link>
                 <div className="article-dates">
-                  <span>발행 <time dateTime={post.publishedAt}>{post.publishedAt.replaceAll("-", ".")}</time></span>
+                  <span>{post.draft ? "초안 작성" : "발행"} <time dateTime={post.publishedAt}>{post.publishedAt.replaceAll("-", ".")}</time></span>
                   {post.updatedAt && <span>수정 <time dateTime={post.updatedAt}>{post.updatedAt.replaceAll("-", ".")}</time></span>}
                 </div>
               </div>

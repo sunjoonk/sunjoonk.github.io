@@ -11,7 +11,7 @@ export function CompletionEvidence() {
   const selected = criteria.find(item => item.id === criterion)!;
   const count = completionTrials.filter(trial => qualifies(trial, criterion)).length;
   return <VisualFigure title="같은 여덟 번의 실행, 달라지는 완료율" number={1}
-    badge="가상 기록" caption="평가 기준을 설명하기 위해 만든 여덟 개의 기록. Astra 또는 다른 모델의 실측 성능이 아니다. 분모와 실행 기록은 고정하고 판정 기준만 바꾼다."
+    badge="가상 기록" caption="평가 기준을 설명하기 위해 만든 여덟 개의 가상 기록입니다. Astra 또는 다른 모델의 실측 성능이 아닙니다. 분모와 실행 기록은 고정하고 판정 기준만 바꿉니다."
     source="직접 제작 · 설명용 데이터">
     <div className={styles.audit}>
       <div className={styles.criteria} role="group" aria-label="완료 판정 기준">
@@ -29,7 +29,7 @@ export function CompletionEvidence() {
           <th scope="row">{trial.id}</th><td>{trial.evidence}<small>파일 있음 · 사람 교정 {trial.corrections}회</small></td><td>{qualifies(trial, criterion) ? "충족" : "미충족"}</td>
         </tr>)}</tbody>
       </table>
-      <p className={styles.note}>미충족 실행도 분모에 남는다. ‘교정 없이’는 시작 지시와 사전에 정한 도구 사용까지 없었다는 뜻이 아니다.</p>
+      <p className={styles.note}>미충족 실행도 분모에 남습니다. ‘교정 없이’는 시작 지시와 사전에 정한 도구 사용까지 없었다는 뜻이 아닙니다.</p>
     </div>
   </VisualFigure>;
 }
