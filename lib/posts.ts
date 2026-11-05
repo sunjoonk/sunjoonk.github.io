@@ -28,7 +28,6 @@ export const posts: Post[] = [{
   ...agentComparisonMetadata,
   id: 11,
   slug: "openclaw-pi-hermes",
-  draft: true,
   sections: agentComparisonSections,
   Content: AgentComparisonArticle,
 }, {
