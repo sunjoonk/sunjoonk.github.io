@@ -1,3 +1,4 @@
+import CircuitDesignArticle, { metadata as circuitDesignMetadata, sections as circuitDesignSections } from "../content/posts/ai-circuit-design-and-analysis.mdx";
 import AgentPermissionsArticle, { metadata as agentPermissionsMetadata, sections as agentPermissionsSections } from "../content/posts/ai-agent-permissions.mdx";
 import AgentComparisonArticle, { metadata as agentComparisonMetadata, sections as agentComparisonSections } from "../content/posts/openclaw-pi-hermes.mdx";
 import S3Article, { metadata as s3Metadata, sections as s3Sections } from "../content/posts/s3-file-management.mdx";
@@ -26,6 +27,12 @@ export type Post = {
 
 // Explicit local imports keep the static export deterministic and MDX trusted.
 export const posts: Post[] = [{
+  ...circuitDesignMetadata,
+  id: 13,
+  slug: "ai-circuit-design-and-analysis",
+  sections: circuitDesignSections,
+  Content: CircuitDesignArticle,
+}, {
   ...agentPermissionsMetadata,
   id: 12,
   slug: "ai-agent-permissions",
