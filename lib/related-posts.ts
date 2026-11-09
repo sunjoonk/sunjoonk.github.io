@@ -2,6 +2,10 @@ import { getPostBySlug } from "./posts";
 
 // Editorial connections: explain what a reader can explore next.
 const recommendations: Record<string, { slug: string; reason: string }[]> = {
+  "linear-attention": [
+    { slug: "rag-beyond-similarity", reason: "긴 입력을 효율적으로 처리하는 문제에서, 답변에 필요한 근거를 어떻게 모을지로 시선을 옮겨봅니다." },
+    { slug: "speech-to-text-and-back", reason: "시퀀스를 읽고 생성하는 모델이 음성 인식과 합성에서는 어떻게 사용되는지 살펴봅니다." },
+  ],
   "openclaw-and-managed-agents": [
     { slug: "jev-system-one", reason: "에이전트의 행동 범위를 정할 때, 모델의 판단과 코드로 보장할 규칙을 구분해봅니다." },
     { slug: "gpt-6-astra", reason: "자동 실행이 끝났다는 기록과 실제 업무가 완료되었다는 증거의 차이를 살펴봅니다." },

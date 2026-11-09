@@ -1,3 +1,4 @@
+import LinearAttentionArticle, { metadata as linearAttentionMetadata, sections as linearAttentionSections } from "../content/posts/linear-attention.mdx";
 import CircuitDesignArticle, { metadata as circuitDesignMetadata, sections as circuitDesignSections } from "../content/posts/ai-circuit-design-and-analysis.mdx";
 import AgentPermissionsArticle, { metadata as agentPermissionsMetadata, sections as agentPermissionsSections } from "../content/posts/ai-agent-permissions.mdx";
 import AgentComparisonArticle, { metadata as agentComparisonMetadata, sections as agentComparisonSections } from "../content/posts/openclaw-pi-hermes.mdx";
@@ -27,6 +28,12 @@ export type Post = {
 
 // Explicit local imports keep the static export deterministic and MDX trusted.
 export const posts: Post[] = [{
+  ...linearAttentionMetadata,
+  id: 14,
+  slug: "linear-attention",
+  sections: linearAttentionSections,
+  Content: LinearAttentionArticle,
+}, {
   ...circuitDesignMetadata,
   id: 13,
   slug: "ai-circuit-design-and-analysis",

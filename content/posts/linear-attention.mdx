@@ -1,0 +1,169 @@
+export const metadata = {
+  title: "Linear Attention이란 무엇인가 — 모든 토큰 쌍을 계산하지 않는 방법",
+  description: "Q·K·V와 작은 숫자 예제로 linear attention의 계산 원리를 살펴봅니다. softmax와의 차이, 고정 크기 상태를 이용한 생성, FlashAttention과의 구분까지 연결합니다.",
+  category: "AI",
+  publishedAt: "2026-11-09",
+};
+
+export const sections = [
+  { id: "long-context", title: "문장이 길어지면 왜 계산이 커질까요?" },
+  { id: "queries-and-keys", title: "Q·K·V로 필요한 정보를 읽기" },
+  { id: "reorder", title: "먼저 묶어 계산할 수 있는 조건" },
+  { id: "small-example", title: "숫자 세 개로 확인해 보기" },
+  { id: "recurrent-state", title: "과거를 상태에 누적하며 생성하기" },
+  { id: "cost", title: "무엇에 대해 선형이라는 뜻일까요?" },
+  { id: "tradeoffs", title: "효율을 얻으면 무엇을 확인해야 할까요?" },
+  { id: "flash-attention", title: "FlashAttention과는 무엇이 다를까요?" },
+  { id: "references", title: "참고 자료" },
+];
+
+<h2 id="long-context">문장이 길어지면 왜 계산이 커질까요?</h2>
+
+문서의 길이를 두 배로 늘리면 모델이 처리하는 일도 두 배가 될까요? 일반적인 self-attention에서는 그렇지 않습니다. 각 토큰이 다른 모든 토큰과 얼마나 관련 있는지 계산한다면, 토큰이 네 개일 때 비교할 쌍은 16개이고 여덟 개일 때는 64개입니다.
+
+**Linear attention은 토큰 사이의 정보를 섞는 계산을 재구성해, 차원을 고정했을 때 시퀀스 길이에 비례하는 연산량으로 처리하는 attention 계열**입니다. 여기서 linear는 모델 전체가 선형 함수라는 뜻이 아닙니다.
+
+이 글은 가장 기본적인 커널 기반 linear attention을 다룹니다. 먼저 정보에 가중치를 주는 방법을 살펴보고, 직접 만든 작은 수치 예제로 계산 순서를 바꿔 보겠습니다. 예제는 원리를 확인하기 위한 것이며 학습된 모델의 출력이나 성능 측정값은 아닙니다.
+
+<h2 id="queries-and-keys">Q·K·V로 필요한 정보를 읽기</h2>
+
+Attention에서 각 토큰의 표현은 학습된 변환을 거쳐 query, key, value가 됩니다. **Query는 지금 찾는 정보, key는 비교에 사용할 특징, value는 실제로 가져와 섞을 정보**라고 생각할 수 있습니다. 실제로는 모두 숫자 벡터이며, 사람이 정한 검색어와 문서 제목으로 고정되는 것은 아닙니다.
+
+한 query를 여러 key와 비교해 점수를 만들고, 그 점수를 가중치로 바꾸어 value들의 가중합을 구합니다. 표준 scaled dot-product attention의 식은 다음과 같습니다. `softmax`는 각 query에 해당하는 행 안에서 적용합니다.
+
+```text
+Y = softmax(Q Kᵀ / √dₖ) V
+
+Q, K: n × dₖ     V: n × dᵥ
+Q Kᵀ: n × n     Y: n × dᵥ
+```
+
+`n`은 토큰 수, `dₖ`는 query와 key의 차원, `dᵥ`는 value의 차원입니다. 여기서는 배치와 여러 attention head를 생략했습니다. 생성 모델에서는 미래 위치를 보지 못하도록 마스크도 적용합니다. [Attention Is All You Need](https://arxiv.org/abs/1706.03762)
+
+이 식에서 비용을 키우는 부분은 `n × n`개의 토큰 쌍입니다. 다만 식에 큰 행렬이 등장한다고 해서 모든 구현이 그 행렬 전체를 GPU 메모리에 저장해야 하는 것은 아닙니다. 뒤에서 살펴볼 FlashAttention이 이 차이를 활용합니다.
+
+<h2 id="reorder">먼저 묶어 계산할 수 있는 조건</h2>
+
+행렬 곱에는 결합법칙이 있습니다.
+
+```text
+(Q Kᵀ) V = Q (Kᵀ V)
+```
+
+오른쪽처럼 `Kᵀ V`를 먼저 계산하면 `n × n` 행렬을 만들지 않을 수 있습니다. 하지만 원래 식에는 **softmax가 두 곱 사이에 들어 있습니다.** 따라서 이 등식을 그대로 softmax attention에 적용할 수 없습니다.
+
+커널 기반 접근은 유사도를 `φ(q)ᵀ φ(k)` 형태로 표현합니다. `φ`는 벡터를 특징 공간으로 보내는 함수이며, 비음수 유사도를 사용하고 가중치 합으로 나눠 출력을 정규화합니다. Katharopoulos 등의 논문은 `ELU(x) + 1`을 특징 함수로 사용한 구성을 제시합니다. 이것은 표준 softmax와 같은 함수를 그대로 계산하는 방식이 아닙니다. [Linear Transformer 논문, §3](https://proceedings.mlr.press/v119/katharopoulos20a.html)
+
+이제 이 정의를 직접 풀어 보겠습니다. `aᵢ = φ(qᵢ)`, `bⱼ = φ(kⱼ)`라고 쓰면 다음과 같습니다. 아래 벡터는 열벡터로 표기합니다.
+
+```text
+          Σⱼ (aᵢᵀ bⱼ) vⱼᵀ
+ yᵢᵀ = ────────────────────
+             Σⱼ aᵢᵀ bⱼ
+
+ S = Σⱼ bⱼ vⱼᵀ        z = Σⱼ bⱼ
+
+ yᵢᵀ = (aᵢᵀ S) / (aᵢᵀ z)
+```
+
+분자에서 모든 항에 공통인 `aᵢᵀ`를 합 밖으로 꺼낸 것입니다. 분모도 같은 방식으로 정리할 수 있습니다. 각 query가 모든 key를 다시 방문하는 대신, **key와 value로 만든 공통 집계 `S`와 정규화용 집계 `z`를 읽습니다.**
+
+`S`는 원문을 문장으로 요약한 결과가 아닙니다. key의 각 특징과 value의 각 성분을 곱해 더한 행렬입니다. Query에 따라 이 행렬을 읽는 결과가 달라집니다.
+
+<h2 id="small-example">숫자 세 개로 확인해 보기</h2>
+
+특징 변환을 이미 마친 key 세 개와 스칼라 value 세 개를 가정하겠습니다. 계산이 보이도록 특징 차원을 2로 줄였습니다.
+
+```text
+b₁ = [1, 0]    v₁ = 10
+b₂ = [0, 1]    v₂ = 20
+b₃ = [1, 1]    v₃ = 30
+
+query의 특징 a = [2, 1]
+```
+
+먼저 쌍별로 계산하면 점수는 `2, 1, 3`입니다. 점수 합은 6이므로 출력은 `(2×10 + 1×20 + 3×30) / 6 = 130/6`입니다.
+
+같은 계산을 집계부터 해 보겠습니다.
+
+```text
+S = [1, 0]ᵀ × 10 + [0, 1]ᵀ × 20 + [1, 1]ᵀ × 30
+  = [40, 50]ᵀ
+
+z = [1, 0]ᵀ + [0, 1]ᵀ + [1, 1]ᵀ
+  = [2, 2]ᵀ
+
+분자: [2, 1] · [40, 50] = 130
+분모: [2, 1] · [2, 2]   = 6
+출력: 130 / 6 ≈ 21.67
+```
+
+다른 query가 와도 `S`와 `z`를 다시 만들 필요가 없습니다. 이 재사용이 핵심입니다. 두 결과가 같은 이유는 **같은 특징 내적 기반 attention을 서로 다른 순서로 계산했기 때문**입니다. 점수 `2, 1, 3`에 softmax를 적용한 결과와 같다는 뜻은 아닙니다.
+
+<h2 id="recurrent-state">과거를 상태에 누적하며 생성하기</h2>
+
+문서 전체를 함께 볼 때는 모든 위치를 집계할 수 있지만, 다음 토큰을 예측하는 모델은 미래 정보를 사용하면 안 됩니다. 이때 집계 범위를 현재 위치까지로 제한합니다.
+
+```text
+S₀ = 0, z₀ = 0
+
+Sₜ = Sₜ₋₁ + bₜ vₜᵀ
+zₜ = zₜ₋₁ + bₜ
+
+yₜᵀ = (aₜᵀ Sₜ) / (aₜᵀ zₜ)
+```
+
+새 토큰이 들어오면 상태에 한 항을 더하고, 현재 query로 읽습니다. 이 식은 현재 위치의 토큰까지 참조하는 causal self-attention입니다. 미래 토큰의 key와 value는 집계에 들어가지 않습니다. 이런 순환 계산이 Linear Transformer 논문 제목의 “Transformers are RNNs”와 연결됩니다. [원 논문, §3.3–3.4](https://proceedings.mlr.press/v119/katharopoulos20a.html)
+
+예제에서 첫 두 토큰을 처리한 상태는 `S₂ = [10, 20]ᵀ`, `z₂ = [1, 1]ᵀ`입니다. 세 번째 토큰의 `[30, 30]ᵀ`와 `[1, 1]ᵀ`를 더하면 앞 절의 상태가 됩니다. 이전 토큰별 key와 value를 하나씩 다시 읽지 않아도 같은 집계를 이어갈 수 있습니다.
+
+이 기본 구성에서는 생성 시 attention의 과거 정보를 고정 크기 상태로 유지할 수 있습니다. 다만 **학습 전체의 메모리가 상수라는 뜻은 아닙니다.** 역전파에 필요한 활성값, 다른 층의 계산, 실제 학습 알고리즘의 저장 방식은 별도로 고려해야 합니다.
+
+<h2 id="cost">무엇에 대해 선형이라는 뜻일까요?</h2>
+
+특징 차원을 `r`이라고 하면 `S`는 `r × dᵥ`, `z`는 길이 `r`입니다. 위 식에서 토큰 하나를 집계하거나 읽는 주요 연산은 `r × dᵥ` 크기에 비례합니다. 따라서 전체 토큰을 처리하는 attention 집계·읽기 비용은 `O(n r dᵥ)`입니다. 특징 변환과 Q·K·V 투영 비용은 별도입니다.
+
+<div className="article-table-wrap" role="region" aria-label="기본 attention 계산량 비교" tabIndex={0}>
+  <table>
+    <thead><tr><th scope="col">비교 항목</th><th scope="col">Dense softmax attention</th><th scope="col">기본 커널 linear attention</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">전체 시퀀스의 attention 연산</th><td>O(n²(dₖ + dᵥ))</td><td>O(n r dᵥ)</td></tr>
+      <tr><th scope="row">생성 중 과거 정보 보관</th><td>토큰별 KV: O(n(dₖ + dᵥ))</td><td>상태 S와 z: O(r dᵥ + r)</td></tr>
+      <tr><th scope="row">캐시·상태가 있을 때 다음 한 위치 계산</th><td>O(n(dₖ + dᵥ))</td><td>O(r dᵥ)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+비교는 head 하나를 기준으로 하며, softmax 쪽은 전체 과거를 참조하는 일반적인 KV cache를 가정합니다. `r`, `dₖ`, `dᵥ`를 고정해야 시퀀스 길이 `n`에 대해 선형이라고 말할 수 있습니다. 특징 차원을 늘리면 상태 크기와 연산량도 함께 커집니다.
+
+예를 들어 `r = dᵥ = 64`라면 `S`의 원소 수는 4,096개입니다. 토큰 수가 1,000에서 10,000으로 늘어도 이 상태의 크기는 같습니다. 이는 원소 수 계산이며 전체 모델의 메모리 사용량이나 실제 속도 측정은 아닙니다.
+
+<h2 id="tradeoffs">효율을 얻으면 무엇을 확인해야 할까요?</h2>
+
+우선 어떤 attention을 계산하는지 구분해야 합니다. 앞에서 소개한 특징 함수는 유사도의 정의를 바꿉니다. 반면 **Performer는 FAVOR+라는 양의 직교 랜덤 특징을 이용해 softmax 커널을 근사**합니다. 특징 내적 형태로 계산한다는 공통점은 있지만, 목표로 하는 함수와 근사 오차의 의미는 다릅니다. [Performer 논문](https://arxiv.org/abs/2009.14794)
+
+집계 방식의 한계도 직접 확인할 수 있습니다. 앞 예제의 value가 `[10, 20, 30]`인 경우와 `[15, 25, 25]`인 경우를 비교해 보겠습니다. key 특징을 그대로 두면 둘 다 `S = [40, 50]ᵀ`가 되고 `z`도 같습니다. **서로 다른 입력이 같은 상태로 합쳐질 수 있습니다.**
+
+이 상태만 읽는 계산으로는 두 입력을 구분할 수 없습니다. 이것이 모든 linear attention 모델이 특정 작업에 실패한다는 증명은 아닙니다. 여러 층, 학습된 특징, 위치 정보, 상태 갱신 방식이 결과에 영향을 줍니다. 다만 고정 크기 상태로 긴 입력을 처리할 수 있다는 사실만으로 모든 세부 정보를 정확히 보존한다고 결론 내릴 수는 없습니다.
+
+실제로 비교한다면 긴 문서의 특정 값 찾기, 비슷한 이름 구분하기, 앞부분의 수정 사항 반영하기처럼 필요한 작업을 먼저 정하겠습니다. 그다음 정확도와 함께 입력 처리 시간, 토큰 생성 시간, 메모리를 따로 측정합니다. 짧은 입력에서는 차원과 GPU 커널 구현의 영향으로 연산 복잡도가 낮은 방식이 더 느릴 수도 있습니다.
+
+수치 안정성도 확인해야 합니다. 분모가 너무 작거나 긴 누적으로 값의 범위가 커지면 부동소수점 계산에 문제가 생길 수 있습니다. 비음수 특징만 사용한다고 모든 입력과 정밀도에서 안정성이 보장되는 것은 아닙니다.
+
+<h2 id="flash-attention">FlashAttention과는 무엇이 다를까요?</h2>
+
+**FlashAttention은 표준 softmax attention을 타일 단위로 계산하면서 GPU 메모리 사이의 데이터 이동을 줄이는 알고리즘**입니다. 전체 attention 행렬을 메모리에 보관하지 않으면서, 부동소수점 오차 범위에서 원래 attention을 계산합니다. Dense attention의 토큰 쌍 연산이 시퀀스 길이에 대해 이차적으로 증가한다는 점은 유지됩니다. [FlashAttention 논문](https://arxiv.org/abs/2205.14135)
+
+따라서 “큰 attention 행렬을 저장하지 않는다”는 설명만으로 linear attention이라고 판단하면 안 됩니다. 다음 두 질문을 나누면 차이가 명확해집니다.
+
+- **계산하는 attention 함수가 같은가?** FlashAttention은 표준 softmax attention을 유지합니다. 커널 기반 linear attention은 다른 커널을 선택하거나 softmax 커널을 근사할 수 있습니다.
+- **시퀀스가 길어질 때 연산량이 어떻게 증가하는가?** Dense FlashAttention은 이차 증가를 유지하고, 앞에서 유도한 linear attention은 고정된 차원에서 선형으로 증가합니다.
+
+Linear attention을 이해하는 출발점은 `S`와 `z`입니다. 토큰 쌍을 따로 계산하던 일을 공통 상태에 모을 수 있도록 유사도를 표현하고, query가 그 상태를 읽게 합니다. 어떤 정보를 그 상태에 담을 수 있는지, 필요한 작업의 품질을 유지하면서 얼마나 효율적으로 계산하는지가 모델을 평가할 때의 핵심입니다.
+
+<h2 id="references">참고 자료</h2>
+
+- [Vaswani et al., Attention Is All You Need (2017)](https://arxiv.org/abs/1706.03762) — scaled dot-product attention의 기본 정의.
+- [Katharopoulos et al., Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention (2020)](https://proceedings.mlr.press/v119/katharopoulos20a.html) — 특징 함수 기반 attention과 causal 순환 계산.
+- [Choromanski et al., Rethinking Attention with Performers (ICLR 2021)](https://arxiv.org/abs/2009.14794) — 랜덤 특징을 통한 softmax 커널 근사.
+- [Dao et al., FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness (2022)](https://arxiv.org/abs/2205.14135) — attention의 의미를 유지하며 메모리 접근을 개선하는 접근.
