@@ -9,7 +9,7 @@ export default function AboutPage() {
       <main className={`blog-main ${styles.main}`} id="main-content">
         <article className={styles.profile} aria-labelledby="about-name">
           <header className={styles.identity}>
-            <img src="/profile.png" alt="김선준 프로필" width={112} height={112} className={styles.portrait} />
+            <img src="/images/about-portrait.webp" alt="김선준 프로필" width={112} height={112} className={styles.portrait} />
             <div>
               <p className={styles.eyebrow}>About</p>
               <h1 id="about-name">김선준</h1>
